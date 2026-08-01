@@ -384,6 +384,8 @@ private final class ChunkOutput {
 // AVAudioConverter invokes this input block synchronously. Each instance is confined to one
 // detached chunking operation and is never shared across tasks.
 private final class ChunkConverterInput: @unchecked Sendable {
+  private static let maximumFramesPerRead: AVAudioPacketCount = 4_096
+
   let file: AVAudioFile
   let format: AVAudioFormat
   var finished = false
@@ -416,9 +418,12 @@ private final class ChunkConverterInput: @unchecked Sendable {
       return nil
     }
 
-    let frameCount = min(
-      AVAudioFrameCount(packetCount),
-      AVAudioFrameCount(remaining)
+    // A converter may request more packets than it needs for the current
+    // output buffer. Supplying fewer packets is supported and keeps long files
+    // from becoming one input allocation on affected macOS versions.
+    let requestedFrames = min(packetCount, Self.maximumFramesPerRead)
+    let frameCount = AVAudioFrameCount(
+      min(remaining, AVAudioFramePosition(requestedFrames))
     )
     guard
       let buffer = AVAudioPCMBuffer(
