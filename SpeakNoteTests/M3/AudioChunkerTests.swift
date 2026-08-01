@@ -1,4 +1,5 @@
 import AVFAudio
+import CryptoKit
 import XCTest
 
 @testable import SpeakNote
@@ -37,6 +38,10 @@ final class AudioChunkerTests: XCTestCase {
         16
       )
       XCTAssertEqual(chunk.byteCount, 44 + Int64(file.length) * 2)
+      let expectedSHA256 = SHA256.hash(data: try Data(contentsOf: chunk.url))
+        .map { String(format: "%02x", $0) }
+        .joined()
+      XCTAssertEqual(chunk.sha256, expectedSHA256)
       let attributes = try FileManager.default.attributesOfItem(atPath: chunk.url.path)
       XCTAssertEqual(
         ((attributes[.posixPermissions] as? NSNumber)?.intValue ?? 0) & 0o777,

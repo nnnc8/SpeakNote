@@ -1,6 +1,7 @@
 @preconcurrency import AVFAudio
 import AudioToolbox
 import CryptoKit
+import Darwin
 import Foundation
 
 struct AudioChunk: Codable, Equatable, Sendable {
@@ -416,12 +417,34 @@ private final class ChunkOutput {
   }
 
   private static func sha256(of url: URL) throws -> String {
-    let handle = try FileHandle(forReadingFrom: url)
-    defer { try? handle.close() }
+    let descriptor = url.withUnsafeFileSystemRepresentation { path in
+      guard let path else { return Int32(-1) }
+      return Darwin.open(path, O_RDONLY)
+    }
+    guard descriptor >= 0 else { throw AudioChunkerError.conversionFailed }
+    defer { _ = Darwin.close(descriptor) }
+
     var hasher = SHA256()
-    while let data = try handle.read(upToCount: 64 * 1024), !data.isEmpty {
+    var buffer = [UInt8](repeating: 0, count: 64 * 1024)
+    while true {
       try Task.checkCancellation()
-      hasher.update(data: data)
+      let readCount = buffer.withUnsafeMutableBytes { bytes -> Int in
+        while true {
+          let result = Darwin.read(descriptor, bytes.baseAddress, bytes.count)
+          if result < 0, errno == EINTR { continue }
+          return result
+        }
+      }
+      guard readCount >= 0 else { throw AudioChunkerError.conversionFailed }
+      guard readCount > 0 else { break }
+      buffer.withUnsafeBytes { bytes in
+        hasher.update(
+          bufferPointer: UnsafeRawBufferPointer(
+            start: bytes.baseAddress,
+            count: readCount
+          )
+        )
+      }
     }
     return hasher.finalize().map { String(format: "%02x", $0) }.joined()
   }
