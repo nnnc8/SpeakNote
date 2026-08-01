@@ -330,13 +330,15 @@ private final class ChunkOutput {
   func write(_ samples: [Int16]) throws {
     guard !samples.isEmpty else { return }
     guard let handle = file else { throw AudioChunkerError.conversionFailed }
-    let data = samples.withUnsafeBufferPointer {
-      Data(
-        bytes: $0.baseAddress!,
-        count: $0.count * MemoryLayout<Int16>.size
-      )
+    try autoreleasepool {
+      let data = samples.withUnsafeBufferPointer {
+        Data(
+          bytes: $0.baseAddress!,
+          count: $0.count * MemoryLayout<Int16>.size
+        )
+      }
+      try handle.write(contentsOf: data)
     }
-    try handle.write(contentsOf: data)
     framesWritten += Int64(samples.count)
   }
 
