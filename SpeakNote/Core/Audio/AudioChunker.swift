@@ -140,6 +140,21 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
     else {
       throw AudioChunkerError.invalidSource
     }
+    var inputBufferBytes: UInt32 = 64 * 1_024
+    guard
+      ExtAudioFileSetProperty(
+        input,
+        kExtAudioFileProperty_IOBufferSizeBytes,
+        UInt32(MemoryLayout<UInt32>.size),
+        &inputBufferBytes
+      ) == noErr,
+      let conversionBuffer = AVAudioPCMBuffer(
+        pcmFormat: outputFormat,
+        frameCapacity: 4_096
+      )
+    else {
+      throw AudioChunkerError.invalidSource
+    }
 
     let runName =
       "\(sourceURL.deletingPathExtension().lastPathComponent)-\(UUID().uuidString)"
@@ -152,21 +167,13 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
     do {
       while true {
         try Task.checkCancellation()
-        guard
-          let buffer = AVAudioPCMBuffer(
-            pcmFormat: outputFormat,
-            frameCapacity: 4_096
-          )
-        else {
-          throw AudioChunkerError.conversionFailed
-        }
-        buffer.frameLength = buffer.frameCapacity
-        var frameCount = buffer.frameCapacity
+        conversionBuffer.frameLength = conversionBuffer.frameCapacity
+        var frameCount = conversionBuffer.frameCapacity
         guard
           ExtAudioFileRead(
             input,
             &frameCount,
-            buffer.mutableAudioBufferList
+            conversionBuffer.mutableAudioBufferList
           ) == noErr
         else {
           throw AudioChunkerError.conversionFailed
@@ -184,8 +191,8 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
           }
           return chunks
         }
-        buffer.frameLength = frameCount
-        guard let data = buffer.int16ChannelData?[0] else {
+        conversionBuffer.frameLength = frameCount
+        guard let data = conversionBuffer.int16ChannelData?[0] else {
           throw AudioChunkerError.conversionFailed
         }
         let samples = Array(
