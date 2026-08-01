@@ -102,9 +102,7 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
     }
 
     let fileManager = FileManager.default
-    let input: AVAudioFile
     do {
-      input = try AVAudioFile(forReading: sourceURL)
       try fileManager.createDirectory(
         at: destinationDirectory,
         withIntermediateDirectories: true
@@ -113,16 +111,32 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
       throw AudioChunkerError.invalidSource
     }
 
-    let inputFormat = input.processingFormat
-    guard inputFormat.sampleRate > 0,
-      inputFormat.channelCount > 0,
+    guard
       let outputFormat = AVAudioFormat(
         commonFormat: .pcmFormatInt16,
         sampleRate: sampleRate,
         channels: 1,
         interleaved: true
-      ),
-      let converter = AVAudioConverter(from: inputFormat, to: outputFormat)
+      )
+    else {
+      throw AudioChunkerError.invalidSource
+    }
+    var input: ExtAudioFileRef?
+    guard ExtAudioFileOpenURL(sourceURL as CFURL, &input) == noErr,
+      let input
+    else {
+      throw AudioChunkerError.invalidSource
+    }
+    defer { ExtAudioFileDispose(input) }
+
+    var clientFormat = outputFormat.streamDescription.pointee
+    guard
+      ExtAudioFileSetProperty(
+        input,
+        kExtAudioFileProperty_ClientDataFormat,
+        UInt32(MemoryLayout<AudioStreamBasicDescription>.size),
+        &clientFormat
+      ) == noErr
     else {
       throw AudioChunkerError.invalidSource
     }
@@ -134,7 +148,6 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
     var output: ChunkOutput?
     var tail: [Int16] = []
     var totalFrames: Int64 = 0
-    let converterInput = ChunkConverterInput(file: input)
 
     do {
       while true {
@@ -147,46 +160,19 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
         else {
           throw AudioChunkerError.conversionFailed
         }
-
-        var conversionError: NSError?
-        let status = converter.convert(to: buffer, error: &conversionError) {
-          packetCount, inputStatus in
-          converterInput.read(packetCount: packetCount, status: inputStatus)
-        }
-
-        if converterInput.wasCancelled {
-          throw CancellationError()
-        }
-        if converterInput.readError != nil || conversionError != nil {
+        buffer.frameLength = buffer.frameCapacity
+        var frameCount = buffer.frameCapacity
+        guard
+          ExtAudioFileRead(
+            input,
+            &frameCount,
+            buffer.mutableAudioBufferList
+          ) == noErr
+        else {
           throw AudioChunkerError.conversionFailed
         }
-        if buffer.frameLength > 0 {
-          guard let data = buffer.int16ChannelData?[0] else {
-            throw AudioChunkerError.conversionFailed
-          }
-          let samples = Array(
-            UnsafeBufferPointer(start: data, count: Int(buffer.frameLength))
-          )
-          try append(
-            samples,
-            outputFormat: outputFormat,
-            runName: runName,
-            destinationDirectory: destinationDirectory,
-            chunkFrameCapacity: chunkFrameCapacity,
-            overlapFrameCount: Int(overlapFrames),
-            maximumBytes: maximumBytes,
-            output: &output,
-            tail: &tail,
-            totalFrames: &totalFrames,
-            completedURLs: &completedURLs,
-            chunks: &chunks
-          )
-        }
-
-        switch status {
-        case .haveData, .inputRanDry:
-          continue
-        case .endOfStream:
+        try Task.checkCancellation()
+        guard frameCount > 0 else {
           if let current = output {
             let chunk = try current.finish(
               endFrame: totalFrames,
@@ -197,11 +183,28 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
             output = nil
           }
           return chunks
-        case .error:
-          throw AudioChunkerError.conversionFailed
-        @unknown default:
+        }
+        buffer.frameLength = frameCount
+        guard let data = buffer.int16ChannelData?[0] else {
           throw AudioChunkerError.conversionFailed
         }
+        let samples = Array(
+          UnsafeBufferPointer(start: data, count: Int(frameCount))
+        )
+        try append(
+          samples,
+          outputFormat: outputFormat,
+          runName: runName,
+          destinationDirectory: destinationDirectory,
+          chunkFrameCapacity: chunkFrameCapacity,
+          overlapFrameCount: Int(overlapFrames),
+          maximumBytes: maximumBytes,
+          output: &output,
+          tail: &tail,
+          totalFrames: &totalFrames,
+          completedURLs: &completedURLs,
+          chunks: &chunks
+        )
       }
     } catch {
       output?.remove()
@@ -378,72 +381,5 @@ private final class ChunkOutput {
       hasher.update(data: data)
     }
     return hasher.finalize().map { String(format: "%02x", $0) }.joined()
-  }
-}
-
-// AVAudioConverter invokes this input block synchronously. Each instance is confined to one
-// detached chunking operation and is never shared across tasks.
-private final class ChunkConverterInput: @unchecked Sendable {
-  private static let maximumFramesPerRead: AVAudioPacketCount = 4_096
-
-  let file: AVAudioFile
-  let format: AVAudioFormat
-  var finished = false
-  var readError: Error?
-  var wasCancelled = false
-
-  init(file: AVAudioFile) {
-    self.file = file
-    format = file.processingFormat
-  }
-
-  func read(
-    packetCount: AVAudioPacketCount,
-    status: UnsafeMutablePointer<AVAudioConverterInputStatus>
-  ) -> AVAudioBuffer? {
-    if Task.isCancelled {
-      wasCancelled = true
-      status.pointee = .noDataNow
-      return nil
-    }
-    guard !finished else {
-      status.pointee = .endOfStream
-      return nil
-    }
-
-    let remaining = file.length - file.framePosition
-    guard remaining > 0 else {
-      finished = true
-      status.pointee = .endOfStream
-      return nil
-    }
-
-    // A converter may request more packets than it needs for the current
-    // output buffer. Supplying fewer packets is supported and keeps long files
-    // from becoming one input allocation on affected macOS versions.
-    let requestedFrames = min(packetCount, Self.maximumFramesPerRead)
-    let frameCount = AVAudioFrameCount(
-      min(remaining, AVAudioFramePosition(requestedFrames))
-    )
-    guard
-      let buffer = AVAudioPCMBuffer(
-        pcmFormat: format,
-        frameCapacity: frameCount
-      )
-    else {
-      readError = AudioChunkerError.conversionFailed
-      status.pointee = .noDataNow
-      return nil
-    }
-
-    do {
-      try file.read(into: buffer, frameCount: frameCount)
-      status.pointee = buffer.frameLength == 0 ? .endOfStream : .haveData
-      return buffer.frameLength == 0 ? nil : buffer
-    } catch {
-      readError = error
-      status.pointee = .noDataNow
-      return nil
-    }
   }
 }
