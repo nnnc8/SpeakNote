@@ -71,7 +71,20 @@ jobs:
             -destination 'platform=macOS,arch=arm64' \
             -derivedDataPath "$RUNNER_TEMP/DerivedData-test" \
             -only-testing:SpeakNoteTests \
+            -skip-testing:SpeakNoteTests/HardeningStressTests/testTwoHourSparsePCMStreamsWithinMemoryBudgetAndKeepsChunkTimeline \
             -skip-testing:SpeakNoteUITests
+
+      - name: Run long-audio memory stress test in isolation
+        run: |
+          xcodebuild test \
+            -project SpeakNote.xcodeproj \
+            -scheme SpeakNote \
+            -configuration Test \
+            -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData-test" \
+            -only-testing:SpeakNoteTests/HardeningStressTests/testTwoHourSparsePCMStreamsWithinMemoryBudgetAndKeepsChunkTimeline \
+            -skip-testing:SpeakNoteUITests \
+            -parallel-testing-enabled NO
 
       - name: Launch app UI smoke
         run: |
