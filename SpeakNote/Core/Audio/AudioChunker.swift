@@ -28,8 +28,8 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
   static let defaultMaximumBytes: Int64 = 20 * 1024 * 1024
 
   private static let bytesPerFrame: Int64 = 2
-  // AVAudioFile reserves 4 KiB for a PCM WAV header on supported macOS versions.
-  // The completed file is measured as a final hard-limit check.
+  // Keep a conservative 4 KiB allowance even though the canonical WAV header
+  // is 44 bytes. The completed file is measured as a final hard-limit check.
   private static let wavHeaderAllowance: Int64 = 4_096
 
   private let destinationDirectory: URL
@@ -200,7 +200,6 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
         )
         try append(
           samples,
-          outputFormat: outputFormat,
           runName: runName,
           destinationDirectory: destinationDirectory,
           chunkFrameCapacity: chunkFrameCapacity,
@@ -224,7 +223,6 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
 
   private static func append(
     _ samples: [Int16],
-    outputFormat: AVAudioFormat,
     runName: String,
     destinationDirectory: URL,
     chunkFrameCapacity: Int64,
@@ -246,7 +244,6 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
           index: chunks.count,
           runName: runName,
           destinationDirectory: destinationDirectory,
-          format: outputFormat,
           startFrame: startFrame
         )
         try next.write(overlap)
@@ -289,19 +286,16 @@ private final class ChunkOutput {
   let partialURL: URL
   let finalURL: URL
   let startFrame: Int64
-  private let format: AVAudioFormat
-  private var file: AVAudioFile?
+  private var file: FileHandle?
   private(set) var framesWritten: Int64 = 0
 
   init(
     index: Int,
     runName: String,
     destinationDirectory: URL,
-    format: AVAudioFormat,
     startFrame: Int64
   ) throws {
     self.index = index
-    self.format = format
     self.startFrame = startFrame
     let stem = "\(runName)-chunk-\(String(format: "%04d", index))"
     partialURL =
@@ -313,50 +307,55 @@ private final class ChunkOutput {
       .appendingPathComponent(stem)
       .appendingPathExtension("wav")
 
-    let settings: [String: Any] = [
-      AVFormatIDKey: kAudioFormatLinearPCM,
-      AVSampleRateKey: TimeBasedAudioChunker.sampleRate,
-      AVNumberOfChannelsKey: 1,
-      AVLinearPCMBitDepthKey: 16,
-      AVLinearPCMIsFloatKey: false,
-      AVLinearPCMIsBigEndianKey: false,
-      AVLinearPCMIsNonInterleaved: false,
-    ]
-    file = try AVAudioFile(
-      forWriting: partialURL,
-      settings: settings,
-      commonFormat: .pcmFormatInt16,
-      interleaved: true
-    )
-    try FileManager.default.setAttributes(
-      [.posixPermissions: 0o600],
-      ofItemAtPath: partialURL.path
-    )
+    let fileManager = FileManager.default
+    guard
+      fileManager.createFile(
+        atPath: partialURL.path,
+        contents: Self.wavHeader(dataByteCount: 0),
+        attributes: [.posixPermissions: 0o600]
+      )
+    else {
+      throw AudioChunkerError.conversionFailed
+    }
+    do {
+      let handle = try FileHandle(forWritingTo: partialURL)
+      _ = try handle.seekToEnd()
+      file = handle
+    } catch {
+      try? fileManager.removeItem(at: partialURL)
+      throw AudioChunkerError.conversionFailed
+    }
   }
 
   func write(_ samples: [Int16]) throws {
     guard !samples.isEmpty else { return }
-    try autoreleasepool {
-      guard let file,
-        let buffer = AVAudioPCMBuffer(
-          pcmFormat: format,
-          frameCapacity: AVAudioFrameCount(samples.count)
-        ),
-        let destination = buffer.int16ChannelData?[0]
-      else {
-        throw AudioChunkerError.conversionFailed
-      }
-      buffer.frameLength = AVAudioFrameCount(samples.count)
-      samples.withUnsafeBufferPointer { source in
-        destination.update(from: source.baseAddress!, count: samples.count)
-      }
-      try file.write(from: buffer)
+    guard let handle = file else { throw AudioChunkerError.conversionFailed }
+    let data = samples.withUnsafeBufferPointer {
+      Data(
+        bytes: $0.baseAddress!,
+        count: $0.count * MemoryLayout<Int16>.size
+      )
     }
+    try handle.write(contentsOf: data)
     framesWritten += Int64(samples.count)
   }
 
   func finish(endFrame: Int64, maximumBytes: Int64) throws -> AudioChunk {
-    file = nil
+    guard
+      framesWritten >= 0,
+      framesWritten <= (Int64(UInt32.max) - 36) / 2
+    else {
+      throw AudioChunkerError.outputTooLarge
+    }
+    let dataByteCount = framesWritten * 2
+    guard let handle = file else { throw AudioChunkerError.conversionFailed }
+    try handle.seek(toOffset: 0)
+    try handle.write(
+      contentsOf: Self.wavHeader(dataByteCount: UInt32(dataByteCount))
+    )
+    try handle.synchronize()
+    try handle.close()
+    self.file = nil
     let fileManager = FileManager.default
     try fileManager.moveItem(at: partialURL, to: finalURL)
     let byteCount =
@@ -377,9 +376,41 @@ private final class ChunkOutput {
   }
 
   func remove() {
+    try? file?.close()
     file = nil
     try? FileManager.default.removeItem(at: partialURL)
     try? FileManager.default.removeItem(at: finalURL)
+  }
+
+  deinit {
+    try? file?.close()
+  }
+
+  private static func wavHeader(dataByteCount: UInt32) -> Data {
+    var header = Data()
+    header.append(contentsOf: "RIFF".utf8)
+    appendLittleEndian(UInt32(36) + dataByteCount, to: &header)
+    header.append(contentsOf: "WAVEfmt ".utf8)
+    appendLittleEndian(UInt32(16), to: &header)
+    appendLittleEndian(UInt16(1), to: &header)
+    appendLittleEndian(UInt16(1), to: &header)
+    appendLittleEndian(UInt32(TimeBasedAudioChunker.sampleRate), to: &header)
+    appendLittleEndian(UInt32(TimeBasedAudioChunker.sampleRate * 2), to: &header)
+    appendLittleEndian(UInt16(2), to: &header)
+    appendLittleEndian(UInt16(16), to: &header)
+    header.append(contentsOf: "data".utf8)
+    appendLittleEndian(dataByteCount, to: &header)
+    return header
+  }
+
+  private static func appendLittleEndian<T: FixedWidthInteger>(
+    _ value: T,
+    to data: inout Data
+  ) {
+    var littleEndian = value.littleEndian
+    Swift.withUnsafeBytes(of: &littleEndian) {
+      data.append(contentsOf: $0)
+    }
   }
 
   private static func sha256(of url: URL) throws -> String {

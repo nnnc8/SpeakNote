@@ -36,6 +36,12 @@ final class AudioChunkerTests: XCTestCase {
         (file.fileFormat.settings[AVLinearPCMBitDepthKey] as? NSNumber)?.intValue,
         16
       )
+      XCTAssertEqual(chunk.byteCount, 44 + Int64(file.length) * 2)
+      let attributes = try FileManager.default.attributesOfItem(atPath: chunk.url.path)
+      XCTAssertEqual(
+        ((attributes[.posixPermissions] as? NSNumber)?.intValue ?? 0) & 0o777,
+        0o600
+      )
     }
   }
 
