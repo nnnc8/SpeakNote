@@ -1,0 +1,1506 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		003C6E1ACD6FB1E2044001C8 /* DictationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9230E38C7CFFBF7A90317032 /* DictationCoordinator.swift */; };
+		00492ACAA8A13BBA962CA8F0 /* VocabularyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BB6EB4C322FD4442243869 /* VocabularyRepository.swift */; };
+		024ED7163B5163C3FAD2CE64 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C0369482DF80A3FE3E44 /* KeychainService.swift */; };
+		025309960444973B5B49EB5D /* TextProcessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C041332C98875A30A9FB818 /* TextProcessingTests.swift */; };
+		038F32D071D7812AF2DE9318 /* VoiceNoteRecordingWorkflowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E12805FB35BE225B410E09 /* VoiceNoteRecordingWorkflowTests.swift */; };
+		055EEB63EA5F60841A88A97B /* GroqTextProcessingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7ABA74C2903505561F9ED38 /* GroqTextProcessingEngine.swift */; };
+		05700BFC7543914419DE1EA8 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D437ADEBCC1343C7D8627E /* OnboardingCoordinator.swift */; };
+		073CED5EC9A7C0D501AC6FBA /* ModelCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9F32889D4FC0684EFECF95 /* ModelCatalog.swift */; };
+		078EA33F61253AF284287AA3 /* AudioPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5010A4B1031AA13281BA77 /* AudioPreprocessor.swift */; };
+		08EE49D5F9E0A4E42776E8FA /* DictationStateReducerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B169FAB961D8CEA34B47346 /* DictationStateReducerTests.swift */; };
+		0A0273A8B2D27F46CEC99C7F /* VocabularyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC15B204771F5E0BAAD945AD /* VocabularyTypes.swift */; };
+		0ACE66820E54B2A5556FBD23 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9C1BFB9ED783B99E8BE7B68A /* PrivacyInfo.xcprivacy */; };
+		0B7266B11E571633DD270A78 /* AudioImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988D2DFEA98DCD4D0B2E8F4 /* AudioImporter.swift */; };
+		0BEF2FE965DD807355BB3C76 /* TranscriptMergerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58140B3B95DE426B906A5A39 /* TranscriptMergerTests.swift */; };
+		0DC2D6DAEFD2067027664598 /* VocabularyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77D20439819282BF991A2CA /* VocabularyModels.swift */; };
+		12337EAA3B3CFBEA0686AF02 /* VocabularySuggestionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5B72CC4B3A4A2930D748EC /* VocabularySuggestionTests.swift */; };
+		134F2DCC9899BA4575211780 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBCDE4C0F2D04E8A0812F9E4 /* AppDelegate.swift */; };
+		13E54B03528A506E93671DF6 /* VoiceNoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB643111CC574E417EF85B73 /* VoiceNoteListView.swift */; };
+		146B9A4BFBC5C01BF41C5317 /* SessionManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808D4ED7DBF5E133ABD1DF0 /* SessionManifest.swift */; };
+		14EE44E0A66C9C7663A997DF /* VoiceNoteStructuredProcessingWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0DC97E0DBAC7292A56361B /* VoiceNoteStructuredProcessingWorkflow.swift */; };
+		1A81153CB61C5CD08E115B9C /* GroqTranscriptionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADDE1FBA5F95934838280BE /* GroqTranscriptionEngine.swift */; };
+		1B015281C0D30D50C375FB4B /* TranscriptionEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B2A6F67147A64EF0DBAFF /* TranscriptionEngineTests.swift */; };
+		1D48484D43235C61F291D4FE /* RawTranscriptMarkdownRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17D44E29E4F97FD35D4FCB7 /* RawTranscriptMarkdownRendererTests.swift */; };
+		20BA2CBD816566C223D01CF9 /* SpeakNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A94B7CB8943BEC5DACA032 /* SpeakNoteApp.swift */; };
+		21112FECAD1BDE535649F061 /* PermissionCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE82994BF87A3E889E7664E9 /* PermissionCenter.swift */; };
+		21D32D92D63F10EB34031026 /* SessionFileStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8B81DF97B818AA800F573B /* SessionFileStoreTests.swift */; };
+		237FD36AA70B5050F3A6CAFD /* SessionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F29A9F5B9927F7B88A5FB0 /* SessionRepository.swift */; };
+		2571DF44338EDFD4A52D901D /* VocabularyStructuredWorkflowIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D344D198D9C3E34E921C1EC2 /* VocabularyStructuredWorkflowIntegrationTests.swift */; };
+		25BD40F02AE370128BA6C2F6 /* StructuredNoteReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355DB16860C7402A59B697F /* StructuredNoteReducer.swift */; };
+		271F0B5CA251CFD0FA56358D /* StructuredNoteMarkdownRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0C803BE3C7F6DB423B52C /* StructuredNoteMarkdownRenderer.swift */; };
+		2884C138F1A0FCE628FD7453 /* TranscriptMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C834E9BDCFFD856D9BC45B /* TranscriptMerger.swift */; };
+		29423D0A0AEB926AAD546E95 /* AudioChunker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ECC41B350A927369B8D4FA /* AudioChunker.swift */; };
+		2B62925994525A1238749A4C /* AudioImporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD745FDC0E44D54BBB1A5C6 /* AudioImporterTests.swift */; };
+		2CB5553BFACEEDDB482AD724 /* DictationHistoryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D65455F7DB2FBBAD0D78480 /* DictationHistoryModels.swift */; };
+		2F3023A8DBF5F1C9EC904722 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1998AF9E05DAC4E606A9E4A /* AudioRecorder.swift */; };
+		2F5D615FE5F72FF0936B5B29 /* VoiceNoteWorkflowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1400C9F43CB76FE3744DF9 /* VoiceNoteWorkflowTests.swift */; };
+		2F8ADDC9925E49EF41DF8545 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85D07AD07EF37FE9D31CB0D /* AppCoordinator.swift */; };
+		3126CD155504D392D81F6C01 /* VoiceNoteTranscriptionPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56308B02CB9983BF8289BBC8 /* VoiceNoteTranscriptionPipeline.swift */; };
+		3175EA7F486A3272661012DC /* VocabularyPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44666592F8185106F684CF23 /* VocabularyPersistenceTests.swift */; };
+		33DA622EF3FA1543D776AB86 /* RawTranscriptMarkdownRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5EC412B182D4FECD77D50 /* RawTranscriptMarkdownRenderer.swift */; };
+		37A6388C95597577A6983D11 /* SpeechAnalyzerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E39FCA969A5138ACB6B17 /* SpeechAnalyzerAdapter.swift */; };
+		380297F325C6D14BC27E029B /* AppKitVoiceNoteFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5BB76C27EFCD4EE21B9575 /* AppKitVoiceNoteFilePicker.swift */; };
+		3C08BEFD6137BCE5ED4FF5B5 /* M4RecordingRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC8968C724D61D8725272D6 /* M4RecordingRecovery.swift */; };
+		3CB1F29F77BB4D9E088E5BE6 /* AudioPreprocessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487DC83C416C59B47404C118 /* AudioPreprocessorTests.swift */; };
+		3E355FD8CC821C929BBEAB09 /* TranscriptionCapabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7CFFAD9F74FB2081F57D5D /* TranscriptionCapabilityTests.swift */; };
+		3EA5D900BE9242894442017A /* AppleTranscriptionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F891C2FA9B0F2F5AF5AAABC8 /* AppleTranscriptionEngine.swift */; };
+		4124F00C94646BAB0E72A889 /* AudioFormatImportIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA290C9E683395A9D2613A2 /* AudioFormatImportIntegrationTests.swift */; };
+		419DBCDEB5A139FBC1C1F1EA /* VoiceNoteTranscriptionPipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4887CD915C76F4F506042D /* VoiceNoteTranscriptionPipelineTests.swift */; };
+		4246E2F9EF04ACAC9AAEA86E /* VoiceNoteRecordingWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7A2CDCD03C6D636426A974 /* VoiceNoteRecordingWorkflow.swift */; };
+		425A380312134363BC3F216F /* SecurityAndLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17AE85D61D72421267B5961 /* SecurityAndLifecycleTests.swift */; };
+		442C3428C6941B09E10F49A2 /* OnboardingCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1430E29C56E5F1FDD6426B /* OnboardingCoordinatorTests.swift */; };
+		459D4137F5E0118D92E072AB /* StructuredNoteTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14293E8D81310B9AC067C0D0 /* StructuredNoteTypes.swift */; };
+		467A4E9683CA7D45FCE73704 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EF90FD5A8DAA169E7D74DE77 /* Localizable.xcstrings */; };
+		48E0950F8F0E9F64B6E98BAA /* GroqChatClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD152BF75D33F4B7D7A75A /* GroqChatClientTests.swift */; };
+		4C6040EF30EB0C031F2D78F5 /* TranscriptionProviderRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A85A366F0733523A814BEF /* TranscriptionProviderRouterTests.swift */; };
+		4CDC8233074E4A4390716381 /* SpeakNoteSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECADD083D8B5D4631B334EAB /* SpeakNoteSchemaV1.swift */; };
+		4EA867F2CB364CB027558F6C /* VoiceNoteRecoveryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E901DC59D24E02B8D6B9B /* VoiceNoteRecoveryManager.swift */; };
+		4F6C48E77E676F620C2D0EAC /* VoiceNoteCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6ED26AD380653C321792382 /* VoiceNoteCoordinatorTests.swift */; };
+		4F928F2BF85ADBB76CD4F424 /* AVAudioEngineRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8071AC13EC8DD39251E10FD /* AVAudioEngineRecorder.swift */; };
+		4FEA4A55CC6137061D86BFF3 /* M5GroqStructuredNoteEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB13955431CD7656F5D46A10 /* M5GroqStructuredNoteEngine.swift */; };
+		5573009B7598D7F12F52FF6B /* GroqAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94870F00049BC651D8772F7E /* GroqAPIClient.swift */; };
+		57CC7E75321BC72B51BC9B50 /* SpeakNoteSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C669EAE6ED1579E584C419 /* SpeakNoteSchemaV2.swift */; };
+		583A6B94381C6EB8BBBF6454 /* DictationHistoryPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92917F2C764AEFA674311A4 /* DictationHistoryPersistenceTests.swift */; };
+		593FFB6AEBBB1731E0715C96 /* PermissionCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752922AFDCFD419507B92083 /* PermissionCenterTests.swift */; };
+		5970E141CC5A0378BD6137A0 /* SessionRecordingPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3092DB16468110489190082 /* SessionRecordingPersistenceTests.swift */; };
+		5D347EB4E4412E28B85FCEAF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1681FE8B690F2AD1DC78A5 /* SettingsView.swift */; };
+		5E49729DE04DA8B88FC9E527 /* M4AudioArchiveBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B94B2156F962B519CB7DD /* M4AudioArchiveBuilderTests.swift */; };
+		5ED945C56F350ECAA5B43E01 /* PromptBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1B222848DE9886EC71EDC7 /* PromptBuilderTests.swift */; };
+		5FF704875BA0C478D91167D5 /* StructuredTranscriptGrouper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736D6E93E04DE4F111D4CE4 /* StructuredTranscriptGrouper.swift */; };
+		600CD518ADA82C31ED0119AE /* CustomTermSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B007A0DFA285F4C3DB0D6B9 /* CustomTermSelector.swift */; };
+		60BA9D03F774FB5387C7682A /* SecureLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3720C9062CF6239B69408B85 /* SecureLogger.swift */; };
+		61DA265B5AE8EC1904EAC3A5 /* M4AVFoundationRollingCaptureEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F1A54AE71C01E1E5098EBE /* M4AVFoundationRollingCaptureEngine.swift */; };
+		63C305398FA28B4ADAA2E575 /* GroqTextProcessingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DE3E010290A2F00D9D9396 /* GroqTextProcessingClient.swift */; };
+		65EC9D6DA567AABBE50BF2E2 /* M5GroqStructuredNoteEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E672770EB6BA36528BE2FC7A /* M5GroqStructuredNoteEngineTests.swift */; };
+		6C464F9C635DB3B83E449051 /* VoiceNoteRecoveryManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A9770018404EC7876691D5 /* VoiceNoteRecoveryManagerTests.swift */; };
+		6CC1A89AB79DFD546E644484 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837C85BE0A4535AF111521E7 /* SettingsCoordinator.swift */; };
+		6FDC636A92A98D309702464D /* ProcessingConfigurationHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7784E2B106AE0FBFF10661F7 /* ProcessingConfigurationHash.swift */; };
+		72403116B86B9D2BB6353CFD /* HardeningStressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BEF5C0880F04319FB5F87 /* HardeningStressTests.swift */; };
+		7276A1764C3CB505B35241AA /* ModifierTapStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD904CCD40DE865A9338638 /* ModifierTapStateMachineTests.swift */; };
+		73BDDA33B6FBDF42F04B5BD0 /* SessionFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81AACFF1D42AA310B139E08 /* SessionFileStore.swift */; };
+		74052BF4F17F87DD28138FA9 /* M5StructuredNoteProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4566DBB50E91B0535319A6F /* M5StructuredNoteProcessorTests.swift */; };
+		76AD730EA0B39C66B37888AC /* AudioChunkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FDFDF79726F4983E410A4F /* AudioChunkerTests.swift */; };
+		77249F5C24FC3EFCC9DDE36D /* DiskCapacityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1AC24DB89642292DF5115A /* DiskCapacityChecker.swift */; };
+		795D5DDC651E82E8F2931FAF /* VoiceNoteModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C21794CBC9191DB6D64AAB9 /* VoiceNoteModels.swift */; };
+		7C592614139789223F300204 /* GlobalHotkeyMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F024F6E030D9EA20428F92A /* GlobalHotkeyMonitor.swift */; };
+		8084752397A33A0C8060FB86 /* ProviderProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E068B675050A6E9AA48AECFC /* ProviderProtocols.swift */; };
+		81EEEA5739ED69B99CB7B7DB /* DictationHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F087A674733521680809C /* DictationHistoryCoordinator.swift */; };
+		84916A1FC4BD999A8558ED09 /* HTTPTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412170B42377EE7A5546AA43 /* HTTPTransport.swift */; };
+		85A559F28D611E911BECEE39 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82584CD5CC3904D3267C50B /* OnboardingView.swift */; };
+		8677A9735188E04DBE287BC8 /* URLSessionTransportContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71D68539E6C53BE0B35460 /* URLSessionTransportContractTests.swift */; };
+		8908F459744F0931B6BFC2DC /* TextInsertionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856553AF5EEB88FF76CAAC0C /* TextInsertionService.swift */; };
+		8A5EAB6D6EADD6573EBA70D1 /* M4RollingSegmentRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A3A298B6B96A15A6F22D20 /* M4RollingSegmentRecorder.swift */; };
+		8D79C28DFC54950528BADA93 /* GroqClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89E9212C113473CCB219D08 /* GroqClientTests.swift */; };
+		8D83A5A3CFAC5AFB47ED0CCF /* VoiceNoteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8231371A80B2D994C23346CD /* VoiceNoteCoordinator.swift */; };
+		8D889D7C3A2398698D1CE666 /* RetryPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392F8EA4C48279661B958A89 /* RetryPolicyTests.swift */; };
+		917C5AC9009EC62CC1B729DE /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171482F8D378FC22D05F90CC /* MultipartFormData.swift */; };
+		9A54D16B4EBF229EEFDAEE96 /* RollingSegmentRecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E521AAC33A0171C3D4EC08C /* RollingSegmentRecorderTests.swift */; };
+		9A6A33036C80AA51AF72C3DB /* VocabularySuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A1DF38BD90D966E4C6234D /* VocabularySuggestion.swift */; };
+		A2927A939843AB6A3849350B /* Fakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D18A91C63D908D6CF310CF /* Fakes.swift */; };
+		A2FDEC5824F59B55FE9567A8 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20053C99EEF61871CF5B5708 /* AppSettings.swift */; };
+		A50D9B3B84F41B9B9CE06B96 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B9A8CD16014B5C8BDFEECF /* SettingsRepository.swift */; };
+		A6AC9FA37D70E9E86541C6E1 /* TranscriptionProviderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67965E9FF1AB01F574BAE1BB /* TranscriptionProviderRouter.swift */; };
+		A7BE23317E07B14C63484D20 /* AppleTranscriptionEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914AFB16B53D80EF7B813096 /* AppleTranscriptionEngineTests.swift */; };
+		ACBD9FCBD4187A76CF9D0C7A /* VocabularyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D20730314D888C4BEBA47F1 /* VocabularyView.swift */; };
+		AD8F2D1A4904EA5E512380F1 /* DictationHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28C7AE22527A1D3D94672EF /* DictationHistoryView.swift */; };
+		AF10F9D1A6BA94D7D048360E /* DictationHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE0577EF020B703A356C0F8 /* DictationHUD.swift */; };
+		B17B64456C66A58988AABEC3 /* M4AudioPlayerControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB703F4F4EACF2C4101A53A /* M4AudioPlayerControllerTests.swift */; };
+		B1FD7AA59855540E347F9CC3 /* StructuredTranscriptGrouperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD126328CCAC64182E7279C /* StructuredTranscriptGrouperTests.swift */; };
+		B63858881D4D25356B1FDCEB /* ModifierTapStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F611B27647686C811D62AD9 /* ModifierTapStateMachine.swift */; };
+		BB6EEBEB1FCFF5327312546E /* SystemKeychainContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D822D6325651D2B3746C6C5B /* SystemKeychainContractTests.swift */; };
+		BCEF1705B506BB3AD6F14C16 /* StructuredNoteMarkdownRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3BACD83F14526C93E3DBD /* StructuredNoteMarkdownRendererTests.swift */; };
+		BDBA703B954E0AF0888E5D8A /* CustomTermSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C331B95696FADAADA6DB826 /* CustomTermSelectorTests.swift */; };
+		BF8AFF3276522B6FC3B9022E /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3CBC9D44EAA9D2B9BE3561 /* DependencyContainer.swift */; };
+		C0973E84A6422671045F8BB7 /* TextProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8861CE5C266E76F676356E56 /* TextProcessingService.swift */; };
+		C123F901C94CCED08DA0460E /* PromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C309E21FED0D8C85D5BBDF6 /* PromptBuilder.swift */; };
+		C6207DCE66F82ED9261685CA /* VoiceNoteStructuredProcessingWorkflowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82B1BDA9AAA7D9AC9AC932B /* VoiceNoteStructuredProcessingWorkflowTests.swift */; };
+		C98451B6B0233CF3E258A97A /* SettingsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCF87A6903E416D35693B9A /* SettingsCoordinatorTests.swift */; };
+		CD5D6150A0D937B76AECA3E1 /* ReplacementRuleEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C75FC0F83EB85033C96D2E /* ReplacementRuleEngine.swift */; };
+		D04E7D1DA970D8F7BAB4E8B7 /* RetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A08BEC1F2E1D6A3F73C3B0 /* RetryPolicy.swift */; };
+		D29B52CF6C152F7680F66298 /* VoiceNoteWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BBFD1963CA7830B3AF422E /* VoiceNoteWorkflow.swift */; };
+		D3CAECBC53B6CF993B86540B /* M4AudioPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3354F6E4A05E3BB5BDBAFA9 /* M4AudioPlayerController.swift */; };
+		D6BF2ED0DCECFD2323A97E45 /* M5StructuredRunStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F6B4C6DDDDCB5C8C92C643 /* M5StructuredRunStoreTests.swift */; };
+		D704DA9AD5B565620144C1F7 /* AppLaunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A894D39EA78C73FB28F7468A /* AppLaunchUITests.swift */; };
+		D7A171CA3C052E136BBCA470 /* TranscriptionCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9171E88602B64CA55016006E /* TranscriptionCapability.swift */; };
+		D7B7A40578BFE12B19E34F6F /* VocabularyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA64C6B8C8BD9C93B54C07B3 /* VocabularyCoordinator.swift */; };
+		D8A921913EA36FDE731C223B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 410D8977E6B94F0382318B4F /* Assets.xcassets */; };
+		DF1EAE8A2F7774B800E2AF87 /* PasteboardInsertionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2721019FA2D576FFA5119 /* PasteboardInsertionTests.swift */; };
+		E09DD0BFDB55B366811C7AB4 /* DictationHistoryCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B33DD372137B541EFBC68A2 /* DictationHistoryCoordinatorTests.swift */; };
+		E36537CA9806CE86EDDD8B67 /* M5StructuredRunStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7769E67F6C2132092E01508 /* M5StructuredRunStore.swift */; };
+		E973D833B6E942F3A293575B /* StructuredNoteReducerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9FBEC00123E7EB3FCA567 /* StructuredNoteReducerTests.swift */; };
+		EB3281B3D40A2B7E9A992AA6 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DA8F6A5CFC888463D6111D18 /* InfoPlist.xcstrings */; };
+		EE2FCBE41333774993862399 /* DictationCoordinatorIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD436043DAA3417B231C5A22 /* DictationCoordinatorIntegrationTests.swift */; };
+		EF1067E16EAA95EFC553B925 /* VocabularyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549E6E93B3BA7363EEF01BB8 /* VocabularyService.swift */; };
+		F0FF89E7535B357F9CA99B8C /* RecordingRecoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC68748DBA0237C445FC76B /* RecordingRecoveryTests.swift */; };
+		F4522E93513AC7222B098548 /* SettingsRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416B74C404ECA7F5A951BEC3 /* SettingsRepositoryTests.swift */; };
+		F4D2615072088C7C21DC4CE8 /* ProviderContractsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6509F227E38822A60D81E86C /* ProviderContractsTests.swift */; };
+		F6C6AA5174D2EA70A949F653 /* VocabularyCoordinatorIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB747FFEBFA21C5156274130 /* VocabularyCoordinatorIntegrationTests.swift */; };
+		F81974AAD2486266252457EA /* M5StructuredNoteProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF847F3BB31AF94C86ECCC /* M5StructuredNoteProcessor.swift */; };
+		F87EAD46F4012EBBC931B5C3 /* M4AudioArchiveBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70E53CCEA2E9AE10571E85F /* M4AudioArchiveBuilder.swift */; };
+		F984E32A2CD8344188837C35 /* LegacySpeechRecognizerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39834EE4F10139CA094B2540 /* LegacySpeechRecognizerAdapter.swift */; };
+		FB4398CFF672261DBC675C36 /* VocabularyServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149A69F13EFEA4C991E6AF7 /* VocabularyServiceIntegrationTests.swift */; };
+		FB5846BEDCCF43059E8E742A /* ModelCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7BE8A4B82E1BE90241A703 /* ModelCatalogTests.swift */; };
+		FC4D08528E321F725838C320 /* SpeakNoteSchemaMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEFF2DF26775FCED032A668 /* SpeakNoteSchemaMigrationTests.swift */; };
+		FCAF41939DA0B83AC671A7D4 /* ReplacementRuleEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B7FF598ECC6611C765598 /* ReplacementRuleEngineTests.swift */; };
+		FD00A310E8E87B10F1B8EC06 /* PrivacyManifestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9478E833D84A43744B33641E /* PrivacyManifestTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0773A917270290DB10681FAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DB34319F968402A79A9647E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D818F2E6B8A1106F78E059E6;
+			remoteInfo = SpeakNote;
+		};
+		69F5D6465D3D1A50FDB93D98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DB34319F968402A79A9647E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D818F2E6B8A1106F78E059E6;
+			remoteInfo = SpeakNote;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		05B9A8CD16014B5C8BDFEECF /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
+		05D437ADEBCC1343C7D8627E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		0736D6E93E04DE4F111D4CE4 /* StructuredTranscriptGrouper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredTranscriptGrouper.swift; sourceTree = "<group>"; };
+		0B169FAB961D8CEA34B47346 /* DictationStateReducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationStateReducerTests.swift; sourceTree = "<group>"; };
+		0D1681FE8B690F2AD1DC78A5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		13F1A54AE71C01E1E5098EBE /* M4AVFoundationRollingCaptureEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M4AVFoundationRollingCaptureEngine.swift; sourceTree = "<group>"; };
+		14293E8D81310B9AC067C0D0 /* StructuredNoteTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredNoteTypes.swift; sourceTree = "<group>"; };
+		171482F8D378FC22D05F90CC /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		1808D4ED7DBF5E133ABD1DF0 /* SessionManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManifest.swift; sourceTree = "<group>"; };
+		1B007A0DFA285F4C3DB0D6B9 /* CustomTermSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTermSelector.swift; sourceTree = "<group>"; };
+		1D65455F7DB2FBBAD0D78480 /* DictationHistoryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationHistoryModels.swift; sourceTree = "<group>"; };
+		20053C99EEF61871CF5B5708 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		22C0C803BE3C7F6DB423B52C /* StructuredNoteMarkdownRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredNoteMarkdownRenderer.swift; sourceTree = "<group>"; };
+		22C75FC0F83EB85033C96D2E /* ReplacementRuleEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplacementRuleEngine.swift; sourceTree = "<group>"; };
+		29B2721019FA2D576FFA5119 /* PasteboardInsertionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardInsertionTests.swift; sourceTree = "<group>"; };
+		2ADF847F3BB31AF94C86ECCC /* M5StructuredNoteProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M5StructuredNoteProcessor.swift; sourceTree = "<group>"; };
+		2CCF87A6903E416D35693B9A /* SettingsCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorTests.swift; sourceTree = "<group>"; };
+		2D7BE8A4B82E1BE90241A703 /* ModelCatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCatalogTests.swift; sourceTree = "<group>"; };
+		30D18A91C63D908D6CF310CF /* Fakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fakes.swift; sourceTree = "<group>"; };
+		3355DB16860C7402A59B697F /* StructuredNoteReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredNoteReducer.swift; sourceTree = "<group>"; };
+		360B2A6F67147A64EF0DBAFF /* TranscriptionEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionEngineTests.swift; sourceTree = "<group>"; };
+		36A85A366F0733523A814BEF /* TranscriptionProviderRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionProviderRouterTests.swift; sourceTree = "<group>"; };
+		3720C9062CF6239B69408B85 /* SecureLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureLogger.swift; sourceTree = "<group>"; };
+		392F8EA4C48279661B958A89 /* RetryPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryPolicyTests.swift; sourceTree = "<group>"; };
+		39834EE4F10139CA094B2540 /* LegacySpeechRecognizerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySpeechRecognizerAdapter.swift; sourceTree = "<group>"; };
+		3C309E21FED0D8C85D5BBDF6 /* PromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptBuilder.swift; sourceTree = "<group>"; };
+		3DDD152BF75D33F4B7D7A75A /* GroqChatClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroqChatClientTests.swift; sourceTree = "<group>"; };
+		3E1B7FF598ECC6611C765598 /* ReplacementRuleEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplacementRuleEngineTests.swift; sourceTree = "<group>"; };
+		3F024F6E030D9EA20428F92A /* GlobalHotkeyMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalHotkeyMonitor.swift; sourceTree = "<group>"; };
+		410D8977E6B94F0382318B4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		412170B42377EE7A5546AA43 /* HTTPTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTransport.swift; sourceTree = "<group>"; };
+		416B74C404ECA7F5A951BEC3 /* SettingsRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryTests.swift; sourceTree = "<group>"; };
+		419B94B2156F962B519CB7DD /* M4AudioArchiveBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M4AudioArchiveBuilderTests.swift; sourceTree = "<group>"; };
+		41BBFD1963CA7830B3AF422E /* VoiceNoteWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteWorkflow.swift; sourceTree = "<group>"; };
+		41F5C0369482DF80A3FE3E44 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		43BB6EB4C322FD4442243869 /* VocabularyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyRepository.swift; sourceTree = "<group>"; };
+		44666592F8185106F684CF23 /* VocabularyPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyPersistenceTests.swift; sourceTree = "<group>"; };
+		44FDFDF79726F4983E410A4F /* AudioChunkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioChunkerTests.swift; sourceTree = "<group>"; };
+		487DC83C416C59B47404C118 /* AudioPreprocessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreprocessorTests.swift; sourceTree = "<group>"; };
+		48A94B7CB8943BEC5DACA032 /* SpeakNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakNoteApp.swift; sourceTree = "<group>"; };
+		4B33DD372137B541EFBC68A2 /* DictationHistoryCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationHistoryCoordinatorTests.swift; sourceTree = "<group>"; };
+		4BA290C9E683395A9D2613A2 /* AudioFormatImportIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFormatImportIntegrationTests.swift; sourceTree = "<group>"; };
+		4C6E901DC59D24E02B8D6B9B /* VoiceNoteRecoveryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteRecoveryManager.swift; sourceTree = "<group>"; };
+		4D1AC24DB89642292DF5115A /* DiskCapacityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCapacityChecker.swift; sourceTree = "<group>"; };
+		4DD904CCD40DE865A9338638 /* ModifierTapStateMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierTapStateMachineTests.swift; sourceTree = "<group>"; };
+		502BEF5C0880F04319FB5F87 /* HardeningStressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardeningStressTests.swift; sourceTree = "<group>"; };
+		549E6E93B3BA7363EEF01BB8 /* VocabularyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyService.swift; sourceTree = "<group>"; };
+		56308B02CB9983BF8289BBC8 /* VoiceNoteTranscriptionPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteTranscriptionPipeline.swift; sourceTree = "<group>"; };
+		58140B3B95DE426B906A5A39 /* TranscriptMergerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptMergerTests.swift; sourceTree = "<group>"; };
+		5C331B95696FADAADA6DB826 /* CustomTermSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTermSelectorTests.swift; sourceTree = "<group>"; };
+		5F395E539EF5EC746C480D6F /* SpeakNoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeakNoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		61ECC41B350A927369B8D4FA /* AudioChunker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioChunker.swift; sourceTree = "<group>"; };
+		63ED19EB76910500036B858E /* SpeakNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeakNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		647F087A674733521680809C /* DictationHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationHistoryCoordinator.swift; sourceTree = "<group>"; };
+		6509F227E38822A60D81E86C /* ProviderContractsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderContractsTests.swift; sourceTree = "<group>"; };
+		67965E9FF1AB01F574BAE1BB /* TranscriptionProviderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionProviderRouter.swift; sourceTree = "<group>"; };
+		6BA3BACD83F14526C93E3DBD /* StructuredNoteMarkdownRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredNoteMarkdownRendererTests.swift; sourceTree = "<group>"; };
+		6C041332C98875A30A9FB818 /* TextProcessingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessingTests.swift; sourceTree = "<group>"; };
+		6C21794CBC9191DB6D64AAB9 /* VoiceNoteModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteModels.swift; sourceTree = "<group>"; };
+		6D20730314D888C4BEBA47F1 /* VocabularyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyView.swift; sourceTree = "<group>"; };
+		6D4887CD915C76F4F506042D /* VoiceNoteTranscriptionPipelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteTranscriptionPipelineTests.swift; sourceTree = "<group>"; };
+		6F8B81DF97B818AA800F573B /* SessionFileStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionFileStoreTests.swift; sourceTree = "<group>"; };
+		752922AFDCFD419507B92083 /* PermissionCenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCenterTests.swift; sourceTree = "<group>"; };
+		76C669EAE6ED1579E584C419 /* SpeakNoteSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakNoteSchemaV2.swift; sourceTree = "<group>"; };
+		7784E2B106AE0FBFF10661F7 /* ProcessingConfigurationHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingConfigurationHash.swift; sourceTree = "<group>"; };
+		7E521AAC33A0171C3D4EC08C /* RollingSegmentRecorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollingSegmentRecorderTests.swift; sourceTree = "<group>"; };
+		7EEFF2DF26775FCED032A668 /* SpeakNoteSchemaMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakNoteSchemaMigrationTests.swift; sourceTree = "<group>"; };
+		8231371A80B2D994C23346CD /* VoiceNoteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteCoordinator.swift; sourceTree = "<group>"; };
+		82A08BEC1F2E1D6A3F73C3B0 /* RetryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryPolicy.swift; sourceTree = "<group>"; };
+		82C834E9BDCFFD856D9BC45B /* TranscriptMerger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptMerger.swift; sourceTree = "<group>"; };
+		837C85BE0A4535AF111521E7 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		856553AF5EEB88FF76CAAC0C /* TextInsertionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInsertionService.swift; sourceTree = "<group>"; };
+		8861CE5C266E76F676356E56 /* TextProcessingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessingService.swift; sourceTree = "<group>"; };
+		8D3CBC9D44EAA9D2B9BE3561 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		8F611B27647686C811D62AD9 /* ModifierTapStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierTapStateMachine.swift; sourceTree = "<group>"; };
+		914AFB16B53D80EF7B813096 /* AppleTranscriptionEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTranscriptionEngineTests.swift; sourceTree = "<group>"; };
+		9171E88602B64CA55016006E /* TranscriptionCapability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionCapability.swift; sourceTree = "<group>"; };
+		9230E38C7CFFBF7A90317032 /* DictationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationCoordinator.swift; sourceTree = "<group>"; };
+		9306C494918E4AEF2A5A5CC5 /* SpeakNoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeakNoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9478E833D84A43744B33641E /* PrivacyManifestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyManifestTests.swift; sourceTree = "<group>"; };
+		94870F00049BC651D8772F7E /* GroqAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroqAPIClient.swift; sourceTree = "<group>"; };
+		94C6AF3D294CB5BB4279682A /* SpeakNote.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SpeakNote.xcconfig; sourceTree = "<group>"; };
+		9C1BFB9ED783B99E8BE7B68A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		9CD126328CCAC64182E7279C /* StructuredTranscriptGrouperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredTranscriptGrouperTests.swift; sourceTree = "<group>"; };
+		9EC68748DBA0237C445FC76B /* RecordingRecoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRecoveryTests.swift; sourceTree = "<group>"; };
+		A0A9770018404EC7876691D5 /* VoiceNoteRecoveryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteRecoveryManagerTests.swift; sourceTree = "<group>"; };
+		A1F6B4C6DDDDCB5C8C92C643 /* M5StructuredRunStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M5StructuredRunStoreTests.swift; sourceTree = "<group>"; };
+		A6ED26AD380653C321792382 /* VoiceNoteCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteCoordinatorTests.swift; sourceTree = "<group>"; };
+		A7ABA74C2903505561F9ED38 /* GroqTextProcessingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroqTextProcessingEngine.swift; sourceTree = "<group>"; };
+		A894D39EA78C73FB28F7468A /* AppLaunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchUITests.swift; sourceTree = "<group>"; };
+		A8A1DF38BD90D966E4C6234D /* VocabularySuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularySuggestion.swift; sourceTree = "<group>"; };
+		A988D2DFEA98DCD4D0B2E8F4 /* AudioImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioImporter.swift; sourceTree = "<group>"; };
+		ABC8968C724D61D8725272D6 /* M4RecordingRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M4RecordingRecovery.swift; sourceTree = "<group>"; };
+		AC0DC97E0DBAC7292A56361B /* VoiceNoteStructuredProcessingWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteStructuredProcessingWorkflow.swift; sourceTree = "<group>"; };
+		AC1400C9F43CB76FE3744DF9 /* VoiceNoteWorkflowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteWorkflowTests.swift; sourceTree = "<group>"; };
+		ACD745FDC0E44D54BBB1A5C6 /* AudioImporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioImporterTests.swift; sourceTree = "<group>"; };
+		AE82994BF87A3E889E7664E9 /* PermissionCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCenter.swift; sourceTree = "<group>"; };
+		B28C7AE22527A1D3D94672EF /* DictationHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationHistoryView.swift; sourceTree = "<group>"; };
+		B46E39FCA969A5138ACB6B17 /* SpeechAnalyzerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechAnalyzerAdapter.swift; sourceTree = "<group>"; };
+		B8071AC13EC8DD39251E10FD /* AVAudioEngineRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioEngineRecorder.swift; sourceTree = "<group>"; };
+		B8F29A9F5B9927F7B88A5FB0 /* SessionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRepository.swift; sourceTree = "<group>"; };
+		BC1430E29C56E5F1FDD6426B /* OnboardingCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinatorTests.swift; sourceTree = "<group>"; };
+		BEB703F4F4EACF2C4101A53A /* M4AudioPlayerControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M4AudioPlayerControllerTests.swift; sourceTree = "<group>"; };
+		BF5010A4B1031AA13281BA77 /* AudioPreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreprocessor.swift; sourceTree = "<group>"; };
+		C7B9FBEC00123E7EB3FCA567 /* StructuredNoteReducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredNoteReducerTests.swift; sourceTree = "<group>"; };
+		C82584CD5CC3904D3267C50B /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		C8DE3E010290A2F00D9D9396 /* GroqTextProcessingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroqTextProcessingClient.swift; sourceTree = "<group>"; };
+		C8E12805FB35BE225B410E09 /* VoiceNoteRecordingWorkflowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteRecordingWorkflowTests.swift; sourceTree = "<group>"; };
+		CB643111CC574E417EF85B73 /* VoiceNoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteListView.swift; sourceTree = "<group>"; };
+		CC15B204771F5E0BAAD945AD /* VocabularyTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyTypes.swift; sourceTree = "<group>"; };
+		CC5B72CC4B3A4A2930D748EC /* VocabularySuggestionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularySuggestionTests.swift; sourceTree = "<group>"; };
+		CD436043DAA3417B231C5A22 /* DictationCoordinatorIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationCoordinatorIntegrationTests.swift; sourceTree = "<group>"; };
+		CF9F32889D4FC0684EFECF95 /* ModelCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCatalog.swift; sourceTree = "<group>"; };
+		D17AE85D61D72421267B5961 /* SecurityAndLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityAndLifecycleTests.swift; sourceTree = "<group>"; };
+		D3354F6E4A05E3BB5BDBAFA9 /* M4AudioPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M4AudioPlayerController.swift; sourceTree = "<group>"; };
+		D344D198D9C3E34E921C1EC2 /* VocabularyStructuredWorkflowIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyStructuredWorkflowIntegrationTests.swift; sourceTree = "<group>"; };
+		D4566DBB50E91B0535319A6F /* M5StructuredNoteProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M5StructuredNoteProcessorTests.swift; sourceTree = "<group>"; };
+		D70E53CCEA2E9AE10571E85F /* M4AudioArchiveBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M4AudioArchiveBuilder.swift; sourceTree = "<group>"; };
+		D7A3A298B6B96A15A6F22D20 /* M4RollingSegmentRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M4RollingSegmentRecorder.swift; sourceTree = "<group>"; };
+		D822D6325651D2B3746C6C5B /* SystemKeychainContractTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemKeychainContractTests.swift; sourceTree = "<group>"; };
+		D9F5EC412B182D4FECD77D50 /* RawTranscriptMarkdownRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTranscriptMarkdownRenderer.swift; sourceTree = "<group>"; };
+		DA8F6A5CFC888463D6111D18 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		DB13955431CD7656F5D46A10 /* M5GroqStructuredNoteEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M5GroqStructuredNoteEngine.swift; sourceTree = "<group>"; };
+		DB7CFFAD9F74FB2081F57D5D /* TranscriptionCapabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionCapabilityTests.swift; sourceTree = "<group>"; };
+		E068B675050A6E9AA48AECFC /* ProviderProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderProtocols.swift; sourceTree = "<group>"; };
+		E149A69F13EFEA4C991E6AF7 /* VocabularyServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyServiceIntegrationTests.swift; sourceTree = "<group>"; };
+		E1998AF9E05DAC4E606A9E4A /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		E3092DB16468110489190082 /* SessionRecordingPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecordingPersistenceTests.swift; sourceTree = "<group>"; };
+		E672770EB6BA36528BE2FC7A /* M5GroqStructuredNoteEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M5GroqStructuredNoteEngineTests.swift; sourceTree = "<group>"; };
+		E92917F2C764AEFA674311A4 /* DictationHistoryPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationHistoryPersistenceTests.swift; sourceTree = "<group>"; };
+		EA1B222848DE9886EC71EDC7 /* PromptBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptBuilderTests.swift; sourceTree = "<group>"; };
+		EA64C6B8C8BD9C93B54C07B3 /* VocabularyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCoordinator.swift; sourceTree = "<group>"; };
+		EADDE1FBA5F95934838280BE /* GroqTranscriptionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroqTranscriptionEngine.swift; sourceTree = "<group>"; };
+		EB747FFEBFA21C5156274130 /* VocabularyCoordinatorIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCoordinatorIntegrationTests.swift; sourceTree = "<group>"; };
+		EC7A2CDCD03C6D636426A974 /* VoiceNoteRecordingWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteRecordingWorkflow.swift; sourceTree = "<group>"; };
+		ECADD083D8B5D4631B334EAB /* SpeakNoteSchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakNoteSchemaV1.swift; sourceTree = "<group>"; };
+		EDE0577EF020B703A356C0F8 /* DictationHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationHUD.swift; sourceTree = "<group>"; };
+		EF90FD5A8DAA169E7D74DE77 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		F17D44E29E4F97FD35D4FCB7 /* RawTranscriptMarkdownRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTranscriptMarkdownRendererTests.swift; sourceTree = "<group>"; };
+		F7769E67F6C2132092E01508 /* M5StructuredRunStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M5StructuredRunStore.swift; sourceTree = "<group>"; };
+		F77D20439819282BF991A2CA /* VocabularyModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyModels.swift; sourceTree = "<group>"; };
+		F81AACFF1D42AA310B139E08 /* SessionFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionFileStore.swift; sourceTree = "<group>"; };
+		F82B1BDA9AAA7D9AC9AC932B /* VoiceNoteStructuredProcessingWorkflowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteStructuredProcessingWorkflowTests.swift; sourceTree = "<group>"; };
+		F85D07AD07EF37FE9D31CB0D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		F891C2FA9B0F2F5AF5AAABC8 /* AppleTranscriptionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTranscriptionEngine.swift; sourceTree = "<group>"; };
+		F89E9212C113473CCB219D08 /* GroqClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroqClientTests.swift; sourceTree = "<group>"; };
+		FBCDE4C0F2D04E8A0812F9E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FC71D68539E6C53BE0B35460 /* URLSessionTransportContractTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTransportContractTests.swift; sourceTree = "<group>"; };
+		FF5BB76C27EFCD4EE21B9575 /* AppKitVoiceNoteFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitVoiceNoteFilePicker.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		034D2CE2640902E459580060 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				05D437ADEBCC1343C7D8627E /* OnboardingCoordinator.swift */,
+				C82584CD5CC3904D3267C50B /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		0C5152674532294FD42C8A32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				63ED19EB76910500036B858E /* SpeakNote.app */,
+				9306C494918E4AEF2A5A5CC5 /* SpeakNoteTests.xctest */,
+				5F395E539EF5EC746C480D6F /* SpeakNoteUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2118F30145B03C50CF944453 /* M6 */ = {
+			isa = PBXGroup;
+			children = (
+				914AFB16B53D80EF7B813096 /* AppleTranscriptionEngineTests.swift */,
+				DB7CFFAD9F74FB2081F57D5D /* TranscriptionCapabilityTests.swift */,
+				36A85A366F0733523A814BEF /* TranscriptionProviderRouterTests.swift */,
+			);
+			path = M6;
+			sourceTree = "<group>";
+		};
+		2248A203BB399DE4681B7056 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1D65455F7DB2FBBAD0D78480 /* DictationHistoryModels.swift */,
+				F77D20439819282BF991A2CA /* VocabularyModels.swift */,
+				6C21794CBC9191DB6D64AAB9 /* VoiceNoteModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		23C5DE2208395C3DC3129CCD /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				EAF6AE025EB46C76D3A47315 /* Dictation */,
+				034D2CE2640902E459580060 /* Onboarding */,
+				7DE300F7DB14DAEF625E8986 /* Settings */,
+				F5C522D999AEA4FE709FF02A /* Vocabulary */,
+				67A4FAB24D44ECBE602602E8 /* VoiceNote */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		292E0C521B634DCE279BA3C7 /* M8 */ = {
+			isa = PBXGroup;
+			children = (
+				4BA290C9E683395A9D2613A2 /* AudioFormatImportIntegrationTests.swift */,
+				502BEF5C0880F04319FB5F87 /* HardeningStressTests.swift */,
+				BC1430E29C56E5F1FDD6426B /* OnboardingCoordinatorTests.swift */,
+				9478E833D84A43744B33641E /* PrivacyManifestTests.swift */,
+				D822D6325651D2B3746C6C5B /* SystemKeychainContractTests.swift */,
+				FC71D68539E6C53BE0B35460 /* URLSessionTransportContractTests.swift */,
+			);
+			path = M8;
+			sourceTree = "<group>";
+		};
+		2F3520FD9C01F7EFCF8FEAB5 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				E068B675050A6E9AA48AECFC /* ProviderProtocols.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		30DB209FF6CD5346EC156827 /* M1 */ = {
+			isa = PBXGroup;
+			children = (
+				487DC83C416C59B47404C118 /* AudioPreprocessorTests.swift */,
+				CD436043DAA3417B231C5A22 /* DictationCoordinatorIntegrationTests.swift */,
+				0B169FAB961D8CEA34B47346 /* DictationStateReducerTests.swift */,
+				F89E9212C113473CCB219D08 /* GroqClientTests.swift */,
+				4DD904CCD40DE865A9338638 /* ModifierTapStateMachineTests.swift */,
+				29B2721019FA2D576FFA5119 /* PasteboardInsertionTests.swift */,
+				392F8EA4C48279661B958A89 /* RetryPolicyTests.swift */,
+				360B2A6F67147A64EF0DBAFF /* TranscriptionEngineTests.swift */,
+			);
+			path = M1;
+			sourceTree = "<group>";
+		};
+		325B1D5EAC0E8CEFEA7526C9 /* SpeakNoteUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A894D39EA78C73FB28F7468A /* AppLaunchUITests.swift */,
+			);
+			path = SpeakNoteUITests;
+			sourceTree = "<group>";
+		};
+		48BFCAD306B5B4C04D3E5E63 /* M3 */ = {
+			isa = PBXGroup;
+			children = (
+				44FDFDF79726F4983E410A4F /* AudioChunkerTests.swift */,
+				ACD745FDC0E44D54BBB1A5C6 /* AudioImporterTests.swift */,
+				F17D44E29E4F97FD35D4FCB7 /* RawTranscriptMarkdownRendererTests.swift */,
+				6F8B81DF97B818AA800F573B /* SessionFileStoreTests.swift */,
+				58140B3B95DE426B906A5A39 /* TranscriptMergerTests.swift */,
+				A6ED26AD380653C321792382 /* VoiceNoteCoordinatorTests.swift */,
+				6D4887CD915C76F4F506042D /* VoiceNoteTranscriptionPipelineTests.swift */,
+				AC1400C9F43CB76FE3744DF9 /* VoiceNoteWorkflowTests.swift */,
+			);
+			path = M3;
+			sourceTree = "<group>";
+		};
+		5151E5CD98D32AA03DDBC247 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F85D07AD07EF37FE9D31CB0D /* AppCoordinator.swift */,
+				FBCDE4C0F2D04E8A0812F9E4 /* AppDelegate.swift */,
+				8D3CBC9D44EAA9D2B9BE3561 /* DependencyContainer.swift */,
+				48A94B7CB8943BEC5DACA032 /* SpeakNoteApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		67A4FAB24D44ECBE602602E8 /* VoiceNote */ = {
+			isa = PBXGroup;
+			children = (
+				FF5BB76C27EFCD4EE21B9575 /* AppKitVoiceNoteFilePicker.swift */,
+				D3354F6E4A05E3BB5BDBAFA9 /* M4AudioPlayerController.swift */,
+				8231371A80B2D994C23346CD /* VoiceNoteCoordinator.swift */,
+				CB643111CC574E417EF85B73 /* VoiceNoteListView.swift */,
+				EC7A2CDCD03C6D636426A974 /* VoiceNoteRecordingWorkflow.swift */,
+				AC0DC97E0DBAC7292A56361B /* VoiceNoteStructuredProcessingWorkflow.swift */,
+				41BBFD1963CA7830B3AF422E /* VoiceNoteWorkflow.swift */,
+			);
+			path = VoiceNote;
+			sourceTree = "<group>";
+		};
+		7DE300F7DB14DAEF625E8986 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				837C85BE0A4535AF111521E7 /* SettingsCoordinator.swift */,
+				0D1681FE8B690F2AD1DC78A5 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		7F9C290E61A93E9CD3CFF290 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				94C6AF3D294CB5BB4279682A /* SpeakNote.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		7FED74F897B11852E8A20D4C /* M7 */ = {
+			isa = PBXGroup;
+			children = (
+				5C331B95696FADAADA6DB826 /* CustomTermSelectorTests.swift */,
+				3E1B7FF598ECC6611C765598 /* ReplacementRuleEngineTests.swift */,
+				7EEFF2DF26775FCED032A668 /* SpeakNoteSchemaMigrationTests.swift */,
+				EB747FFEBFA21C5156274130 /* VocabularyCoordinatorIntegrationTests.swift */,
+				44666592F8185106F684CF23 /* VocabularyPersistenceTests.swift */,
+				E149A69F13EFEA4C991E6AF7 /* VocabularyServiceIntegrationTests.swift */,
+				D344D198D9C3E34E921C1EC2 /* VocabularyStructuredWorkflowIntegrationTests.swift */,
+				CC5B72CC4B3A4A2930D748EC /* VocabularySuggestionTests.swift */,
+			);
+			path = M7;
+			sourceTree = "<group>";
+		};
+		93F560CC322C3DC39F7DDD6C /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				41F5C0369482DF80A3FE3E44 /* KeychainService.swift */,
+				3720C9062CF6239B69408B85 /* SecureLogger.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
+		969BA02EF3292B95DF3E95D7 /* TestSupport */ = {
+			isa = PBXGroup;
+			children = (
+				30D18A91C63D908D6CF310CF /* Fakes.swift */,
+			);
+			path = TestSupport;
+			sourceTree = "<group>";
+		};
+		9D9155FB836534A8735A2A07 /* M5 */ = {
+			isa = PBXGroup;
+			children = (
+				E672770EB6BA36528BE2FC7A /* M5GroqStructuredNoteEngineTests.swift */,
+				D4566DBB50E91B0535319A6F /* M5StructuredNoteProcessorTests.swift */,
+				A1F6B4C6DDDDCB5C8C92C643 /* M5StructuredRunStoreTests.swift */,
+				6BA3BACD83F14526C93E3DBD /* StructuredNoteMarkdownRendererTests.swift */,
+				C7B9FBEC00123E7EB3FCA567 /* StructuredNoteReducerTests.swift */,
+				9CD126328CCAC64182E7279C /* StructuredTranscriptGrouperTests.swift */,
+				F82B1BDA9AAA7D9AC9AC932B /* VoiceNoteStructuredProcessingWorkflowTests.swift */,
+			);
+			path = M5;
+			sourceTree = "<group>";
+		};
+		9FFCFD312E9030EABCC20601 /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				ECADD083D8B5D4631B334EAB /* SpeakNoteSchemaV1.swift */,
+				76C669EAE6ED1579E584C419 /* SpeakNoteSchemaV2.swift */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
+		A0A77B4B7EBB3BDB3399F06A /* SpeakNote */ = {
+			isa = PBXGroup;
+			children = (
+				5151E5CD98D32AA03DDBC247 /* App */,
+				E4FBFD47AC2BDA1CDC51A2F9 /* Core */,
+				23C5DE2208395C3DC3129CCD /* Features */,
+				E803516F5F02CB9CB79F85CF /* Persistence */,
+				D728A1B9F6761D0B120EEB2A /* Resources */,
+			);
+			path = SpeakNote;
+			sourceTree = "<group>";
+		};
+		A6C9E731DD6B94BAA681EAF6 /* Vocabulary */ = {
+			isa = PBXGroup;
+			children = (
+				1B007A0DFA285F4C3DB0D6B9 /* CustomTermSelector.swift */,
+				22C75FC0F83EB85033C96D2E /* ReplacementRuleEngine.swift */,
+				549E6E93B3BA7363EEF01BB8 /* VocabularyService.swift */,
+				A8A1DF38BD90D966E4C6234D /* VocabularySuggestion.swift */,
+				CC15B204771F5E0BAAD945AD /* VocabularyTypes.swift */,
+			);
+			path = Vocabulary;
+			sourceTree = "<group>";
+		};
+		AF61B6E542D438BF10C4C8FE /* M0 */ = {
+			isa = PBXGroup;
+			children = (
+				752922AFDCFD419507B92083 /* PermissionCenterTests.swift */,
+				6509F227E38822A60D81E86C /* ProviderContractsTests.swift */,
+				D17AE85D61D72421267B5961 /* SecurityAndLifecycleTests.swift */,
+				2CCF87A6903E416D35693B9A /* SettingsCoordinatorTests.swift */,
+				416B74C404ECA7F5A951BEC3 /* SettingsRepositoryTests.swift */,
+			);
+			path = M0;
+			sourceTree = "<group>";
+		};
+		B992E3D2F11A113E3216DDCB /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				4D1AC24DB89642292DF5115A /* DiskCapacityChecker.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		BC7A0CB2F20CEF62C73D27E9 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				61ECC41B350A927369B8D4FA /* AudioChunker.swift */,
+				A988D2DFEA98DCD4D0B2E8F4 /* AudioImporter.swift */,
+				BF5010A4B1031AA13281BA77 /* AudioPreprocessor.swift */,
+				E1998AF9E05DAC4E606A9E4A /* AudioRecorder.swift */,
+				B8071AC13EC8DD39251E10FD /* AVAudioEngineRecorder.swift */,
+				D70E53CCEA2E9AE10571E85F /* M4AudioArchiveBuilder.swift */,
+				13F1A54AE71C01E1E5098EBE /* M4AVFoundationRollingCaptureEngine.swift */,
+				ABC8968C724D61D8725272D6 /* M4RecordingRecovery.swift */,
+				D7A3A298B6B96A15A6F22D20 /* M4RollingSegmentRecorder.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		D1756FE5014DB3FF4F270BC2 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				D9F5EC412B182D4FECD77D50 /* RawTranscriptMarkdownRenderer.swift */,
+				22C0C803BE3C7F6DB423B52C /* StructuredNoteMarkdownRenderer.swift */,
+			);
+			path = Export;
+			sourceTree = "<group>";
+		};
+		D206810A3FEB3803ED23D906 /* Insertion */ = {
+			isa = PBXGroup;
+			children = (
+				856553AF5EEB88FF76CAAC0C /* TextInsertionService.swift */,
+			);
+			path = Insertion;
+			sourceTree = "<group>";
+		};
+		D6063F85931EFBF6ABE692C7 /* Transcription */ = {
+			isa = PBXGroup;
+			children = (
+				F891C2FA9B0F2F5AF5AAABC8 /* AppleTranscriptionEngine.swift */,
+				EADDE1FBA5F95934838280BE /* GroqTranscriptionEngine.swift */,
+				39834EE4F10139CA094B2540 /* LegacySpeechRecognizerAdapter.swift */,
+				B46E39FCA969A5138ACB6B17 /* SpeechAnalyzerAdapter.swift */,
+				9171E88602B64CA55016006E /* TranscriptionCapability.swift */,
+				67965E9FF1AB01F574BAE1BB /* TranscriptionProviderRouter.swift */,
+				82C834E9BDCFFD856D9BC45B /* TranscriptMerger.swift */,
+				56308B02CB9983BF8289BBC8 /* VoiceNoteTranscriptionPipeline.swift */,
+			);
+			path = Transcription;
+			sourceTree = "<group>";
+		};
+		D63C3E985FA200B7C37BF93B /* Permissions */ = {
+			isa = PBXGroup;
+			children = (
+				AE82994BF87A3E889E7664E9 /* PermissionCenter.swift */,
+			);
+			path = Permissions;
+			sourceTree = "<group>";
+		};
+		D728A1B9F6761D0B120EEB2A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				410D8977E6B94F0382318B4F /* Assets.xcassets */,
+				DA8F6A5CFC888463D6111D18 /* InfoPlist.xcstrings */,
+				EF90FD5A8DAA169E7D74DE77 /* Localizable.xcstrings */,
+				9C1BFB9ED783B99E8BE7B68A /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DBBA6774B5F160905CB8CA04 /* Hotkeys */ = {
+			isa = PBXGroup;
+			children = (
+				3F024F6E030D9EA20428F92A /* GlobalHotkeyMonitor.swift */,
+				8F611B27647686C811D62AD9 /* ModifierTapStateMachine.swift */,
+			);
+			path = Hotkeys;
+			sourceTree = "<group>";
+		};
+		DD8D02017822370DE20C6267 /* M2 */ = {
+			isa = PBXGroup;
+			children = (
+				4B33DD372137B541EFBC68A2 /* DictationHistoryCoordinatorTests.swift */,
+				E92917F2C764AEFA674311A4 /* DictationHistoryPersistenceTests.swift */,
+				3DDD152BF75D33F4B7D7A75A /* GroqChatClientTests.swift */,
+				2D7BE8A4B82E1BE90241A703 /* ModelCatalogTests.swift */,
+				EA1B222848DE9886EC71EDC7 /* PromptBuilderTests.swift */,
+				6C041332C98875A30A9FB818 /* TextProcessingTests.swift */,
+			);
+			path = M2;
+			sourceTree = "<group>";
+		};
+		E4FBFD47AC2BDA1CDC51A2F9 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BC7A0CB2F20CEF62C73D27E9 /* Audio */,
+				D1756FE5014DB3FF4F270BC2 /* Export */,
+				DBBA6774B5F160905CB8CA04 /* Hotkeys */,
+				D206810A3FEB3803ED23D906 /* Insertion */,
+				E613D09106A7740066839170 /* Networking */,
+				D63C3E985FA200B7C37BF93B /* Permissions */,
+				2F3520FD9C01F7EFCF8FEAB5 /* Providers */,
+				93F560CC322C3DC39F7DDD6C /* Security */,
+				B992E3D2F11A113E3216DDCB /* Storage */,
+				EA1EC89A7244E96030D9AC28 /* TextProcessing */,
+				D6063F85931EFBF6ABE692C7 /* Transcription */,
+				A6C9E731DD6B94BAA681EAF6 /* Vocabulary */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		E613D09106A7740066839170 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				94870F00049BC651D8772F7E /* GroqAPIClient.swift */,
+				C8DE3E010290A2F00D9D9396 /* GroqTextProcessingClient.swift */,
+				412170B42377EE7A5546AA43 /* HTTPTransport.swift */,
+				DB13955431CD7656F5D46A10 /* M5GroqStructuredNoteEngine.swift */,
+				CF9F32889D4FC0684EFECF95 /* ModelCatalog.swift */,
+				171482F8D378FC22D05F90CC /* MultipartFormData.swift */,
+				82A08BEC1F2E1D6A3F73C3B0 /* RetryPolicy.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		E803516F5F02CB9CB79F85CF /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				20053C99EEF61871CF5B5708 /* AppSettings.swift */,
+				F7769E67F6C2132092E01508 /* M5StructuredRunStore.swift */,
+				F81AACFF1D42AA310B139E08 /* SessionFileStore.swift */,
+				1808D4ED7DBF5E133ABD1DF0 /* SessionManifest.swift */,
+				B8F29A9F5B9927F7B88A5FB0 /* SessionRepository.swift */,
+				05B9A8CD16014B5C8BDFEECF /* SettingsRepository.swift */,
+				43BB6EB4C322FD4442243869 /* VocabularyRepository.swift */,
+				4C6E901DC59D24E02B8D6B9B /* VoiceNoteRecoveryManager.swift */,
+				2248A203BB399DE4681B7056 /* Models */,
+				9FFCFD312E9030EABCC20601 /* Schema */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		EA1EC89A7244E96030D9AC28 /* TextProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				A7ABA74C2903505561F9ED38 /* GroqTextProcessingEngine.swift */,
+				2ADF847F3BB31AF94C86ECCC /* M5StructuredNoteProcessor.swift */,
+				7784E2B106AE0FBFF10661F7 /* ProcessingConfigurationHash.swift */,
+				3C309E21FED0D8C85D5BBDF6 /* PromptBuilder.swift */,
+				3355DB16860C7402A59B697F /* StructuredNoteReducer.swift */,
+				14293E8D81310B9AC067C0D0 /* StructuredNoteTypes.swift */,
+				0736D6E93E04DE4F111D4CE4 /* StructuredTranscriptGrouper.swift */,
+				8861CE5C266E76F676356E56 /* TextProcessingService.swift */,
+			);
+			path = TextProcessing;
+			sourceTree = "<group>";
+		};
+		EAF6AE025EB46C76D3A47315 /* Dictation */ = {
+			isa = PBXGroup;
+			children = (
+				9230E38C7CFFBF7A90317032 /* DictationCoordinator.swift */,
+				647F087A674733521680809C /* DictationHistoryCoordinator.swift */,
+				B28C7AE22527A1D3D94672EF /* DictationHistoryView.swift */,
+				EDE0577EF020B703A356C0F8 /* DictationHUD.swift */,
+			);
+			path = Dictation;
+			sourceTree = "<group>";
+		};
+		F1EDA9287622AF88A5D35F54 /* SpeakNoteTests */ = {
+			isa = PBXGroup;
+			children = (
+				AF61B6E542D438BF10C4C8FE /* M0 */,
+				30DB209FF6CD5346EC156827 /* M1 */,
+				DD8D02017822370DE20C6267 /* M2 */,
+				48BFCAD306B5B4C04D3E5E63 /* M3 */,
+				F347329ED401B418050565CC /* M4 */,
+				9D9155FB836534A8735A2A07 /* M5 */,
+				2118F30145B03C50CF944453 /* M6 */,
+				7FED74F897B11852E8A20D4C /* M7 */,
+				292E0C521B634DCE279BA3C7 /* M8 */,
+				969BA02EF3292B95DF3E95D7 /* TestSupport */,
+			);
+			path = SpeakNoteTests;
+			sourceTree = "<group>";
+		};
+		F347329ED401B418050565CC /* M4 */ = {
+			isa = PBXGroup;
+			children = (
+				419B94B2156F962B519CB7DD /* M4AudioArchiveBuilderTests.swift */,
+				BEB703F4F4EACF2C4101A53A /* M4AudioPlayerControllerTests.swift */,
+				9EC68748DBA0237C445FC76B /* RecordingRecoveryTests.swift */,
+				7E521AAC33A0171C3D4EC08C /* RollingSegmentRecorderTests.swift */,
+				E3092DB16468110489190082 /* SessionRecordingPersistenceTests.swift */,
+				C8E12805FB35BE225B410E09 /* VoiceNoteRecordingWorkflowTests.swift */,
+				A0A9770018404EC7876691D5 /* VoiceNoteRecoveryManagerTests.swift */,
+			);
+			path = M4;
+			sourceTree = "<group>";
+		};
+		F5C522D999AEA4FE709FF02A /* Vocabulary */ = {
+			isa = PBXGroup;
+			children = (
+				EA64C6B8C8BD9C93B54C07B3 /* VocabularyCoordinator.swift */,
+				6D20730314D888C4BEBA47F1 /* VocabularyView.swift */,
+			);
+			path = Vocabulary;
+			sourceTree = "<group>";
+		};
+		FC6E132D7A6C7E671CCBBD64 = {
+			isa = PBXGroup;
+			children = (
+				7F9C290E61A93E9CD3CFF290 /* Config */,
+				A0A77B4B7EBB3BDB3399F06A /* SpeakNote */,
+				F1EDA9287622AF88A5D35F54 /* SpeakNoteTests */,
+				325B1D5EAC0E8CEFEA7526C9 /* SpeakNoteUITests */,
+				0C5152674532294FD42C8A32 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B2584A6BAF6EDC260479AFA2 /* SpeakNoteUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 428837F29689235F59BD42FB /* Build configuration list for PBXNativeTarget "SpeakNoteUITests" */;
+			buildPhases = (
+				53F59011A9A79D842BC41E6D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4A4DFC5AF1731BADDC168C6D /* PBXTargetDependency */,
+			);
+			name = SpeakNoteUITests;
+			packageProductDependencies = (
+			);
+			productName = SpeakNoteUITests;
+			productReference = 5F395E539EF5EC746C480D6F /* SpeakNoteUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		D818F2E6B8A1106F78E059E6 /* SpeakNote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B46673EEDFE7724598BAB653 /* Build configuration list for PBXNativeTarget "SpeakNote" */;
+			buildPhases = (
+				2A048945450B1891164AAE18 /* Sources */,
+				2C34BEEB74A3A8E8206D8900 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpeakNote;
+			packageProductDependencies = (
+			);
+			productName = SpeakNote;
+			productReference = 63ED19EB76910500036B858E /* SpeakNote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DB237C8A82C75C4C4C284A10 /* SpeakNoteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D1DF0644DCAB934E8C7090E /* Build configuration list for PBXNativeTarget "SpeakNoteTests" */;
+			buildPhases = (
+				4B1D33F2542BD0F13CF7C27F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A2E56680B854090F042348E0 /* PBXTargetDependency */,
+			);
+			name = SpeakNoteTests;
+			packageProductDependencies = (
+			);
+			productName = SpeakNoteTests;
+			productReference = 9306C494918E4AEF2A5A5CC5 /* SpeakNoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5DB34319F968402A79A9647E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					B2584A6BAF6EDC260479AFA2 = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = D818F2E6B8A1106F78E059E6;
+					};
+					D818F2E6B8A1106F78E059E6 = {
+						ProvisioningStyle = Automatic;
+					};
+					DB237C8A82C75C4C4C284A10 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = EED17B10A30F300C443BFD28 /* Build configuration list for PBXProject "SpeakNote" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				"zh-Hant",
+			);
+			mainGroup = FC6E132D7A6C7E671CCBBD64;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0C5152674532294FD42C8A32 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D818F2E6B8A1106F78E059E6 /* SpeakNote */,
+				DB237C8A82C75C4C4C284A10 /* SpeakNoteTests */,
+				B2584A6BAF6EDC260479AFA2 /* SpeakNoteUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2C34BEEB74A3A8E8206D8900 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8A921913EA36FDE731C223B /* Assets.xcassets in Resources */,
+				EB3281B3D40A2B7E9A992AA6 /* InfoPlist.xcstrings in Resources */,
+				467A4E9683CA7D45FCE73704 /* Localizable.xcstrings in Resources */,
+				0ACE66820E54B2A5556FBD23 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2A048945450B1891164AAE18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F928F2BF85ADBB76CD4F424 /* AVAudioEngineRecorder.swift in Sources */,
+				2F8ADDC9925E49EF41DF8545 /* AppCoordinator.swift in Sources */,
+				134F2DCC9899BA4575211780 /* AppDelegate.swift in Sources */,
+				380297F325C6D14BC27E029B /* AppKitVoiceNoteFilePicker.swift in Sources */,
+				A2FDEC5824F59B55FE9567A8 /* AppSettings.swift in Sources */,
+				3EA5D900BE9242894442017A /* AppleTranscriptionEngine.swift in Sources */,
+				29423D0A0AEB926AAD546E95 /* AudioChunker.swift in Sources */,
+				0B7266B11E571633DD270A78 /* AudioImporter.swift in Sources */,
+				078EA33F61253AF284287AA3 /* AudioPreprocessor.swift in Sources */,
+				2F3023A8DBF5F1C9EC904722 /* AudioRecorder.swift in Sources */,
+				600CD518ADA82C31ED0119AE /* CustomTermSelector.swift in Sources */,
+				BF8AFF3276522B6FC3B9022E /* DependencyContainer.swift in Sources */,
+				003C6E1ACD6FB1E2044001C8 /* DictationCoordinator.swift in Sources */,
+				AF10F9D1A6BA94D7D048360E /* DictationHUD.swift in Sources */,
+				81EEEA5739ED69B99CB7B7DB /* DictationHistoryCoordinator.swift in Sources */,
+				2CB5553BFACEEDDB482AD724 /* DictationHistoryModels.swift in Sources */,
+				AD8F2D1A4904EA5E512380F1 /* DictationHistoryView.swift in Sources */,
+				77249F5C24FC3EFCC9DDE36D /* DiskCapacityChecker.swift in Sources */,
+				7C592614139789223F300204 /* GlobalHotkeyMonitor.swift in Sources */,
+				5573009B7598D7F12F52FF6B /* GroqAPIClient.swift in Sources */,
+				63C305398FA28B4ADAA2E575 /* GroqTextProcessingClient.swift in Sources */,
+				055EEB63EA5F60841A88A97B /* GroqTextProcessingEngine.swift in Sources */,
+				1A81153CB61C5CD08E115B9C /* GroqTranscriptionEngine.swift in Sources */,
+				84916A1FC4BD999A8558ED09 /* HTTPTransport.swift in Sources */,
+				024ED7163B5163C3FAD2CE64 /* KeychainService.swift in Sources */,
+				F984E32A2CD8344188837C35 /* LegacySpeechRecognizerAdapter.swift in Sources */,
+				61DA265B5AE8EC1904EAC3A5 /* M4AVFoundationRollingCaptureEngine.swift in Sources */,
+				F87EAD46F4012EBBC931B5C3 /* M4AudioArchiveBuilder.swift in Sources */,
+				D3CAECBC53B6CF993B86540B /* M4AudioPlayerController.swift in Sources */,
+				3C08BEFD6137BCE5ED4FF5B5 /* M4RecordingRecovery.swift in Sources */,
+				8A5EAB6D6EADD6573EBA70D1 /* M4RollingSegmentRecorder.swift in Sources */,
+				4FEA4A55CC6137061D86BFF3 /* M5GroqStructuredNoteEngine.swift in Sources */,
+				F81974AAD2486266252457EA /* M5StructuredNoteProcessor.swift in Sources */,
+				E36537CA9806CE86EDDD8B67 /* M5StructuredRunStore.swift in Sources */,
+				073CED5EC9A7C0D501AC6FBA /* ModelCatalog.swift in Sources */,
+				B63858881D4D25356B1FDCEB /* ModifierTapStateMachine.swift in Sources */,
+				917C5AC9009EC62CC1B729DE /* MultipartFormData.swift in Sources */,
+				05700BFC7543914419DE1EA8 /* OnboardingCoordinator.swift in Sources */,
+				85A559F28D611E911BECEE39 /* OnboardingView.swift in Sources */,
+				21112FECAD1BDE535649F061 /* PermissionCenter.swift in Sources */,
+				6FDC636A92A98D309702464D /* ProcessingConfigurationHash.swift in Sources */,
+				C123F901C94CCED08DA0460E /* PromptBuilder.swift in Sources */,
+				8084752397A33A0C8060FB86 /* ProviderProtocols.swift in Sources */,
+				33DA622EF3FA1543D776AB86 /* RawTranscriptMarkdownRenderer.swift in Sources */,
+				CD5D6150A0D937B76AECA3E1 /* ReplacementRuleEngine.swift in Sources */,
+				D04E7D1DA970D8F7BAB4E8B7 /* RetryPolicy.swift in Sources */,
+				60BA9D03F774FB5387C7682A /* SecureLogger.swift in Sources */,
+				73BDDA33B6FBDF42F04B5BD0 /* SessionFileStore.swift in Sources */,
+				146B9A4BFBC5C01BF41C5317 /* SessionManifest.swift in Sources */,
+				237FD36AA70B5050F3A6CAFD /* SessionRepository.swift in Sources */,
+				6CC1A89AB79DFD546E644484 /* SettingsCoordinator.swift in Sources */,
+				A50D9B3B84F41B9B9CE06B96 /* SettingsRepository.swift in Sources */,
+				5D347EB4E4412E28B85FCEAF /* SettingsView.swift in Sources */,
+				20BA2CBD816566C223D01CF9 /* SpeakNoteApp.swift in Sources */,
+				4CDC8233074E4A4390716381 /* SpeakNoteSchemaV1.swift in Sources */,
+				57CC7E75321BC72B51BC9B50 /* SpeakNoteSchemaV2.swift in Sources */,
+				37A6388C95597577A6983D11 /* SpeechAnalyzerAdapter.swift in Sources */,
+				271F0B5CA251CFD0FA56358D /* StructuredNoteMarkdownRenderer.swift in Sources */,
+				25BD40F02AE370128BA6C2F6 /* StructuredNoteReducer.swift in Sources */,
+				459D4137F5E0118D92E072AB /* StructuredNoteTypes.swift in Sources */,
+				5FF704875BA0C478D91167D5 /* StructuredTranscriptGrouper.swift in Sources */,
+				8908F459744F0931B6BFC2DC /* TextInsertionService.swift in Sources */,
+				C0973E84A6422671045F8BB7 /* TextProcessingService.swift in Sources */,
+				2884C138F1A0FCE628FD7453 /* TranscriptMerger.swift in Sources */,
+				D7A171CA3C052E136BBCA470 /* TranscriptionCapability.swift in Sources */,
+				A6AC9FA37D70E9E86541C6E1 /* TranscriptionProviderRouter.swift in Sources */,
+				D7B7A40578BFE12B19E34F6F /* VocabularyCoordinator.swift in Sources */,
+				0DC2D6DAEFD2067027664598 /* VocabularyModels.swift in Sources */,
+				00492ACAA8A13BBA962CA8F0 /* VocabularyRepository.swift in Sources */,
+				EF1067E16EAA95EFC553B925 /* VocabularyService.swift in Sources */,
+				9A6A33036C80AA51AF72C3DB /* VocabularySuggestion.swift in Sources */,
+				0A0273A8B2D27F46CEC99C7F /* VocabularyTypes.swift in Sources */,
+				ACBD9FCBD4187A76CF9D0C7A /* VocabularyView.swift in Sources */,
+				8D83A5A3CFAC5AFB47ED0CCF /* VoiceNoteCoordinator.swift in Sources */,
+				13E54B03528A506E93671DF6 /* VoiceNoteListView.swift in Sources */,
+				795D5DDC651E82E8F2931FAF /* VoiceNoteModels.swift in Sources */,
+				4246E2F9EF04ACAC9AAEA86E /* VoiceNoteRecordingWorkflow.swift in Sources */,
+				4EA867F2CB364CB027558F6C /* VoiceNoteRecoveryManager.swift in Sources */,
+				14EE44E0A66C9C7663A997DF /* VoiceNoteStructuredProcessingWorkflow.swift in Sources */,
+				3126CD155504D392D81F6C01 /* VoiceNoteTranscriptionPipeline.swift in Sources */,
+				D29B52CF6C152F7680F66298 /* VoiceNoteWorkflow.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B1D33F2542BD0F13CF7C27F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7BE23317E07B14C63484D20 /* AppleTranscriptionEngineTests.swift in Sources */,
+				76AD730EA0B39C66B37888AC /* AudioChunkerTests.swift in Sources */,
+				4124F00C94646BAB0E72A889 /* AudioFormatImportIntegrationTests.swift in Sources */,
+				2B62925994525A1238749A4C /* AudioImporterTests.swift in Sources */,
+				3CB1F29F77BB4D9E088E5BE6 /* AudioPreprocessorTests.swift in Sources */,
+				BDBA703B954E0AF0888E5D8A /* CustomTermSelectorTests.swift in Sources */,
+				EE2FCBE41333774993862399 /* DictationCoordinatorIntegrationTests.swift in Sources */,
+				E09DD0BFDB55B366811C7AB4 /* DictationHistoryCoordinatorTests.swift in Sources */,
+				583A6B94381C6EB8BBBF6454 /* DictationHistoryPersistenceTests.swift in Sources */,
+				08EE49D5F9E0A4E42776E8FA /* DictationStateReducerTests.swift in Sources */,
+				A2927A939843AB6A3849350B /* Fakes.swift in Sources */,
+				48E0950F8F0E9F64B6E98BAA /* GroqChatClientTests.swift in Sources */,
+				8D79C28DFC54950528BADA93 /* GroqClientTests.swift in Sources */,
+				72403116B86B9D2BB6353CFD /* HardeningStressTests.swift in Sources */,
+				5E49729DE04DA8B88FC9E527 /* M4AudioArchiveBuilderTests.swift in Sources */,
+				B17B64456C66A58988AABEC3 /* M4AudioPlayerControllerTests.swift in Sources */,
+				65EC9D6DA567AABBE50BF2E2 /* M5GroqStructuredNoteEngineTests.swift in Sources */,
+				74052BF4F17F87DD28138FA9 /* M5StructuredNoteProcessorTests.swift in Sources */,
+				D6BF2ED0DCECFD2323A97E45 /* M5StructuredRunStoreTests.swift in Sources */,
+				FB5846BEDCCF43059E8E742A /* ModelCatalogTests.swift in Sources */,
+				7276A1764C3CB505B35241AA /* ModifierTapStateMachineTests.swift in Sources */,
+				442C3428C6941B09E10F49A2 /* OnboardingCoordinatorTests.swift in Sources */,
+				DF1EAE8A2F7774B800E2AF87 /* PasteboardInsertionTests.swift in Sources */,
+				593FFB6AEBBB1731E0715C96 /* PermissionCenterTests.swift in Sources */,
+				FD00A310E8E87B10F1B8EC06 /* PrivacyManifestTests.swift in Sources */,
+				5ED945C56F350ECAA5B43E01 /* PromptBuilderTests.swift in Sources */,
+				F4D2615072088C7C21DC4CE8 /* ProviderContractsTests.swift in Sources */,
+				1D48484D43235C61F291D4FE /* RawTranscriptMarkdownRendererTests.swift in Sources */,
+				F0FF89E7535B357F9CA99B8C /* RecordingRecoveryTests.swift in Sources */,
+				FCAF41939DA0B83AC671A7D4 /* ReplacementRuleEngineTests.swift in Sources */,
+				8D889D7C3A2398698D1CE666 /* RetryPolicyTests.swift in Sources */,
+				9A54D16B4EBF229EEFDAEE96 /* RollingSegmentRecorderTests.swift in Sources */,
+				425A380312134363BC3F216F /* SecurityAndLifecycleTests.swift in Sources */,
+				21D32D92D63F10EB34031026 /* SessionFileStoreTests.swift in Sources */,
+				5970E141CC5A0378BD6137A0 /* SessionRecordingPersistenceTests.swift in Sources */,
+				C98451B6B0233CF3E258A97A /* SettingsCoordinatorTests.swift in Sources */,
+				F4522E93513AC7222B098548 /* SettingsRepositoryTests.swift in Sources */,
+				FC4D08528E321F725838C320 /* SpeakNoteSchemaMigrationTests.swift in Sources */,
+				BCEF1705B506BB3AD6F14C16 /* StructuredNoteMarkdownRendererTests.swift in Sources */,
+				E973D833B6E942F3A293575B /* StructuredNoteReducerTests.swift in Sources */,
+				B1FD7AA59855540E347F9CC3 /* StructuredTranscriptGrouperTests.swift in Sources */,
+				BB6EEBEB1FCFF5327312546E /* SystemKeychainContractTests.swift in Sources */,
+				025309960444973B5B49EB5D /* TextProcessingTests.swift in Sources */,
+				0BEF2FE965DD807355BB3C76 /* TranscriptMergerTests.swift in Sources */,
+				3E355FD8CC821C929BBEAB09 /* TranscriptionCapabilityTests.swift in Sources */,
+				1B015281C0D30D50C375FB4B /* TranscriptionEngineTests.swift in Sources */,
+				4C6040EF30EB0C031F2D78F5 /* TranscriptionProviderRouterTests.swift in Sources */,
+				8677A9735188E04DBE287BC8 /* URLSessionTransportContractTests.swift in Sources */,
+				F6C6AA5174D2EA70A949F653 /* VocabularyCoordinatorIntegrationTests.swift in Sources */,
+				3175EA7F486A3272661012DC /* VocabularyPersistenceTests.swift in Sources */,
+				FB4398CFF672261DBC675C36 /* VocabularyServiceIntegrationTests.swift in Sources */,
+				2571DF44338EDFD4A52D901D /* VocabularyStructuredWorkflowIntegrationTests.swift in Sources */,
+				12337EAA3B3CFBEA0686AF02 /* VocabularySuggestionTests.swift in Sources */,
+				4F6C48E77E676F620C2D0EAC /* VoiceNoteCoordinatorTests.swift in Sources */,
+				038F32D071D7812AF2DE9318 /* VoiceNoteRecordingWorkflowTests.swift in Sources */,
+				6C464F9C635DB3B83E449051 /* VoiceNoteRecoveryManagerTests.swift in Sources */,
+				C6207DCE66F82ED9261685CA /* VoiceNoteStructuredProcessingWorkflowTests.swift in Sources */,
+				419DBCDEB5A139FBC1C1F1EA /* VoiceNoteTranscriptionPipelineTests.swift in Sources */,
+				2F5D615FE5F72FF0936B5B29 /* VoiceNoteWorkflowTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F59011A9A79D842BC41E6D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D704DA9AD5B565620144C1F7 /* AppLaunchUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4A4DFC5AF1731BADDC168C6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D818F2E6B8A1106F78E059E6 /* SpeakNote */;
+			targetProxy = 69F5D6465D3D1A50FDB93D98 /* PBXContainerItemProxy */;
+		};
+		A2E56680B854090F042348E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D818F2E6B8A1106F78E059E6 /* SpeakNote */;
+			targetProxy = 0773A917270290DB10681FAD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2EB6EEE8E2BE8F867D81A76F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNoteTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeakNote.app/Contents/MacOS/SpeakNote";
+			};
+			name = Release;
+		};
+		6A6A8750A925467C2943358C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		6D2B99ACC124670EF67B4C80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		79A2FE1A49B02A628DBFFA51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNoteUITests;
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = SpeakNote;
+			};
+			name = Release;
+		};
+		7D1F478FB7E81C72DBC69E6E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNoteUITests;
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = SpeakNote;
+			};
+			name = Debug;
+		};
+		A5C598FC7864ACC985F6AA49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94C6AF3D294CB5BB4279682A /* SpeakNote.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Config/SpeakNote.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNote;
+				PRODUCT_NAME = SpeakNote;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		B28521031AD8D749E6D4A693 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94C6AF3D294CB5BB4279682A /* SpeakNote.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Config/SpeakNote.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNote;
+				PRODUCT_NAME = SpeakNote;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		BEBE0079D185D5020EA6AF07 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Test;
+		};
+		C5673B31A0D13696F5653CB2 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Config/SpeakNote.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNote;
+				PRODUCT_NAME = SpeakNote;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Test;
+		};
+		C82BE4946BD14F6D35FFE537 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNoteUITests;
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = SpeakNote;
+			};
+			name = Test;
+		};
+		D11BFD3CFFF12AA479C375B9 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNoteTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeakNote.app/Contents/MacOS/SpeakNote";
+			};
+			name = Test;
+		};
+		E090F5CCF170AB510EACFAC6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNoteTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeakNote.app/Contents/MacOS/SpeakNote";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		428837F29689235F59BD42FB /* Build configuration list for PBXNativeTarget "SpeakNoteUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D1F478FB7E81C72DBC69E6E /* Debug */,
+				79A2FE1A49B02A628DBFFA51 /* Release */,
+				C82BE4946BD14F6D35FFE537 /* Test */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4D1DF0644DCAB934E8C7090E /* Build configuration list for PBXNativeTarget "SpeakNoteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E090F5CCF170AB510EACFAC6 /* Debug */,
+				2EB6EEE8E2BE8F867D81A76F /* Release */,
+				D11BFD3CFFF12AA479C375B9 /* Test */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B46673EEDFE7724598BAB653 /* Build configuration list for PBXNativeTarget "SpeakNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B28521031AD8D749E6D4A693 /* Debug */,
+				A5C598FC7864ACC985F6AA49 /* Release */,
+				C5673B31A0D13696F5653CB2 /* Test */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EED17B10A30F300C443BFD28 /* Build configuration list for PBXProject "SpeakNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D2B99ACC124670EF67B4C80 /* Debug */,
+				6A6A8750A925467C2943358C /* Release */,
+				BEBE0079D185D5020EA6AF07 /* Test */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5DB34319F968402A79A9647E /* Project object */;
+}

@@ -1,0 +1,101 @@
+name: SpeakNote
+
+options:
+  bundleIdPrefix: com.nc8
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+
+configs:
+  Debug: debug
+  Test: debug
+  Release: release
+
+settings:
+  base:
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    SDKROOT: macosx
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    CLANG_ENABLE_MODULES: YES
+    CODE_SIGN_STYLE: Automatic
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: 0.1.0
+  configs:
+    Debug:
+      CODE_SIGN_IDENTITY: "-"
+      SWIFT_OPTIMIZATION_LEVEL: -Onone
+    Test:
+      CODE_SIGN_IDENTITY: "-"
+      SWIFT_OPTIMIZATION_LEVEL: -Onone
+    Release:
+      CODE_SIGN_IDENTITY: Developer ID Application
+      SWIFT_COMPILATION_MODE: wholemodule
+      SWIFT_OPTIMIZATION_LEVEL: -O
+
+targets:
+  SpeakNote:
+    type: application
+    platform: macOS
+    configFiles:
+      Debug: Config/SpeakNote.xcconfig
+      Release: Config/SpeakNote.xcconfig
+    sources:
+      - path: SpeakNote
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nc8.SpeakNote
+        PRODUCT_NAME: SpeakNote
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Config/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Config/SpeakNote.entitlements
+        COMBINE_HIDPI_IMAGES: YES
+        ENABLE_APP_SANDBOX: YES
+        ENABLE_DEBUG_DYLIB: NO
+        SWIFT_EMIT_LOC_STRINGS: YES
+      configs:
+        Debug:
+          ENABLE_HARDENED_RUNTIME: YES
+        Test:
+          ENABLE_HARDENED_RUNTIME: NO
+        Release:
+          ENABLE_HARDENED_RUNTIME: YES
+  SpeakNoteTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: SpeakNoteTests
+    dependencies:
+      - target: SpeakNote
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nc8.SpeakNoteTests
+        GENERATE_INFOPLIST_FILE: YES
+        ENABLE_HARDENED_RUNTIME: NO
+  SpeakNoteUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources:
+      - path: SpeakNoteUITests
+    dependencies:
+      - target: SpeakNote
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nc8.SpeakNoteUITests
+        GENERATE_INFOPLIST_FILE: YES
+        ENABLE_HARDENED_RUNTIME: NO
+
+schemes:
+  SpeakNote:
+    shared: true
+    build:
+      targets:
+        SpeakNote: all
+        SpeakNoteTests: [test]
+        SpeakNoteUITests: [test]
+    test:
+      config: Test
+      gatherCoverageData: true
+      testPlans:
+        - path: SpeakNote.xctestplan
+          defaultPlan: true

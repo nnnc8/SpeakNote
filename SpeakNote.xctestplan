@@ -1,0 +1,47 @@
+{
+  "configurations" : [
+    {
+      "id" : "A75886ED-8327-4574-B4D9-723ED3C1E09E",
+      "name" : "Default",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "enabled" : true,
+      "targets" : [
+        {
+          "containerPath" : "container:SpeakNote.xcodeproj",
+          "identifier" : "D818F2E6B8A1106F78E059E6",
+          "name" : "SpeakNote"
+        }
+      ]
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:SpeakNote.xcodeproj",
+      "identifier" : "D818F2E6B8A1106F78E059E6",
+      "name" : "SpeakNote"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:SpeakNote.xcodeproj",
+        "identifier" : "DB237C8A82C75C4C4C284A10",
+        "name" : "SpeakNoteTests"
+      }
+    },
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:SpeakNote.xcodeproj",
+        "identifier" : "B2584A6BAF6EDC260479AFA2",
+        "name" : "SpeakNoteUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

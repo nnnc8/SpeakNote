@@ -1,0 +1,7 @@
+title: SpeakNote
+description: Native macOS dictation, Voice Notes, and structured Markdown
+url: https://nnnc8.github.io
+baseurl: /SpeakNote
+repository: nnnc8/SpeakNote
+theme: jekyll-theme-minimal
+markdown: kramdown

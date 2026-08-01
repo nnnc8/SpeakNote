@@ -1,0 +1,18 @@
+PRODUCT_NAME = SpeakNote
+PRODUCT_MODULE_NAME = SpeakNote
+PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNote
+
+MACOSX_DEPLOYMENT_TARGET = 14.0
+SWIFT_VERSION = 6.0
+SWIFT_STRICT_CONCURRENCY = complete
+
+GENERATE_INFOPLIST_FILE = NO
+INFOPLIST_FILE = Config/Info.plist
+CODE_SIGN_ENTITLEMENTS = Config/SpeakNote.entitlements
+CODE_SIGN_STYLE = Automatic
+// Cross-application insertion uses PID guards and CGEvent only; it never reads AXUIElement content.
+ENABLE_APP_SANDBOX = YES
+ENABLE_HARDENED_RUNTIME = YES
+// Ensure ad-hoc local builds receive the runtime CodeDirectory flag as well.
+ENABLE_DEBUG_DYLIB = NO
+OTHER_CODE_SIGN_FLAGS = $(inherited) --options=runtime

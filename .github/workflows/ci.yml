@@ -1,0 +1,85 @@
+name: CI
+
+"on":
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-security:
+    name: Source and security scan
+    runs-on: macos-15
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Scan source and reachable Git history
+        shell: bash
+        run: |
+          set -euo pipefail
+          : > "$RUNNER_TEMP/empty-log.ndjson"
+          Scripts/security-scan.sh \
+            --repo "$GITHUB_WORKSPACE" \
+            --bundle-id com.nc8.SpeakNote.CI \
+            --log-file "$RUNNER_TEMP/empty-log.ndjson" \
+            --require-git-history
+
+      - name: Test release packaging contracts
+        run: |
+          Scripts/package-release-tests.sh
+          .github/scripts/verify-release-assets-tests.sh
+
+  macos-build-and-unit-tests:
+    name: Build and unit tests (macos-26)
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Report Xcode version
+        run: xcodebuild -version
+
+      - name: Build app without release signing
+        run: |
+          xcodebuild build \
+            -project SpeakNote.xcodeproj \
+            -scheme SpeakNote \
+            -configuration Debug \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData-build" \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Run unit tests only
+        run: |
+          xcodebuild test \
+            -project SpeakNote.xcodeproj \
+            -scheme SpeakNote \
+            -configuration Test \
+            -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData-test" \
+            -only-testing:SpeakNoteTests \
+            -skip-testing:SpeakNoteUITests
+
+      - name: Launch app UI smoke
+        run: |
+          xcodebuild test \
+            -project SpeakNote.xcodeproj \
+            -scheme SpeakNote \
+            -configuration Test \
+            -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData-test" \
+            -only-testing:SpeakNoteUITests/AppLaunchUITests/testAppLaunchesWithMainWindow \
+            -skip-testing:SpeakNoteTests

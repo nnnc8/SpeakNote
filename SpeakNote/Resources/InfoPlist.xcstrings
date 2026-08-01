@@ -1,0 +1,30 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SpeakNote" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "SpeakNote" } }
+      }
+    },
+    "CFBundleName" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SpeakNote" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "SpeakNote" } }
+      }
+    },
+    "NSMicrophoneUsageDescription" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SpeakNote records only after you start dictation and transcribes that audio with your selected provider." } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "只有在您開始聽寫後，SpeakNote 才會錄音，並使用您選擇的服務提供者轉錄音訊。" } }
+      }
+    },
+    "NSSpeechRecognitionUsageDescription" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SpeakNote uses Apple Speech to transcribe audio on this Mac when you choose the Apple Speech provider." } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "當您選擇 Apple 語音辨識時，SpeakNote 會用它在這部 Mac 上轉錄音訊。" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

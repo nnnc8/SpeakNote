@@ -1,0 +1,3704 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ Use “Copy Last Transcript” in SpeakNote." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 請在 SpeakNote 中使用「複製最後一份逐字稿」。"
+          }
+        }
+      }
+    },
+    "%@ · %@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · %2$@ · %3$@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@ · %3$@"
+          }
+        }
+      }
+    },
+    "%@ → %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ → %2$@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ → %2$@"
+          }
+        }
+      }
+    },
+    "%lld of %lld chunks" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld chunks"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld / %2$lld 個區段"
+          }
+        }
+      }
+    },
+    "A recording is already in progress." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已有一段錄音正在進行。"
+          }
+        }
+      }
+    },
+    "A structured note can be generated after the raw transcript is complete." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "原始逐字稿完成後，即可產生結構化筆記。"
+          }
+        }
+      }
+    },
+    "Accept" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "接受"
+          }
+        }
+      }
+    },
+    "Accepted" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已接受"
+          }
+        }
+      }
+    },
+    "Accessibility" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輔助使用"
+          }
+        }
+      }
+    },
+    "Accessibility lets SpeakNote post Command-V after restoring focus to the original app. If unavailable, SpeakNote keeps the transcript for explicit Copy." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「輔助使用」讓 SpeakNote 在焦點回到原本的 App 後送出 Command-V。若無法使用，SpeakNote 會保留逐字稿，供您自行複製。"
+          }
+        }
+      }
+    },
+    "Accessibility permission for posting keyboard events is required to paste dictated text." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "貼上聽寫文字需要「輔助使用」權限，才能送出鍵盤事件。"
+          }
+        }
+      }
+    },
+    "Acknowledge the Groq cloud-processing disclosure before saving the API key." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存 API 金鑰前，請先確認 Groq 雲端處理告知事項。"
+          }
+        }
+      }
+    },
+    "Active" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用中"
+          }
+        }
+      }
+    },
+    "Add" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增"
+          }
+        }
+      }
+    },
+    "Add Rule" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增規則"
+          }
+        }
+      }
+    },
+    "Add a Groq API key in SpeakNote Settings before dictating." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始聽寫前，請先在 SpeakNote「設定」中加入 Groq API 金鑰。"
+          }
+        }
+      }
+    },
+    "Add a Groq API key in SpeakNote Settings before processing text." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "處理文字前，請先在 SpeakNote「設定」中加入 Groq API 金鑰。"
+          }
+        }
+      }
+    },
+    "Apple Speech" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 語音辨識"
+          }
+        }
+      }
+    },
+    "Apple Speech (On Device)" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 語音辨識（裝置端）"
+          }
+        }
+      }
+    },
+    "Apple Speech keeps primary transcription on this Mac. A cloud fallback is offered only when your fallback policy allows asking, and runs only after you accept." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 語音辨識會在這部 Mac 上進行主要轉錄。只有在備援政策允許詢問時，才會提供雲端備援選項，而且必須由您接受後才會執行。"
+          }
+        }
+      }
+    },
+    "Apple Speech model is not downloaded" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未下載 Apple 語音辨識模型"
+          }
+        }
+      }
+    },
+    "Apple Speech model is unavailable" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 語音辨識模型無法使用"
+          }
+        }
+      }
+    },
+    "Apple Speech provider not configured" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未設定 Apple 語音辨識服務"
+          }
+        }
+      }
+    },
+    "Ask before switching local/cloud" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切換本機／雲端前先詢問"
+          }
+        }
+      }
+    },
+    "Audio" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊"
+          }
+        }
+      }
+    },
+    "Audio conversion failed: %@" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊轉換失敗：%@"
+          }
+        }
+      }
+    },
+    "Audio could not be written quickly enough. The recording was cancelled." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊寫入速度不足，錄音已取消。"
+          }
+        }
+      }
+    },
+    "Audio could not seek to that source timestamp." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊無法跳至該來源時間點。"
+          }
+        }
+      }
+    },
+    "Audio is sent to Groq for transcription. When cleanup, translation, or compression is selected, transcript text is also sent for processing." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊會傳送至 Groq 進行轉錄。選擇整理、翻譯或精簡時，逐字稿文字也會傳送出去處理。"
+          }
+        }
+      }
+    },
+    "Audio playback could not be started." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法開始播放音訊。"
+          }
+        }
+      }
+    },
+    "Audio playback could not seek to that position." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊無法跳至該位置。"
+          }
+        }
+      }
+    },
+    "Audio stays on this Mac." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊會留在這部 Mac 上。"
+          }
+        }
+      }
+    },
+    "Audio will leave this Mac." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊將離開這部 Mac。"
+          }
+        }
+      }
+    },
+    "Automatic insertion could not be confirmed safely." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法安全確認自動插入是否完成。"
+          }
+        }
+      }
+    },
+    "Automatic paste is unavailable." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法自動貼上。"
+          }
+        }
+      }
+    },
+    "Available" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可用"
+          }
+        }
+      }
+    },
+    "Available for the selected recognition language. On macOS 14–25, Apple Speech is limited to audio shorter than 55 seconds." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所選辨識語言可用。在 macOS 14–25 上，Apple 語音辨識僅支援短於 55 秒的音訊。"
+          }
+        }
+      }
+    },
+    "Back" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上一步"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        }
+      }
+    },
+    "Cancel Active Dictation" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消目前的聽寫"
+          }
+        }
+      }
+    },
+    "Cancel Dictation" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消聽寫"
+          }
+        }
+      }
+    },
+    "Cancel Recording" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消錄音"
+          }
+        }
+      }
+    },
+    "Cancelled" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已取消"
+          }
+        }
+      }
+    },
+    "Cancelling and cleaning up…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在取消並清理…"
+          }
+        }
+      }
+    },
+    "Cancelling…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在取消…"
+          }
+        }
+      }
+    },
+    "Case-sensitive" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "區分大小寫"
+          }
+        }
+      }
+    },
+    "Choose Apple Speech before enabling local-only transcription." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請先選擇 Apple 語音辨識，再啟用僅限本機轉錄。"
+          }
+        }
+      }
+    },
+    "Choose a format to create an append-only Markdown version." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇格式，以建立只會新增內容的 Markdown 版本。"
+          }
+        }
+      }
+    },
+    "Choose one audio file (M4A, MP3, WAV, AIFF, or CAF)." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇一個音訊檔（M4A、MP3、WAV、AIFF 或 CAF）。"
+          }
+        }
+      }
+    },
+    "Chunking" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切分中"
+          }
+        }
+      }
+    },
+    "Class Notes" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "課堂筆記"
+          }
+        }
+      }
+    },
+    "Clean" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "整理"
+          }
+        }
+      }
+    },
+    "Complete the required vocabulary field." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請填寫必要的詞彙欄位。"
+          }
+        }
+      }
+    },
+    "Completed" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已完成"
+          }
+        }
+      }
+    },
+    "Concise" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "精簡"
+          }
+        }
+      }
+    },
+    "Configured" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已設定"
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "繼續"
+          }
+        }
+      }
+    },
+    "Copy Last Transcript" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "複製最後一份逐字稿"
+          }
+        }
+      }
+    },
+    "Copy Output" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "複製結果"
+          }
+        }
+      }
+    },
+    "Copy Raw" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "複製原文"
+          }
+        }
+      }
+    },
+    "Create a profile for language, provider, vocabulary, and note defaults." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建立設定檔，集中管理語言、服務提供者、詞彙與筆記預設值。"
+          }
+        }
+      }
+    },
+    "Creates a new job and keeps transcription on this Mac." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建立新的工作項目，並在這部 Mac 上進行轉錄。"
+          }
+        }
+      }
+    },
+    "Creates a new job and sends the source audio to Groq only after this click." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建立新的工作項目；只有按下此按鈕後，才會將來源音訊傳送至 Groq。"
+          }
+        }
+      }
+    },
+    "Custom Terms" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂詞彙"
+          }
+        }
+      }
+    },
+    "Deactivate" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停用"
+          }
+        }
+      }
+    },
+    "Decline" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拒絕"
+          }
+        }
+      }
+    },
+    "Decline Alternative" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不採用替代方案"
+          }
+        }
+      }
+    },
+    "Default structured note" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "預設結構化筆記"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除"
+          }
+        }
+      }
+    },
+    "Delete Key" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除金鑰"
+          }
+        }
+      }
+    },
+    "Delete Profile" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除設定檔"
+          }
+        }
+      }
+    },
+    "Dictation" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "聽寫"
+          }
+        }
+      }
+    },
+    "Dictation History" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "聽寫記錄"
+          }
+        }
+      }
+    },
+    "Dictation history could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入聽寫記錄。"
+          }
+        }
+      }
+    },
+    "Dictation output" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "聽寫輸出"
+          }
+        }
+      }
+    },
+    "Dictation started from SpeakNote, so automatic paste is unavailable." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "聽寫是從 SpeakNote 內開始，因此無法自動貼上。"
+          }
+        }
+      }
+    },
+    "Disable rule" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停用規則"
+          }
+        }
+      }
+    },
+    "Disable term" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停用詞彙"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
+        }
+      }
+    },
+    "Duration" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "長度"
+          }
+        }
+      }
+    },
+    "Enable rule" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "啟用規則"
+          }
+        }
+      }
+    },
+    "Enable term" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "啟用詞彙"
+          }
+        }
+      }
+    },
+    "Enabled terms are selected by priority for the transcription prompt. The prompt has a conservative 224-token budget." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已啟用的詞彙會依優先順序加入轉錄提示詞，提示詞採保守的 224 token 上限。"
+          }
+        }
+      }
+    },
+    "Enter a name for the voice note." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請輸入語音筆記名稱。"
+          }
+        }
+      }
+    },
+    "Enter an API key before saving." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存前，請先輸入 API 金鑰。"
+          }
+        }
+      }
+    },
+    "Exporting" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "匯出中"
+          }
+        }
+      }
+    },
+    "Failed" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "失敗"
+          }
+        }
+      }
+    },
+    "Fallback" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "備援"
+          }
+        }
+      }
+    },
+    "Finish" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
+        }
+      }
+    },
+    "Finish Recording" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成錄音"
+          }
+        }
+      }
+    },
+    "Finish Voice Note" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成語音筆記"
+          }
+        }
+      }
+    },
+    "Finishing audio…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在完成音訊…"
+          }
+        }
+      }
+    },
+    "Format" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "格式"
+          }
+        }
+      }
+    },
+    "General" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一般"
+          }
+        }
+      }
+    },
+    "General Notes" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一般筆記"
+          }
+        }
+      }
+    },
+    "Generate New Run" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "產生新的處理版本"
+          }
+        }
+      }
+    },
+    "Generate Note" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "產生筆記"
+          }
+        }
+      }
+    },
+    "Global Shortcut and Paste" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全域快速鍵與貼上"
+          }
+        }
+      }
+    },
+    "Granted" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已授權"
+          }
+        }
+      }
+    },
+    "Groq API key" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq API 金鑰"
+          }
+        }
+      }
+    },
+    "Groq Cloud" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 雲端"
+          }
+        }
+      }
+    },
+    "Groq could not complete the transcription request (HTTP %lld)." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 無法完成轉錄要求（HTTP %lld）。"
+          }
+        }
+      }
+    },
+    "Groq could not process the text request (HTTP %lld)." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 無法處理文字要求（HTTP %lld）。"
+          }
+        }
+      }
+    },
+    "Groq features send audio or transcript text to Groq Cloud only after you acknowledge the disclosure in Settings. Apple Speech keeps transcription on this Mac when available. API keys are stored in Keychain." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只有在您於「設定」確認告知事項後，Groq 功能才會將音訊或逐字稿文字傳送至 Groq 雲端。Apple 語音辨識在可用時會於這部 Mac 上進行轉錄。API 金鑰會儲存在「鑰匙圈」。"
+          }
+        }
+      }
+    },
+    "Groq is rate-limiting requests. Try again shortly." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 正在限制要求頻率，請稍後再試。"
+          }
+        }
+      }
+    },
+    "Groq is temporarily unavailable. Try again later." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 暫時無法使用，請稍後再試。"
+          }
+        }
+      }
+    },
+    "Groq rejected the recording because it is too large." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音檔案過大，Groq 已拒絕處理。"
+          }
+        }
+      }
+    },
+    "Groq rejected the transcription request." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 已拒絕轉錄要求。"
+          }
+        }
+      }
+    },
+    "Groq returned an unreadable text-processing response." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 傳回了無法讀取的文字處理回應。"
+          }
+        }
+      }
+    },
+    "Groq returned an unreadable transcription response." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 傳回了無法讀取的轉錄回應。"
+          }
+        }
+      }
+    },
+    "Groq says inference inputs and outputs are not retained by default, but they may be temporarily logged for reliability or abuse review. Zero Data Retention is controlled in the Groq console." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 表示，推論的輸入與輸出預設不會保留，但為了可靠性或濫用審查，可能會暫時記錄。零資料保留需在 Groq 控制台設定。"
+          }
+        }
+      }
+    },
+    "Hint: %@" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提示：%@"
+          }
+        }
+      }
+    },
+    "History" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "記錄"
+          }
+        }
+      }
+    },
+    "Hotkey is not running." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未啟用快速鍵。"
+          }
+        }
+      }
+    },
+    "Hotkey is unavailable." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法使用快速鍵。"
+          }
+        }
+      }
+    },
+    "I understand that audio and text may be processed by Groq Cloud" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我了解音訊與文字可能由 Groq 雲端處理"
+          }
+        }
+      }
+    },
+    "Import" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "匯入"
+          }
+        }
+      }
+    },
+    "Import Audio" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "匯入音訊"
+          }
+        }
+      }
+    },
+    "Imported" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已匯入"
+          }
+        }
+      }
+    },
+    "Importing" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "匯入中"
+          }
+        }
+      }
+    },
+    "Input Monitoring" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輸入監控"
+          }
+        }
+      }
+    },
+    "Input Monitoring lets SpeakNote detect the global Option-tap shortcut. You can still use the app button without it." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「輸入監控」讓 SpeakNote 偵測全域 Option 點按快速鍵。即使未授權，仍可使用 App 內的按鈕。"
+          }
+        }
+      }
+    },
+    "Inserting text…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在插入文字…"
+          }
+        }
+      }
+    },
+    "Interrupted" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已中斷"
+          }
+        }
+      }
+    },
+    "Keep Audio" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保留音訊"
+          }
+        }
+      }
+    },
+    "Keep quick-dictation history" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保留快速聽寫記錄"
+          }
+        }
+      }
+    },
+    "Keychain" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鑰匙圈"
+          }
+        }
+      }
+    },
+    "Local-only transcription" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "僅限本機轉錄"
+          }
+        }
+      }
+    },
+    "Local-only transcription is unavailable: %@." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "僅限本機轉錄無法使用：%@。"
+          }
+        }
+      }
+    },
+    "Match" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "比對內容"
+          }
+        }
+      }
+    },
+    "Meeting Minutes" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "會議記錄"
+          }
+        }
+      }
+    },
+    "Merging" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合併中"
+          }
+        }
+      }
+    },
+    "Microphone" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "麥克風"
+          }
+        }
+      }
+    },
+    "Microphone access is needed only for live dictation and Voice Note recording. Imported audio files do not require it." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只有即時聽寫和語音筆記錄音需要麥克風權限；匯入音訊檔不需要。"
+          }
+        }
+      }
+    },
+    "Microphone access is required to dictate." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "聽寫需要麥克風權限。"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名稱"
+          }
+        }
+      }
+    },
+    "Needs Repair" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要修復"
+          }
+        }
+      }
+    },
+    "Never" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "永不"
+          }
+        }
+      }
+    },
+    "New Profile" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增設定檔"
+          }
+        }
+      }
+    },
+    "New Recording" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新錄音"
+          }
+        }
+      }
+    },
+    "New Voice Note" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增語音筆記"
+          }
+        }
+      }
+    },
+    "No Dictations" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚無聽寫記錄"
+          }
+        }
+      }
+    },
+    "No Voice Notes" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚無語音筆記"
+          }
+        }
+      }
+    },
+    "No transcription job has been saved for this session." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此工作階段尚未儲存轉錄工作。"
+          }
+        }
+      }
+    },
+    "Not configured" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未設定"
+          }
+        }
+      }
+    },
+    "Not granted" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未授權"
+          }
+        }
+      }
+    },
+    "Not requested" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未要求"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好"
+          }
+        }
+      }
+    },
+    "Onboarding could not be completed." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法完成初始設定。"
+          }
+        }
+      }
+    },
+    "Onboarding status could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入初始設定狀態。"
+          }
+        }
+      }
+    },
+    "Open Settings" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開啟設定"
+          }
+        }
+      }
+    },
+    "Open Settings and acknowledge Groq cloud processing before reprocessing." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請先開啟「設定」，確認 Groq 雲端處理告知事項後再重新處理。"
+          }
+        }
+      }
+    },
+    "Open SpeakNote" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開啟 SpeakNote"
+          }
+        }
+      }
+    },
+    "Open SpeakNote Settings and acknowledge Groq cloud processing before dictating." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請先開啟 SpeakNote「設定」，確認 Groq 雲端處理告知事項後再開始聽寫。"
+          }
+        }
+      }
+    },
+    "Open System Settings" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開啟系統設定"
+          }
+        }
+      }
+    },
+    "Optional Local Transcription" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選用的本機轉錄"
+          }
+        }
+      }
+    },
+    "Output language (same as input when empty)" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輸出語言（留白時與輸入語言相同）"
+          }
+        }
+      }
+    },
+    "Partial result: %@ failed." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "部分結果：%@ 失敗。"
+          }
+        }
+      }
+    },
+    "Pasting into the original text field…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在貼到原本的文字欄位…"
+          }
+        }
+      }
+    },
+    "Pause" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暫停"
+          }
+        }
+      }
+    },
+    "Pause Recording" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暫停錄音"
+          }
+        }
+      }
+    },
+    "Pause Voice Note" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暫停語音筆記"
+          }
+        }
+      }
+    },
+    "Paused" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已暫停"
+          }
+        }
+      }
+    },
+    "Pending" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "待處理"
+          }
+        }
+      }
+    },
+    "Pending Deletion" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "等待刪除"
+          }
+        }
+      }
+    },
+    "Permissions" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "權限"
+          }
+        }
+      }
+    },
+    "Place the cursor in another app, then use the global hotkey to start and stop." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請將游標移到其他 App 的輸入位置，再用全域快速鍵開始或停止。"
+          }
+        }
+      }
+    },
+    "Play" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "播放"
+          }
+        }
+      }
+    },
+    "Polished" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "潤飾"
+          }
+        }
+      }
+    },
+    "Preparing microphone…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在準備麥克風…"
+          }
+        }
+      }
+    },
+    "Preprocessing" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前置處理中"
+          }
+        }
+      }
+    },
+    "Priority" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "優先順序"
+          }
+        }
+      }
+    },
+    "Priority %lld" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "優先順序 %lld"
+          }
+        }
+      }
+    },
+    "Privacy and Storage" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隱私權與儲存"
+          }
+        }
+      }
+    },
+    "Processing failed. The raw transcript was preserved." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "處理失敗，原始逐字稿已保留。"
+          }
+        }
+      }
+    },
+    "Processing history could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入處理記錄。"
+          }
+        }
+      }
+    },
+    "Processing text…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在處理文字…"
+          }
+        }
+      }
+    },
+    "Processing the transcript…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在處理逐字稿…"
+          }
+        }
+      }
+    },
+    "Profile" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定檔"
+          }
+        }
+      }
+    },
+    "Profiles" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定檔"
+          }
+        }
+      }
+    },
+    "Pronunciation hint" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "發音提示"
+          }
+        }
+      }
+    },
+    "Provider" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服務提供者"
+          }
+        }
+      }
+    },
+    "Queued" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排隊中"
+          }
+        }
+      }
+    },
+    "Quick Dictation" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "快速聽寫"
+          }
+        }
+      }
+    },
+    "Quick dictation is limited to five minutes." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "快速聽寫最長為五分鐘。"
+          }
+        }
+      }
+    },
+    "Quick-dictation audio and text are removed after the current operation." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "快速聽寫的音訊與文字會在本次操作結束後移除。"
+          }
+        }
+      }
+    },
+    "Quit SpeakNote" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "結束 SpeakNote"
+          }
+        }
+      }
+    },
+    "Raw transcript" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "原始逐字稿"
+          }
+        }
+      }
+    },
+    "Raw transcripts are stored locally. Successful quick-dictation audio is still deleted." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "原始逐字稿會儲存在本機；快速聽寫成功後，音訊仍會刪除。"
+          }
+        }
+      }
+    },
+    "Read Groq data policy" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "閱讀 Groq 資料政策"
+          }
+        }
+      }
+    },
+    "Ready" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "就緒"
+          }
+        }
+      }
+    },
+    "Ready for quick dictation." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已準備好進行快速聽寫。"
+          }
+        }
+      }
+    },
+    "Recognition language (automatic when empty)" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "辨識語言（留白時自動判斷）"
+          }
+        }
+      }
+    },
+    "Record" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音"
+          }
+        }
+      }
+    },
+    "Record audio or import an audio file to begin." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始錄音，或匯入音訊檔。"
+          }
+        }
+      }
+    },
+    "Recorded" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已錄製"
+          }
+        }
+      }
+    },
+    "Recording" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音中"
+          }
+        }
+      }
+    },
+    "Recording could not be finalized." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法完成錄音。"
+          }
+        }
+      }
+    },
+    "Recording could not be paused." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法暫停錄音。"
+          }
+        }
+      }
+    },
+    "Recording could not be resumed." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法繼續錄音。"
+          }
+        }
+      }
+    },
+    "Recording could not be started." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法開始錄音。"
+          }
+        }
+      }
+    },
+    "Recording failed: %@" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音失敗：%@"
+          }
+        }
+      }
+    },
+    "Recording needs at least 512 MiB of available disk space. Free space and try again." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音至少需要 512 MiB 可用磁碟空間。請清出空間後再試一次。"
+          }
+        }
+      }
+    },
+    "Recording stopped because disk space is low. Completed audio was kept for recovery." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "磁碟空間不足，錄音已停止。完成的音訊已保留，可供復原。"
+          }
+        }
+      }
+    },
+    "Recording was cancelled." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音已取消。"
+          }
+        }
+      }
+    },
+    "Recording. Trigger the hotkey again to stop." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在錄音。再按一次快速鍵即可停止。"
+          }
+        }
+      }
+    },
+    "Recover and Process" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "復原並處理"
+          }
+        }
+      }
+    },
+    "Recovered Voice Note" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已復原的語音筆記"
+          }
+        }
+      }
+    },
+    "Recovered recording state could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入已復原的錄音狀態。"
+          }
+        }
+      }
+    },
+    "Recovery Available" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可復原"
+          }
+        }
+      }
+    },
+    "Refresh Suggestions" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新建議"
+          }
+        }
+      }
+    },
+    "Reject" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拒絕"
+          }
+        }
+      }
+    },
+    "Rejected" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已拒絕"
+          }
+        }
+      }
+    },
+    "Rename" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新命名"
+          }
+        }
+      }
+    },
+    "Repair" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "修復"
+          }
+        }
+      }
+    },
+    "Replace with" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取代為"
+          }
+        }
+      }
+    },
+    "Replacement Rules" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取代規則"
+          }
+        }
+      }
+    },
+    "Reprocess" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新處理"
+          }
+        }
+      }
+    },
+    "Reprocess as" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新處理為"
+          }
+        }
+      }
+    },
+    "Request" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "要求取用"
+          }
+        }
+      }
+    },
+    "Request %@" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "要求取用%@"
+          }
+        }
+      }
+    },
+    "Require word boundaries" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "僅比對完整詞彙"
+          }
+        }
+      }
+    },
+    "Resume Recording" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "繼續錄音"
+          }
+        }
+      }
+    },
+    "Resume Voice Note" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "繼續語音筆記"
+          }
+        }
+      }
+    },
+    "Retry" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再試一次"
+          }
+        }
+      }
+    },
+    "Retry Required" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要重試"
+          }
+        }
+      }
+    },
+    "Retry as New Job with Apple Speech" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用 Apple 語音辨識建立新工作再試"
+          }
+        }
+      }
+    },
+    "Retry as New Job with Groq Cloud" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用 Groq 雲端建立新工作再試"
+          }
+        }
+      }
+    },
+    "Review durable progress or manage a voice note." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看已儲存的進度，或管理語音筆記。"
+          }
+        }
+      }
+    },
+    "Review raw transcripts and append processing runs." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "檢視原始逐字稿及後續新增的處理版本。"
+          }
+        }
+      }
+    },
+    "Right Option tap. Esc cancels an active dictation." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "點按右側 Option 鍵。按 Esc 可取消進行中的聽寫。"
+          }
+        }
+      }
+    },
+    "Rules run after the immutable raw transcript is saved and before text processing. Matches do not cascade." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則會在不可變更的原始逐字稿儲存後、文字處理前執行，而且比對結果不會連鎖套用。"
+          }
+        }
+      }
+    },
+    "Same privacy class only" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "僅限相同隱私層級"
+          }
+        }
+      }
+    },
+    "Save General Settings" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存一般設定"
+          }
+        }
+      }
+    },
+    "Save Key" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存金鑰"
+          }
+        }
+      }
+    },
+    "Save Profile" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存設定檔"
+          }
+        }
+      }
+    },
+    "Save Settings" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存設定"
+          }
+        }
+      }
+    },
+    "Save and Activate" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存並啟用"
+          }
+        }
+      }
+    },
+    "Save the profile before adding terms or rules." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請先儲存設定檔，再新增詞彙或規則。"
+          }
+        }
+      }
+    },
+    "Saved" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已儲存"
+          }
+        }
+      }
+    },
+    "Saved quick dictations will appear here." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已儲存的快速聽寫會顯示在這裡。"
+          }
+        }
+      }
+    },
+    "Saving Voice Note…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在儲存語音筆記…"
+          }
+        }
+      }
+    },
+    "Secure Input prevented automatic insertion." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「安全輸入」阻止了自動插入。"
+          }
+        }
+      }
+    },
+    "Seen %lld times · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Seen %1$lld times · %2$@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已出現 %1$lld 次 · %2$@"
+          }
+        }
+      }
+    },
+    "Select a Dictation" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇一筆聽寫"
+          }
+        }
+      }
+    },
+    "Select a Profile" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇設定檔"
+          }
+        }
+      }
+    },
+    "Select a Voice Note" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇語音筆記"
+          }
+        }
+      }
+    },
+    "Session" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "工作階段"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        }
+      }
+    },
+    "Settings could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入設定。"
+          }
+        }
+      }
+    },
+    "Settings could not be saved." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法儲存設定。"
+          }
+        }
+      }
+    },
+    "Shift-Command-Space fallback. Grant Input Monitoring for Right Option and Esc." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前改用 Shift-Command-Space 備用快速鍵。若要使用右側 Option 鍵和 Esc，請授予「輸入監控」權限。"
+          }
+        }
+      }
+    },
+    "Source" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "來源"
+          }
+        }
+      }
+    },
+    "SpeakNote" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeakNote"
+          }
+        }
+      }
+    },
+    "SpeakNote Couldn't Start" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeakNote 無法啟動"
+          }
+        }
+      }
+    },
+    "SpeakNote couldn't open its local data. Check available disk space and folder permissions, then try again." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeakNote 無法開啟本機資料。請檢查可用磁碟空間與資料夾權限，然後再試一次。"
+          }
+        }
+      }
+    },
+    "SpeakNote could not reach Groq. Check the network connection." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeakNote 無法連線至 Groq，請檢查網路連線。"
+          }
+        }
+      }
+    },
+    "SpeakNote could not register a global hotkey. Quit conflicting apps and retry." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeakNote 無法註冊全域快速鍵。請結束可能衝突的 App 後再試一次。"
+          }
+        }
+      }
+    },
+    "SpeakNote has no analytics or advertising tracking." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeakNote 不含分析或廣告追蹤功能。"
+          }
+        }
+      }
+    },
+    "SpeakNote records only when you start dictation or a voice note. Quick-dictation audio is deleted after the operation; Voice Note audio and transcripts stay in the app container until you delete the session." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只有在您開始聽寫或錄製語音筆記時，SpeakNote 才會錄音。快速聽寫的音訊會在操作完成後刪除；語音筆記的音訊與逐字稿則會留在 App 容器中，直到您刪除該工作階段。"
+          }
+        }
+      }
+    },
+    "SpeakNote requests access only when you choose the related feature or press a request button." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只有在您使用相關功能或按下權限要求按鈕時，SpeakNote 才會要求取用權限。"
+          }
+        }
+      }
+    },
+    "Speech Recognition" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語音辨識"
+          }
+        }
+      }
+    },
+    "Speech Recognition enables the optional on-device Apple Speech provider. Groq transcription does not require this permission." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「語音辨識」可啟用選用的裝置端 Apple 語音辨識服務。Groq 轉錄不需要此權限。"
+          }
+        }
+      }
+    },
+    "Speech Recognition permission not granted" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未授予「語音辨識」權限"
+          }
+        }
+      }
+    },
+    "Speech Recognition permission not requested" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未要求「語音辨識」權限"
+          }
+        }
+      }
+    },
+    "Start Dictation" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始聽寫"
+          }
+        }
+      }
+    },
+    "Status" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "狀態"
+          }
+        }
+      }
+    },
+    "Step %lld of %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Step %1$lld of %2$lld"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %1$lld 步，共 %2$lld 步"
+          }
+        }
+      }
+    },
+    "Stop" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止"
+          }
+        }
+      }
+    },
+    "Stop Dictation" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止聽寫"
+          }
+        }
+      }
+    },
+    "Stored session files did not pass integrity checks. Use Repair before retrying." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已儲存的工作階段檔案未通過完整性檢查。請先使用「修復」，再重試。"
+          }
+        }
+      }
+    },
+    "Structured Notes" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "結構化筆記"
+          }
+        }
+      }
+    },
+    "Structured-note model" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "結構化筆記模型"
+          }
+        }
+      }
+    },
+    "Suggestions" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建議"
+          }
+        }
+      }
+    },
+    "Suggestions are generated only from local correction history. Nothing is added until you accept it." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建議只會依本機的修正記錄產生；在您接受前，不會新增任何內容。"
+          }
+        }
+      }
+    },
+    "System Settings" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系統設定"
+          }
+        }
+      }
+    },
+    "Term" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詞彙"
+          }
+        }
+      }
+    },
+    "Text processing failed. The raw transcript is unchanged." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字處理失敗，原始逐字稿未變更。"
+          }
+        }
+      }
+    },
+    "Text processing returned no text." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字處理沒有傳回任何文字。"
+          }
+        }
+      }
+    },
+    "Text-processing model" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字處理模型"
+          }
+        }
+      }
+    },
+    "The API key could not be deleted from Keychain." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法從「鑰匙圈」刪除 API 金鑰。"
+          }
+        }
+      }
+    },
+    "The API key could not be saved to Keychain." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法將 API 金鑰儲存至「鑰匙圈」。"
+          }
+        }
+      }
+    },
+    "The API key status could not be read." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法讀取 API 金鑰狀態。"
+          }
+        }
+      }
+    },
+    "The Groq API key is invalid. Update it in SpeakNote Settings." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq API 金鑰無效，請在 SpeakNote「設定」中更新。"
+          }
+        }
+      }
+    },
+    "The Groq API key is not allowed to use this resource." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 Groq API 金鑰無權使用這項資源。"
+          }
+        }
+      }
+    },
+    "The Groq provider configuration is invalid." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 服務設定無效。"
+          }
+        }
+      }
+    },
+    "The Groq text-processing configuration is invalid." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 文字處理設定無效。"
+          }
+        }
+      }
+    },
+    "The active text field changed before insertion." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "插入前，使用中的文字欄位已變更。"
+          }
+        }
+      }
+    },
+    "The alternative transcription provider could not be started." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法啟動替代轉錄服務提供者。"
+          }
+        }
+      }
+    },
+    "The alternative transcription provider was declined. No audio was sent to it." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已拒絕替代轉錄服務提供者，未傳送任何音訊。"
+          }
+        }
+      }
+    },
+    "The audio could not be prepared. Keep the source, then retry or delete the session." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法準備音訊。請保留來源檔案，然後重試或刪除此工作階段。"
+          }
+        }
+      }
+    },
+    "The current clipboard could not be preserved safely." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法安全保留目前的剪貼簿內容。"
+          }
+        }
+      }
+    },
+    "The history item could not be deleted." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法刪除此記錄。"
+          }
+        }
+      }
+    },
+    "The last dictation was cancelled." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上一次聽寫已取消。"
+          }
+        }
+      }
+    },
+    "The last dictation was sent to the target app." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上一次聽寫已傳送到目標 App。"
+          }
+        }
+      }
+    },
+    "The network disconnected before Groq's result was confirmed. Please retry." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認 Groq 結果前網路已中斷，請再試一次。"
+          }
+        }
+      }
+    },
+    "The original text field is no longer available." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "原本的文字欄位已無法使用。"
+          }
+        }
+      }
+    },
+    "The paste command could not be sent." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法送出貼上指令。"
+          }
+        }
+      }
+    },
+    "The processing run could not be saved." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法儲存處理版本。"
+          }
+        }
+      }
+    },
+    "The provider may have received the last chunk. Retry only after checking to avoid duplicate processing." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服務提供者可能已收到最後一個音訊區段。請先確認再重試，以免重複處理。"
+          }
+        }
+      }
+    },
+    "The recorded audio file could not be prepared for upload." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法準備要上傳的錄音檔案。"
+          }
+        }
+      }
+    },
+    "The recording exceeds the %lld MiB upload limit." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音超過 %lld MiB 的上傳上限。"
+          }
+        }
+      }
+    },
+    "The recovered audio could not be kept." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法保留已復原的音訊。"
+          }
+        }
+      }
+    },
+    "The recovered audio could not be processed." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法處理已復原的音訊。"
+          }
+        }
+      }
+    },
+    "The saved preview could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入已儲存的預覽。"
+          }
+        }
+      }
+    },
+    "The selected Groq speech model is not supported." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不支援所選的 Groq 語音模型。"
+          }
+        }
+      }
+    },
+    "The selected Groq text model is not supported." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不支援所選的 Groq 文字模型。"
+          }
+        }
+      }
+    },
+    "The selected Groq text model is unavailable: %@." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所選的 Groq 文字模型無法使用：%@。"
+          }
+        }
+      }
+    },
+    "The selected microphone does not provide a usable audio format." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所選麥克風未提供可用的音訊格式。"
+          }
+        }
+      }
+    },
+    "The selected processing run could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入所選的處理版本。"
+          }
+        }
+      }
+    },
+    "The selected profile no longer exists." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所選的設定檔已不存在。"
+          }
+        }
+      }
+    },
+    "The selected text-processing provider is not available." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所選的文字處理服務提供者無法使用。"
+          }
+        }
+      }
+    },
+    "The selected transcription provider is not available." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所選的轉錄服務提供者無法使用。"
+          }
+        }
+      }
+    },
+    "The selected transcription provider is unavailable. Use %@ instead? %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The selected transcription provider is unavailable. Use %1$@ instead? %2$@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選定的轉錄服務提供者無法使用。要改用 %1$@ 嗎？%2$@"
+          }
+        }
+      }
+    },
+    "The structured note could not be generated. The raw transcript is unchanged." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法產生結構化筆記，原始逐字稿未變更。"
+          }
+        }
+      }
+    },
+    "The structured-note model cannot be empty." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "結構化筆記模型不得留白。"
+          }
+        }
+      }
+    },
+    "The text could not be copied." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法複製文字。"
+          }
+        }
+      }
+    },
+    "The text-processing model cannot be empty." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字處理模型不得留白。"
+          }
+        }
+      }
+    },
+    "The transcript could not be copied." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法複製逐字稿。"
+          }
+        }
+      }
+    },
+    "The transcription could not be retried." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法重試轉錄。"
+          }
+        }
+      }
+    },
+    "The transcription language code is invalid." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轉錄語言代碼無效。"
+          }
+        }
+      }
+    },
+    "The transcription model cannot be empty." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轉錄模型不得留白。"
+          }
+        }
+      }
+    },
+    "The transcription provider stopped. Retry this job or choose the available alternative provider." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轉錄服務提供者已停止。請重試此工作，或選擇可用的替代服務提供者。"
+          }
+        }
+      }
+    },
+    "The updated voice note state could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入更新後的語音筆記狀態。"
+          }
+        }
+      }
+    },
+    "The voice note could not be deleted." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法刪除語音筆記。"
+          }
+        }
+      }
+    },
+    "The voice note could not be imported." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法匯入語音筆記。"
+          }
+        }
+      }
+    },
+    "The voice note could not be renamed." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法重新命名語音筆記。"
+          }
+        }
+      }
+    },
+    "The voice note could not be repaired." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法修復語音筆記。"
+          }
+        }
+      }
+    },
+    "There is no active recording." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前沒有進行中的錄音。"
+          }
+        }
+      }
+    },
+    "There is no transcript text to process." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有可處理的逐字稿文字。"
+          }
+        }
+      }
+    },
+    "This run failed. The raw transcript and earlier runs are unchanged." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本次處理失敗，原始逐字稿與先前的處理版本均未變更。"
+          }
+        }
+      }
+    },
+    "Transcribing" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轉錄中"
+          }
+        }
+      }
+    },
+    "Transcribing audio…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在轉錄音訊…"
+          }
+        }
+      }
+    },
+    "Transcribing…" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在轉錄…"
+          }
+        }
+      }
+    },
+    "Transcription" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轉錄"
+          }
+        }
+      }
+    },
+    "Transcription model" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轉錄模型"
+          }
+        }
+      }
+    },
+    "Transcription progress could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入轉錄進度。"
+          }
+        }
+      }
+    },
+    "Transcription progress could not be refreshed." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法更新轉錄進度。"
+          }
+        }
+      }
+    },
+    "Transcription provider" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轉錄服務提供者"
+          }
+        }
+      }
+    },
+    "Transcription returned no text." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轉錄沒有傳回任何文字。"
+          }
+        }
+      }
+    },
+    "Try Again" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再試一次"
+          }
+        }
+      }
+    },
+    "Turn off local-only transcription before activating a Groq profile." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "啟用 Groq 設定檔前，請先關閉僅限本機轉錄。"
+          }
+        }
+      }
+    },
+    "Unavailable" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法使用"
+          }
+        }
+      }
+    },
+    "Updated" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新時間"
+          }
+        }
+      }
+    },
+    "Use Alternative" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採用替代方案"
+          }
+        }
+      }
+    },
+    "Use a valid BCP-47 language code, or leave the field empty for automatic." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請輸入有效的 BCP-47 語言代碼，或留白以自動判斷。"
+          }
+        }
+      }
+    },
+    "Use app setting" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用 App 設定"
+          }
+        }
+      }
+    },
+    "Use this profile's vocabulary" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用此設定檔的詞彙"
+          }
+        }
+      }
+    },
+    "Verbatim" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "逐字"
+          }
+        }
+      }
+    },
+    "Version" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本"
+          }
+        }
+      }
+    },
+    "Vocabulary" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詞彙"
+          }
+        }
+      }
+    },
+    "Vocabulary changes could not be saved." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法儲存詞彙變更。"
+          }
+        }
+      }
+    },
+    "Voice Note" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語音筆記"
+          }
+        }
+      }
+    },
+    "Voice Note processing stopped. Your source audio and completed progress were kept." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語音筆記處理已停止。來源音訊和已完成的進度均已保留。"
+          }
+        }
+      }
+    },
+    "Voice Notes" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語音筆記"
+          }
+        }
+      }
+    },
+    "Voice note name" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語音筆記名稱"
+          }
+        }
+      }
+    },
+    "Voice notes could not be loaded." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入語音筆記。"
+          }
+        }
+      }
+    },
+    "audio must be shorter than 55 seconds" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊必須短於 55 秒"
+          }
+        }
+      }
+    },
+    "group %@ (%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "group %1$@ (%2$@)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "群組 %1$@（%2$@）"
+          }
+        }
+      }
+    },
+    "invalid audio duration" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊長度無效"
+          }
+        }
+      }
+    },
+    "language not supported" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不支援此語言"
+          }
+        }
+      }
+    },
+    "on-device recognition not supported" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不支援裝置端辨識"
+          }
+        }
+      }
+    },
+    "recognizer currently unavailable" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語音辨識器目前無法使用"
+          }
+        }
+      }
+    },
+    "unsupported macOS version" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不支援此 macOS 版本"
+          }
+        }
+      }
+    },
+    "● Listening  %02d:%02d" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "● Listening  %1$02d:%2$02d"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "● 聆聽中  %1$02d:%2$02d"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
