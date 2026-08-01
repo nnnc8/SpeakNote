@@ -281,6 +281,7 @@ struct TimeBasedAudioChunker: AudioChunking, Sendable {
       }
     }
   }
+
 }
 
 private final class ChunkOutput {
@@ -335,20 +336,22 @@ private final class ChunkOutput {
 
   func write(_ samples: [Int16]) throws {
     guard !samples.isEmpty else { return }
-    guard let file,
-      let buffer = AVAudioPCMBuffer(
-        pcmFormat: format,
-        frameCapacity: AVAudioFrameCount(samples.count)
-      ),
-      let destination = buffer.int16ChannelData?[0]
-    else {
-      throw AudioChunkerError.conversionFailed
+    try autoreleasepool {
+      guard let file,
+        let buffer = AVAudioPCMBuffer(
+          pcmFormat: format,
+          frameCapacity: AVAudioFrameCount(samples.count)
+        ),
+        let destination = buffer.int16ChannelData?[0]
+      else {
+        throw AudioChunkerError.conversionFailed
+      }
+      buffer.frameLength = AVAudioFrameCount(samples.count)
+      samples.withUnsafeBufferPointer { source in
+        destination.update(from: source.baseAddress!, count: samples.count)
+      }
+      try file.write(from: buffer)
     }
-    buffer.frameLength = AVAudioFrameCount(samples.count)
-    samples.withUnsafeBufferPointer { source in
-      destination.update(from: source.baseAddress!, count: samples.count)
-    }
-    try file.write(from: buffer)
     framesWritten += Int64(samples.count)
   }
 
