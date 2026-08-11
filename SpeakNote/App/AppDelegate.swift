@@ -3,9 +3,11 @@ import AppKit
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
   var launchHandler: (@MainActor @Sendable () -> Void)?
+  var activationHandler: (@MainActor @Sendable () async -> Void)?
   var shutdownHandler: (@MainActor @Sendable () async -> Void)?
   var sleepHandler: (@MainActor @Sendable () async -> Void)?
   private var terminationTask: Task<Void, Never>?
+  private var activationTask: Task<Void, Never>?
   private var sleepObserver: NSObjectProtocol?
 
   func applicationDidFinishLaunching(_ notification: Notification) {
@@ -21,6 +23,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       }
     }
     launchHandler?()
+  }
+
+  func applicationDidBecomeActive(_ notification: Notification) {
+    activationTask?.cancel()
+    activationTask = Task { @MainActor [weak self] in
+      await self?.activationHandler?()
+    }
   }
 
   func applicationShouldTerminateAfterLastWindowClosed(
@@ -48,6 +57,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationWillTerminate(_ notification: Notification) {
+    activationTask?.cancel()
+    activationTask = nil
     if let sleepObserver {
       NSWorkspace.shared.notificationCenter.removeObserver(sleepObserver)
       self.sleepObserver = nil

@@ -32,14 +32,28 @@ final class OnboardingCoordinator: ObservableObject {
   }
 
   func load() async {
-    permissionCenter.refresh()
-    permissions = permissionCenter.snapshot
+    refreshPermissions()
     do {
       let settings = try await settingsRepository.load()
       isPresented = !settings.hasCompletedOnboarding
     } catch {
       errorMessage = String(localized: "Onboarding status could not be loaded.")
       isPresented = true
+    }
+  }
+
+  func refreshPermissions() {
+    permissionCenter.refresh()
+    permissions = permissionCenter.snapshot
+  }
+
+  func canRequest(_ permission: PermissionKind) -> Bool {
+    guard permissions[permission] != .granted else { return false }
+    switch permission {
+    case .microphone, .speechRecognition:
+      return permissions[permission] == .notDetermined
+    case .listenEvents, .postEvents:
+      return true
     }
   }
 

@@ -11,6 +11,12 @@ final class AppLaunchUITests: XCTestCase {
     app.launch()
 
     XCTAssertTrue(app.windows["SpeakNote"].waitForExistence(timeout: 5))
+    XCTAssertEqual(app.windows.matching(identifier: "SpeakNote").count, 1)
+
+    app.activate()
+    app.activate()
+
+    XCTAssertEqual(app.windows.matching(identifier: "SpeakNote").count, 1)
   }
 
   func testFirstRunOnboardingExplainsPermissionsProgressively() {
@@ -63,11 +69,42 @@ final class AppLaunchUITests: XCTestCase {
     XCTAssertNotEqual(app.state, .notRunning)
   }
 
-  private func makeApplication(storageRoot: URL? = nil) -> XCUIApplication {
+  func testCompletedOnboardingSurvivesRelaunchWithSameTestSuite() {
+    let suiteName = "com.nc8.SpeakNote.UITests.\(UUID().uuidString)"
+    let firstLaunch = makeApplication(suiteName: suiteName)
+    firstLaunch.launch()
+
+    XCTAssertTrue(firstLaunch.staticTexts["Privacy and Storage"].waitForExistence(timeout: 5))
+    firstLaunch.buttons["Continue"].click()
+    firstLaunch.buttons["Continue"].click()
+    firstLaunch.buttons["Continue"].click()
+    firstLaunch.buttons["Finish"].click()
+    XCTAssertTrue(firstLaunch.buttons["Start Dictation"].waitForExistence(timeout: 2))
+    firstLaunch.terminate()
+
+    let relaunched = makeApplication(
+      suiteName: suiteName,
+      resetSettings: false
+    )
+    relaunched.launch()
+
+    XCTAssertTrue(relaunched.windows["SpeakNote"].waitForExistence(timeout: 5))
+    XCTAssertFalse(relaunched.staticTexts["Privacy and Storage"].exists)
+    XCTAssertTrue(relaunched.buttons["Start Dictation"].waitForExistence(timeout: 2))
+  }
+
+  private func makeApplication(
+    storageRoot: URL? = nil,
+    suiteName: String? = nil,
+    resetSettings: Bool = true
+  ) -> XCUIApplication {
     let app = XCUIApplication()
     app.launchArguments = ["--ui-testing", "-AppleLanguages", "(en)"]
+    if resetSettings {
+      app.launchArguments.append("--reset-ui-test-settings")
+    }
     app.launchEnvironment["SPEAKNOTE_UI_TEST_SETTINGS_SUITE"] =
-      "com.nc8.SpeakNote.UITests.\(UUID().uuidString)"
+      suiteName ?? "com.nc8.SpeakNote.UITests.\(UUID().uuidString)"
     if let storageRoot {
       app.launchEnvironment["SPEAKNOTE_UI_TEST_STORAGE_ROOT"] = storageRoot.path
     }

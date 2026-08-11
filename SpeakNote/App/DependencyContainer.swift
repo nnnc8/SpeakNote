@@ -220,6 +220,15 @@ final class DependencyContainer {
     appCoordinator.start()
   }
 
+  func handleApplicationDidBecomeActive() async {
+    let previousListenEvents = permissionCenter.snapshot.listenEvents
+    onboardingCoordinator.refreshPermissions()
+    if previousListenEvents != permissionCenter.snapshot.listenEvents {
+      appCoordinator.refreshHotkey()
+    }
+    await settingsCoordinator.refreshLocalTranscriptionCapability()
+  }
+
   func prepareForTermination() async {
     await voiceNoteRecordingWorkflow.interrupt(reason: .systemInterruption)
     await appCoordinator.prepareForTermination()
