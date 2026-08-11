@@ -53,6 +53,21 @@ final class OnboardingCoordinatorTests: XCTestCase {
 
     XCTAssertFalse(coordinator.isPresented)
   }
+
+  func testDeniedLocalPermissionRequiresSystemSettings() async {
+    let settings = OnboardingSettingsStore(.defaultValue)
+    let system = OnboardingPermissionSystem()
+    let coordinator = OnboardingCoordinator(
+      settingsRepository: settings,
+      permissionCenter: PermissionCenter(system: system)
+    )
+
+    system.setStatus(.notGranted, for: .microphone)
+    coordinator.refreshPermissions()
+
+    XCTAssertFalse(coordinator.canRequest(.microphone))
+    XCTAssertTrue(coordinator.canRequest(.listenEvents))
+  }
 }
 
 private actor OnboardingSettingsStore: SettingsStoring {
@@ -80,4 +95,8 @@ private final class OnboardingPermissionSystem: PermissionSystemAccessing {
   }
 
   func openSystemSettings(for kind: PermissionKind) {}
+
+  func setStatus(_ status: PermissionStatus, for kind: PermissionKind) {
+    statuses[kind] = status
+  }
 }

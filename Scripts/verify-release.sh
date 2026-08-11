@@ -443,6 +443,8 @@ validate_app() {
   local package_type
   local executable_name
   local executable_path
+  local microphone_usage
+  local speech_usage
 
   validation_counter=$((validation_counter + 1))
   [[ -d "$app_path" && ! -L "$app_path" ]] || die "$label is missing or is a symlink"
@@ -454,6 +456,14 @@ validate_app() {
 
   bundle_id=$(app_info_value "$app_path" 'CFBundleIdentifier') || \
     die "$label bundle identifier is missing"
+  microphone_usage=$(app_info_value "$app_path" 'NSMicrophoneUsageDescription') || \
+    die "$label microphone usage description is missing"
+  speech_usage=$(app_info_value "$app_path" 'NSSpeechRecognitionUsageDescription') || \
+    die "$label speech-recognition usage description is missing"
+  [[ -n "${microphone_usage//[[:space:]]/}" ]] || \
+    die "$label microphone usage description is empty"
+  [[ -n "${speech_usage//[[:space:]]/}" ]] || \
+    die "$label speech-recognition usage description is empty"
   version=$(app_info_value "$app_path" 'CFBundleShortVersionString') || \
     die "$label marketing version is missing"
   build=$(app_info_value "$app_path" 'CFBundleVersion') || \

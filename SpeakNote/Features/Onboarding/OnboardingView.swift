@@ -119,12 +119,12 @@ struct OnboardingView: View {
       Text(explanation)
       LabeledContent("Status", value: coordinator.permissions[kind].title)
       HStack {
-        Button("Request \(kind.title)") {
-          Task { await coordinator.request(kind) }
+        if coordinator.canRequest(kind) {
+          Button("Request \(kind.title)") {
+            Task { await coordinator.request(kind) }
+          }
+          .disabled(coordinator.isBusy)
         }
-        .disabled(
-          coordinator.permissions[kind] == .granted || coordinator.isBusy
-        )
         if coordinator.permissions[kind] != .granted {
           Button("Open System Settings") {
             coordinator.openSystemSettings(for: kind)

@@ -70,8 +70,31 @@ protocol PermissionSystemAccessing: AnyObject {
   func openSystemSettings(for kind: PermissionKind)
 }
 
+protocol SpeechAuthorizationRequesting: Sendable {
+  func requestAuthorization(
+    _ handler: @escaping @Sendable (SFSpeechRecognizerAuthorizationStatus) -> Void
+  )
+}
+
+struct SystemSpeechAuthorizationRequester: SpeechAuthorizationRequesting {
+  func requestAuthorization(
+    _ handler: @escaping @Sendable (SFSpeechRecognizerAuthorizationStatus) -> Void
+  ) {
+    SFSpeechRecognizer.requestAuthorization(handler)
+  }
+}
+
 @MainActor
 final class SystemPermissionAccess: PermissionSystemAccessing {
+  private let speechAuthorizationRequester: any SpeechAuthorizationRequesting
+
+  init(
+    speechAuthorizationRequester: any SpeechAuthorizationRequesting =
+      SystemSpeechAuthorizationRequester()
+  ) {
+    self.speechAuthorizationRequester = speechAuthorizationRequester
+  }
+
   func status(for kind: PermissionKind) -> PermissionStatus {
     switch kind {
     case .microphone:
@@ -112,10 +135,18 @@ final class SystemPermissionAccess: PermissionSystemAccessing {
     case .postEvents:
       _ = CGRequestPostEventAccess()
     case .speechRecognition:
-      await withCheckedContinuation { continuation in
-        SFSpeechRecognizer.requestAuthorization { _ in
-          continuation.resume()
-        }
+      await Self.awaitSpeechAuthorization(
+        using: speechAuthorizationRequester
+      )
+    }
+  }
+
+  private nonisolated static func awaitSpeechAuthorization(
+    using requester: any SpeechAuthorizationRequesting
+  ) async {
+    await withCheckedContinuation { continuation in
+      requester.requestAuthorization { @Sendable _ in
+        continuation.resume()
       }
     }
   }
@@ -147,6 +178,7 @@ final class SystemPermissionAccess: PermissionSystemAccessing {
 @MainActor
 final class PermissionCenter: ObservableObject {
   @Published private(set) var snapshot: PermissionSnapshot
+  @Published private(set) var inFlightPermissions: Set<PermissionKind> = []
   private let system: any PermissionSystemAccessing
 
   init(system: any PermissionSystemAccessing) {
@@ -162,7 +194,14 @@ final class PermissionCenter: ObservableObject {
     snapshot = Self.readSnapshot(from: system)
   }
 
+  func isRequesting(_ kind: PermissionKind) -> Bool {
+    inFlightPermissions.contains(kind)
+  }
+
   func request(_ kind: PermissionKind) async {
+    guard !inFlightPermissions.contains(kind) else { return }
+    inFlightPermissions.insert(kind)
+    defer { inFlightPermissions.remove(kind) }
     await system.request(kind)
     refresh()
   }

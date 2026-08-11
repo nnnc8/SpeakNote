@@ -99,14 +99,8 @@ struct SettingsView: View {
       }
       .disabled(coordinator.settings.localOnly)
       .onChange(of: coordinator.settings.transcriptionProviderID) {
-        _, providerID in
-        guard providerID == .appleSpeech else { return }
-        Task {
-          if permissionCenter.snapshot.speechRecognition == .notDetermined {
-            await permissionCenter.request(.speechRecognition)
-          }
-          await coordinator.refreshLocalTranscriptionCapability()
-        }
+        _, _ in
+        Task { await coordinator.refreshLocalTranscriptionCapability() }
       }
 
       Picker(
@@ -238,17 +232,17 @@ struct SettingsView: View {
 
           Spacer()
 
-          Button("Request") {
-            Task {
-              await permissionCenter.request(permission)
-              if permission == .listenEvents {
-                appCoordinator.refreshHotkey()
+          if canRequest(permission) {
+            Button("Request") {
+              Task {
+                await permissionCenter.request(permission)
+                if permission == .listenEvents {
+                  appCoordinator.refreshHotkey()
+                }
               }
             }
+            .disabled(permissionCenter.isRequesting(permission))
           }
-          .disabled(
-            permissionCenter.snapshot[permission] == .granted
-          )
 
           Button("System Settings") {
             permissionCenter.openSystemSettings(for: permission)
@@ -258,6 +252,18 @@ struct SettingsView: View {
     }
     .formStyle(.grouped)
     .padding()
+  }
+
+  private func canRequest(_ permission: PermissionKind) -> Bool {
+    guard permissionCenter.snapshot[permission] != .granted else {
+      return false
+    }
+    switch permission {
+    case .microphone, .speechRecognition:
+      return permissionCenter.snapshot[permission] == .notDetermined
+    case .listenEvents, .postEvents:
+      return true
+    }
   }
 
   private func optionalString(_ value: Binding<String?>) -> Binding<String> {

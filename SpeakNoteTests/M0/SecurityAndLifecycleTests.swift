@@ -43,4 +43,21 @@ final class SecurityAndLifecycleTests: XCTestCase {
       Notification(name: NSApplication.willTerminateNotification)
     )
   }
+
+  func testApplicationActivationInvokesRefreshHandler() async {
+    let delegate = AppDelegate()
+    let invoked = expectation(description: "activation handler")
+    delegate.activationHandler = {
+      invoked.fulfill()
+    }
+
+    delegate.applicationDidBecomeActive(
+      Notification(name: NSApplication.didBecomeActiveNotification)
+    )
+
+    await fulfillment(of: [invoked], timeout: 1)
+    delegate.applicationWillTerminate(
+      Notification(name: NSApplication.willTerminateNotification)
+    )
+  }
 }

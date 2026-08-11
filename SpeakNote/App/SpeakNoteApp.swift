@@ -9,8 +9,12 @@ struct SpeakNoteApp: App {
   init() {
     let process = ProcessInfo.processInfo
     let isUITesting = process.arguments.contains("--ui-testing")
+    let resetUITestSettings = process.arguments.contains(
+      "--reset-ui-test-settings"
+    )
     let settingsRepository: any SettingsStoring
     if isUITesting,
+      resetUITestSettings,
       let suiteName = process.environment["SPEAKNOTE_UI_TEST_SETTINGS_SUITE"],
       !suiteName.isEmpty,
       let defaults = UserDefaults(suiteName: suiteName)
@@ -40,6 +44,9 @@ struct SpeakNoteApp: App {
     appDelegate.launchHandler = {
       bootstrap.startIfNeeded()
     }
+    appDelegate.activationHandler = {
+      await bootstrap.handleApplicationDidBecomeActive()
+    }
     appDelegate.shutdownHandler = {
       await bootstrap.prepareForTermination()
     }
@@ -49,7 +56,7 @@ struct SpeakNoteApp: App {
   }
 
   var body: some Scene {
-    WindowGroup("SpeakNote", id: "main") {
+    Window("SpeakNote", id: "main") {
       ApplicationRootView(bootstrap: bootstrap)
     }
     .defaultSize(width: 760, height: 520)
@@ -90,6 +97,10 @@ private final class ApplicationBootstrap: ObservableObject {
   func startIfNeeded() {
     guard startsServices else { return }
     dependencies?.start()
+  }
+
+  func handleApplicationDidBecomeActive() async {
+    await dependencies?.handleApplicationDidBecomeActive()
   }
 
   func prepareForTermination() async {
@@ -205,16 +216,18 @@ private struct StartupFailureView: View {
 
 private struct LaunchWindowMenuBarLabel: View {
   @Environment(\.openWindow) private var openWindow
-  @State private var hasOpenedInitialWindow = false
+  @State private var hasStartedInitialWindowTask = false
 
   var body: some View {
     Label("SpeakNote", systemImage: "mic.fill")
       .task {
-        guard #available(macOS 15.0, *) else { return }
-        guard !hasOpenedInitialWindow else { return }
-        hasOpenedInitialWindow = true
-        await Task.yield()
-        openWindow(id: "main")
+        guard !hasStartedInitialWindowTask else { return }
+        hasStartedInitialWindowTask = true
+        for _ in 0..<5 {
+          guard !Task.isCancelled else { return }
+          openWindow(id: "main")
+          try? await Task.sleep(for: .milliseconds(200))
+        }
       }
   }
 }

@@ -1,3 +1,5 @@
+import Dispatch
+import Speech
 import XCTest
 
 @testable import SpeakNote
@@ -56,11 +58,56 @@ final class PermissionCenterTests: XCTestCase {
     XCTAssertEqual(system.openedSettings, [.microphone])
     XCTAssertTrue(system.requests.isEmpty)
   }
+
+  func testSpeechAuthorizationCallbackMayCompleteOffMainActor() async {
+    let access = SystemPermissionAccess(
+      speechAuthorizationRequester: BackgroundSpeechAuthorizationRequester()
+    )
+
+    await access.request(.speechRecognition)
+  }
+
+  func testConcurrentRequestsForOnePermissionUseOneSystemRequest() async {
+    let system = FakePermissionSystem(
+      snapshot: PermissionSnapshot(
+        microphone: .notDetermined,
+        listenEvents: .notGranted,
+        postEvents: .notGranted,
+        speechRecognition: .notDetermined
+      )
+    )
+    system.suspendRequests = true
+    let started = expectation(description: "request started")
+    system.onRequest = { started.fulfill() }
+    let center = PermissionCenter(system: system)
+
+    let first = Task { @MainActor in
+      await center.request(.microphone)
+    }
+    await fulfillment(of: [started], timeout: 1)
+
+    let second = Task { @MainActor in
+      await center.request(.microphone)
+    }
+    await Task.yield()
+
+    XCTAssertEqual(system.requests, [.microphone])
+    system.resumeSuspendedRequest?()
+    await first.value
+    await second.value
+
+    XCTAssertTrue(system.requests.count == 1)
+    XCTAssertFalse(center.isRequesting(.microphone))
+    XCTAssertEqual(center.snapshot.microphone, .granted)
+  }
 }
 
 @MainActor
 private final class FakePermissionSystem: PermissionSystemAccessing {
   var snapshot: PermissionSnapshot
+  var suspendRequests = false
+  var onRequest: (() -> Void)?
+  var resumeSuspendedRequest: (() -> Void)?
   private(set) var requests: [PermissionKind] = []
   private(set) var openedSettings: [PermissionKind] = []
 
@@ -74,6 +121,12 @@ private final class FakePermissionSystem: PermissionSystemAccessing {
 
   func request(_ kind: PermissionKind) async {
     requests.append(kind)
+    onRequest?()
+    if suspendRequests {
+      await withCheckedContinuation { continuation in
+        resumeSuspendedRequest = { continuation.resume() }
+      }
+    }
     switch kind {
     case .microphone:
       snapshot.microphone = .granted
@@ -88,5 +141,17 @@ private final class FakePermissionSystem: PermissionSystemAccessing {
 
   func openSystemSettings(for kind: PermissionKind) {
     openedSettings.append(kind)
+  }
+}
+
+private struct BackgroundSpeechAuthorizationRequester:
+  SpeechAuthorizationRequesting
+{
+  func requestAuthorization(
+    _ handler: @escaping @Sendable (SFSpeechRecognizerAuthorizationStatus) -> Void
+  ) {
+    DispatchQueue.global(qos: .utility).async {
+      handler(.authorized)
+    }
   }
 }
