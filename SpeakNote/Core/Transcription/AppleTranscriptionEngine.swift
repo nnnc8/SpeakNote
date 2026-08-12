@@ -1,5 +1,6 @@
 import AVFoundation
 import Foundation
+import Speech
 
 struct AVFoundationAudioDurationLoader: AudioDurationLoading {
   func duration(of audioURL: URL) async throws -> TimeInterval {
@@ -107,6 +108,12 @@ actor AppleTranscriptionEngine:
     case .unavailable(let reason):
       .unavailable(reason)
     }
+  }
+
+  func supportedLanguageOptions() async -> [ProviderLanguageOption] {
+    ProviderLanguageCatalog.options(
+      for: Array(SFSpeechRecognizer.supportedLocales())
+    )
   }
 
   func transcribe(

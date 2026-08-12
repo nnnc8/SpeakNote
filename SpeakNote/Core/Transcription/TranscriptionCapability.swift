@@ -158,6 +158,14 @@ protocol TranscriptionProviderCapabilityChecking: Sendable {
   func providerCapability(
     for request: TranscriptionCapabilityRequest
   ) async -> ProviderTranscriptionCapability
+
+  func supportedLanguageOptions() async -> [ProviderLanguageOption]
+}
+
+extension TranscriptionProviderCapabilityChecking {
+  func supportedLanguageOptions() async -> [ProviderLanguageOption] {
+    ProviderLanguageCatalog.groq
+  }
 }
 
 struct ConstantTranscriptionCapabilityChecker:

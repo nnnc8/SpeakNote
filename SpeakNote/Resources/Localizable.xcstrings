@@ -3683,6 +3683,136 @@
         }
       }
     },
+    "Automatic" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自動"
+          }
+        }
+      }
+    },
+    "Choose a supported language, or choose Automatic." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請選擇支援的語言，或選擇「自動」。"
+          }
+        }
+      }
+    },
+    "Choose a supported structured-note model." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請選擇支援的結構化筆記模型。"
+          }
+        }
+      }
+    },
+    "Choose a supported text-processing model." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請選擇支援的文字處理模型。"
+          }
+        }
+      }
+    },
+    "Choose a supported transcription model." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請選擇支援的轉錄模型。"
+          }
+        }
+      }
+    },
+    "Recognition language" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "辨識語言"
+          }
+        }
+      }
+    },
+    "Output language" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輸出語言"
+          }
+        }
+      }
+    },
+    "Transcription model" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轉錄模型"
+          }
+        }
+      }
+    },
+    "Text-processing model" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字處理模型"
+          }
+        }
+      }
+    },
+    "Structured-note model" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "結構化筆記模型"
+          }
+        }
+      }
+    },
+    "Groq rejected the transcription request. Check the selected language, model, and audio format." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groq 拒絕了轉錄要求，請檢查選取的語言、模型與音訊格式。"
+          }
+        }
+      }
+    },
+    "Managed by Apple Speech" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "由 Apple 語音辨識管理"
+          }
+        }
+      }
+    },
+    "Same as input" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "與輸入相同"
+          }
+        }
+      }
+    },
     "● Listening  %02d:%02d" : {
       "localizations" : {
         "en" : {

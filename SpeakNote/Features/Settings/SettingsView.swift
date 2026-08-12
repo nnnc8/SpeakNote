@@ -52,14 +52,26 @@ struct SettingsView: View {
         }
       }
 
-      TextField(
-        "Recognition language (automatic when empty)",
-        text: optionalString($coordinator.settings.recognitionLanguageCode)
-      )
-      TextField(
-        "Output language (same as input when empty)",
-        text: optionalString($coordinator.settings.outputLanguageCode)
-      )
+      Picker(
+        "Recognition language",
+        selection: $coordinator.settings.recognitionLanguageCode
+      ) {
+        Text("Automatic").tag(String?.none)
+        ForEach(coordinator.recognitionLanguageOptions) { option in
+          Text(option.title).tag(String?.some(option.code))
+        }
+      }
+      .accessibilityIdentifier("recognition-language-picker")
+      Picker(
+        "Output language",
+        selection: $coordinator.settings.outputLanguageCode
+      ) {
+        Text("Same as input").tag(String?.none)
+        ForEach(coordinator.outputLanguageOptions) { option in
+          Text(option.title).tag(String?.some(option.code))
+        }
+      }
+      .accessibilityIdentifier("output-language-picker")
 
       Toggle(
         "Keep quick-dictation history",
@@ -100,7 +112,10 @@ struct SettingsView: View {
       .disabled(coordinator.settings.localOnly)
       .onChange(of: coordinator.settings.transcriptionProviderID) {
         _, _ in
-        Task { await coordinator.refreshLocalTranscriptionCapability() }
+        Task {
+          _ = await coordinator.refreshProviderOptions()
+          await coordinator.refreshLocalTranscriptionCapability()
+        }
       }
 
       Picker(
@@ -149,18 +164,41 @@ struct SettingsView: View {
       .font(.caption)
       .foregroundStyle(.secondary)
 
-      TextField(
-        "Transcription model",
-        text: $coordinator.settings.transcriptionModelID
-      )
-      TextField(
+      if coordinator.settings.transcriptionProviderID == .groq {
+        Picker(
+          "Transcription model",
+          selection: $coordinator.settings.transcriptionModelID
+        ) {
+          ForEach(coordinator.transcriptionModelOptions) { option in
+            Text(option.title).tag(option.id)
+          }
+        }
+        .accessibilityIdentifier("transcription-model-picker")
+      } else {
+        LabeledContent(
+          "Transcription model",
+          value: String(localized: "Managed by Apple Speech")
+        )
+      }
+
+      Picker(
         "Text-processing model",
-        text: $coordinator.settings.textProcessingModelID
-      )
-      TextField(
+        selection: $coordinator.settings.textProcessingModelID
+      ) {
+        ForEach(coordinator.textProcessingModelOptions) { option in
+          Text(option.title).tag(option.id)
+        }
+      }
+      .accessibilityIdentifier("text-processing-model-picker")
+      Picker(
         "Structured-note model",
-        text: $coordinator.settings.structuredTextModelID
-      )
+        selection: $coordinator.settings.structuredTextModelID
+      ) {
+        ForEach(coordinator.structuredTextModelOptions) { option in
+          Text(option.title).tag(option.id)
+        }
+      }
+      .accessibilityIdentifier("structured-note-model-picker")
 
       Toggle(
         "I understand that audio and text may be processed by Groq Cloud",
@@ -264,13 +302,6 @@ struct SettingsView: View {
     case .listenEvents, .postEvents:
       return true
     }
-  }
-
-  private func optionalString(_ value: Binding<String?>) -> Binding<String> {
-    Binding(
-      get: { value.wrappedValue ?? "" },
-      set: { value.wrappedValue = $0.isEmpty ? nil : $0 }
-    )
   }
 
   private var localTranscriptionAvailabilityTitle: String {
