@@ -7,7 +7,7 @@ final class SettingsCoordinatorTests: XCTestCase {
   func testLoadsSettingsAndKeyStatusFromFakes() async {
     let expected = AppSettings(
       transcriptionProviderID: .groq,
-      transcriptionModelID: "fixture-model"
+      transcriptionModelID: ProviderDefaults.transcriptionModelID
     )
     let settingsStore = FakeSettingsRepository(settings: expected)
     let keyStore = FakeAPIKeyStore(apiKey: "fixture-key")
@@ -95,16 +95,17 @@ final class SettingsCoordinatorTests: XCTestCase {
       settingsRepository: settingsStore,
       keychainService: FakeAPIKeyStore()
     )
-    coordinator.settings.structuredTextModelID = "  structured-model  "
+    coordinator.settings.structuredTextModelID =
+      "  \(ProviderDefaults.structuredTextModelID)  "
 
     await coordinator.saveSettings()
 
     let saved = await settingsStore.inspect()
-    XCTAssertEqual(saved.structuredTextModelID, "structured-model")
+    XCTAssertEqual(saved.structuredTextModelID, ProviderDefaults.structuredTextModelID)
     XCTAssertNil(coordinator.errorMessage)
   }
 
-  func testEmptyStructuredModelIsRejected() async {
+  func testEmptyStructuredModelFallsBackToSupportedDefault() async {
     let settingsStore = FakeSettingsRepository()
     let coordinator = SettingsCoordinator(
       settingsRepository: settingsStore,
@@ -116,10 +117,7 @@ final class SettingsCoordinatorTests: XCTestCase {
 
     let saved = await settingsStore.inspect()
     XCTAssertEqual(saved.structuredTextModelID, ProviderDefaults.structuredTextModelID)
-    XCTAssertEqual(
-      coordinator.errorMessage,
-      String(localized: "The structured-note model cannot be empty.")
-    )
+    XCTAssertNil(coordinator.errorMessage)
   }
 
   func testLocalOnlyRejectsCloudTranscriptionProvider() async {
@@ -162,16 +160,128 @@ final class SettingsCoordinatorTests: XCTestCase {
       .unavailable(.permissionDenied)
     )
   }
+
+  func testLoadsProviderPickersAndRepairsLegacyValues() async {
+    let expected = AppSettings(
+      transcriptionModelID: "removed-model",
+      textProcessingModelID: "removed-text-model",
+      structuredTextModelID: "removed-structured-model",
+      recognitionLanguageCode: "zh-TW"
+    )
+    let settingsStore = FakeSettingsRepository(settings: expected)
+    let coordinator = SettingsCoordinator(
+      settingsRepository: settingsStore,
+      keychainService: FakeAPIKeyStore()
+    )
+
+    await coordinator.load()
+
+    XCTAssertEqual(
+      coordinator.settings.transcriptionModelID,
+      ProviderDefaults.transcriptionModelID
+    )
+    XCTAssertEqual(
+      coordinator.settings.textProcessingModelID,
+      ProviderDefaults.quickTextModelID
+    )
+    XCTAssertEqual(
+      coordinator.settings.structuredTextModelID,
+      ProviderDefaults.structuredTextModelID
+    )
+    XCTAssertEqual(coordinator.settings.recognitionLanguageCode, "zh-TW")
+    XCTAssertTrue(coordinator.transcriptionModelOptions.contains {
+      $0.id == ProviderDefaults.transcriptionModelID
+    })
+    XCTAssertTrue(coordinator.recognitionLanguageOptions.contains {
+      $0.code == "zh-TW"
+    })
+    let saved = await settingsStore.inspect()
+    XCTAssertEqual(saved.transcriptionModelID, ProviderDefaults.transcriptionModelID)
+  }
+
+  func testAppleProviderUsesInjectedLanguageOptions() async {
+    let appleLanguage = ProviderLanguageOption(code: "fr-FR", title: "French (France)")
+    let capability = FakeProviderCapability(
+      .available,
+      languageOptions: [appleLanguage]
+    )
+    let coordinator = SettingsCoordinator(
+      settingsRepository: FakeSettingsRepository(
+        settings: AppSettings(
+          transcriptionProviderID: .appleSpeech,
+          recognitionLanguageCode: "fr-FR"
+        )
+      ),
+      keychainService: FakeAPIKeyStore(),
+      appleSpeechCapability: capability
+    )
+
+    await coordinator.load()
+
+    XCTAssertEqual(coordinator.recognitionLanguageOptions, [appleLanguage])
+    XCTAssertEqual(coordinator.settings.recognitionLanguageCode, "fr-FR")
+  }
+
+  func testLoadTrimsSupportedModelValuesWithoutReplacingThem() async {
+    let settingsStore = FakeSettingsRepository(
+      settings: AppSettings(
+        transcriptionModelID: "  whisper-large-v3  ",
+        textProcessingModelID: "  openai/gpt-oss-120b  ",
+        structuredTextModelID: "  llama-3.3-70b-versatile  "
+      )
+    )
+    let coordinator = SettingsCoordinator(
+      settingsRepository: settingsStore,
+      keychainService: FakeAPIKeyStore()
+    )
+
+    await coordinator.load()
+
+    XCTAssertEqual(
+      coordinator.settings.transcriptionModelID,
+      GroqTranscriptionModel.largeV3
+    )
+    XCTAssertEqual(
+      coordinator.settings.textProcessingModelID,
+      ProviderDefaults.structuredTextModelID
+    )
+    XCTAssertEqual(
+      coordinator.settings.structuredTextModelID,
+      ProviderDefaults.jsonObjectTextModelID
+    )
+  }
+
+  func testSaveRepairsUnsupportedModelAndLanguage() async {
+    let settingsStore = FakeSettingsRepository()
+    let coordinator = SettingsCoordinator(
+      settingsRepository: settingsStore,
+      keychainService: FakeAPIKeyStore()
+    )
+    coordinator.settings.transcriptionModelID = "free-form-model"
+    coordinator.settings.recognitionLanguageCode = "xx-XX"
+
+    await coordinator.saveSettings()
+
+    XCTAssertNil(coordinator.errorMessage)
+    let saved = await settingsStore.inspect()
+    XCTAssertEqual(saved.transcriptionModelID, ProviderDefaults.transcriptionModelID)
+    XCTAssertNil(saved.recognitionLanguageCode)
+  }
 }
 
 private actor FakeProviderCapability:
   TranscriptionProviderCapabilityChecking
 {
   let result: ProviderTranscriptionCapability
+  let languageOptions: [ProviderLanguageOption]
   private(set) var requests: [TranscriptionCapabilityRequest] = []
 
-  init(_ result: ProviderTranscriptionCapability) {
+  init(
+    _ result: ProviderTranscriptionCapability,
+    languageOptions: [ProviderLanguageOption] = ProviderLanguageCatalog.groq
+  ) {
     self.result = result
+    self.languageOptions = languageOptions
   }
 
   func providerCapability(
@@ -179,5 +289,9 @@ private actor FakeProviderCapability:
   ) -> ProviderTranscriptionCapability {
     requests.append(request)
     return result
+  }
+
+  func supportedLanguageOptions() -> [ProviderLanguageOption] {
+    languageOptions
   }
 }

@@ -41,6 +41,48 @@ final class GroqClientTests: XCTestCase {
     XCTAssertEqual(uploadedPermissions, 0o600)
   }
 
+  func testBCP47LanguageIsReducedToGroqISO639Code() async throws {
+    let payload = Data(#"{"text":"你好","language":"zh","segments":[]}"#.utf8)
+    let transport = GroqStubTransport(steps: [
+      .success(HTTPResponse(statusCode: 200, body: payload))
+    ])
+    let client = try GroqAPIClient(
+      apiKey: "test-key",
+      baseURL: URL(string: "https://unit.test")!,
+      transport: transport
+    )
+    let audioURL = try makeAudio(bytes: Data("audio".utf8))
+    defer { try? FileManager.default.removeItem(at: audioURL) }
+
+    _ = try await client.transcribe(audioURL: audioURL, language: "zh-TW")
+
+    let uploadedBody = await transport.uploadedBody
+    let multipart = try XCTUnwrap(uploadedBody)
+    let string = try XCTUnwrap(String(data: multipart, encoding: .utf8))
+    XCTAssertTrue(string.contains("name=\"language\"\r\n\r\nzh"))
+    XCTAssertFalse(string.contains("zh-TW"))
+  }
+
+  func testUnsupportedLanguageDoesNotReachTransport() async throws {
+    let transport = GroqStubTransport(steps: [])
+    let client = try GroqAPIClient(
+      apiKey: "test-key",
+      baseURL: URL(string: "https://unit.test")!,
+      transport: transport
+    )
+    let audioURL = try makeAudio(bytes: Data("audio".utf8))
+    defer { try? FileManager.default.removeItem(at: audioURL) }
+
+    do {
+      _ = try await client.transcribe(audioURL: audioURL, language: "xx-XX")
+      XCTFail("Expected invalid language")
+    } catch {
+      XCTAssertEqual(error as? GroqAPIError, .invalidLanguage)
+    }
+    let requestCount = await transport.requestCount
+    XCTAssertEqual(requestCount, 0)
+  }
+
   func testRetryBudgetAndRetryAfterAreApplied() async throws {
     let payload = Data(#"{"text":"ok","segments":[]}"#.utf8)
     let transport = GroqStubTransport(steps: [

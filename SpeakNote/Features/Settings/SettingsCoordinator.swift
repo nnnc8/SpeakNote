@@ -8,6 +8,12 @@ final class SettingsCoordinator: ObservableObject {
   @Published private(set) var hasStoredAPIKey = false
   @Published private(set) var localTranscriptionCapability: ProviderTranscriptionCapability =
     .unavailable(.providerNotConfigured)
+  @Published private(set) var recognitionLanguageOptions = ProviderLanguageCatalog.groq
+  @Published private(set) var outputLanguageOptions = ProviderLanguageCatalog.groq
+  @Published private(set) var transcriptionModelOptions =
+    GroqTranscriptionModelCatalog.options
+  @Published private(set) var textProcessingModelOptions = GroqTextModelCatalog.options
+  @Published private(set) var structuredTextModelOptions = GroqTextModelCatalog.options
   @Published private(set) var isBusy = false
   @Published var errorMessage: String?
 
@@ -33,6 +39,10 @@ final class SettingsCoordinator: ObservableObject {
 
     do {
       settings = try await settingsRepository.load()
+      let changed = await refreshProviderOptions()
+      if changed {
+        try await settingsRepository.save(settings)
+      }
     } catch {
       SecureLogger.error(.settingsLoadFailed)
       errorMessage = String(localized: "Settings could not be loaded.")
@@ -49,22 +59,23 @@ final class SettingsCoordinator: ObservableObject {
   }
 
   func saveSettings() async {
+    _ = await refreshProviderOptions()
     let transcriptionModelID = settings.transcriptionModelID
       .trimmingCharacters(in: .whitespacesAndNewlines)
     let textProcessingModelID = settings.textProcessingModelID
       .trimmingCharacters(in: .whitespacesAndNewlines)
     let structuredTextModelID = settings.structuredTextModelID
       .trimmingCharacters(in: .whitespacesAndNewlines)
-    guard !transcriptionModelID.isEmpty else {
-      errorMessage = String(localized: "The transcription model cannot be empty.")
+    guard GroqTranscriptionModel.supported.contains(transcriptionModelID) else {
+      errorMessage = String(localized: "Choose a supported transcription model.")
       return
     }
-    guard !textProcessingModelID.isEmpty else {
-      errorMessage = String(localized: "The text-processing model cannot be empty.")
+    guard GroqTextModelCatalog.candidates.contains(textProcessingModelID) else {
+      errorMessage = String(localized: "Choose a supported text-processing model.")
       return
     }
-    guard !structuredTextModelID.isEmpty else {
-      errorMessage = String(localized: "The structured-note model cannot be empty.")
+    guard GroqTextModelCatalog.candidates.contains(structuredTextModelID) else {
+      errorMessage = String(localized: "Choose a supported structured-note model.")
       return
     }
     guard
@@ -79,12 +90,15 @@ final class SettingsCoordinator: ObservableObject {
       settings.recognitionLanguageCode
     )
     let outputLanguageCode = normalizedLanguageCode(settings.outputLanguageCode)
-    guard isValidLanguageCode(recognitionLanguageCode),
-      isValidLanguageCode(outputLanguageCode)
+    guard isSupportedLanguageCode(
+      recognitionLanguageCode,
+      in: recognitionLanguageOptions
+    ),
+      isSupportedLanguageCode(outputLanguageCode, in: outputLanguageOptions)
     else {
       errorMessage = String(
         localized:
-          "Use a valid BCP-47 language code, or leave the field empty for automatic."
+          "Choose a supported language, or choose Automatic."
       )
       return
     }
@@ -119,6 +133,22 @@ final class SettingsCoordinator: ObservableObject {
         languageCode: settings.recognitionLanguageCode
       )
     )
+  }
+
+  @discardableResult
+  func refreshProviderOptions() async -> Bool {
+    if settings.transcriptionProviderID == .appleSpeech,
+      let appleSpeechCapability
+    {
+      let options = await appleSpeechCapability.supportedLanguageOptions()
+      recognitionLanguageOptions = options.isEmpty
+        ? ProviderLanguageCatalog.groq
+        : options
+    } else {
+      recognitionLanguageOptions = ProviderLanguageCatalog.groq
+    }
+    outputLanguageOptions = ProviderLanguageCatalog.groq
+    return normalizeConfiguredValues()
   }
 
   var isLocalTranscriptionAvailable: Bool {
@@ -176,17 +206,68 @@ final class SettingsCoordinator: ObservableObject {
   private func normalizedLanguageCode(_ value: String?) -> String? {
     guard let value else { return nil }
     let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+      .replacingOccurrences(of: "_", with: "-")
     return trimmed.isEmpty ? nil : trimmed
   }
 
-  private func isValidLanguageCode(_ value: String?) -> Bool {
+  private func isSupportedLanguageCode(
+    _ value: String?,
+    in options: [ProviderLanguageOption]
+  ) -> Bool {
     guard let value else { return true }
-    guard value.utf8.count <= 35 else { return false }
-    return value.unicodeScalars.allSatisfy {
-      (65...90).contains($0.value)
-        || (97...122).contains($0.value)
-        || (48...57).contains($0.value)
-        || $0.value == 45
+    return options.contains { $0.code == value }
+  }
+
+  private func normalizeConfiguredValues() -> Bool {
+    var changed = false
+    let transcriptionModelID = settings.transcriptionModelID
+      .trimmingCharacters(in: .whitespacesAndNewlines)
+    if transcriptionModelID != settings.transcriptionModelID {
+      settings.transcriptionModelID = transcriptionModelID
+      changed = true
     }
+    if !GroqTranscriptionModel.supported.contains(transcriptionModelID) {
+      settings.transcriptionModelID = ProviderDefaults.transcriptionModelID
+      changed = true
+    }
+    let textProcessingModelID = settings.textProcessingModelID
+      .trimmingCharacters(in: .whitespacesAndNewlines)
+    if textProcessingModelID != settings.textProcessingModelID {
+      settings.textProcessingModelID = textProcessingModelID
+      changed = true
+    }
+    if !GroqTextModelCatalog.candidates.contains(textProcessingModelID) {
+      settings.textProcessingModelID = ProviderDefaults.quickTextModelID
+      changed = true
+    }
+    let structuredTextModelID = settings.structuredTextModelID
+      .trimmingCharacters(in: .whitespacesAndNewlines)
+    if structuredTextModelID != settings.structuredTextModelID {
+      settings.structuredTextModelID = structuredTextModelID
+      changed = true
+    }
+    if !GroqTextModelCatalog.candidates.contains(structuredTextModelID) {
+      settings.structuredTextModelID = ProviderDefaults.structuredTextModelID
+      changed = true
+    }
+    let recognition = normalizedLanguageCode(settings.recognitionLanguageCode)
+    if recognition != settings.recognitionLanguageCode {
+      settings.recognitionLanguageCode = recognition
+      changed = true
+    }
+    let output = normalizedLanguageCode(settings.outputLanguageCode)
+    if output != settings.outputLanguageCode {
+      settings.outputLanguageCode = output
+      changed = true
+    }
+    if !isSupportedLanguageCode(recognition, in: recognitionLanguageOptions) {
+      settings.recognitionLanguageCode = nil
+      changed = true
+    }
+    if !isSupportedLanguageCode(output, in: outputLanguageOptions) {
+      settings.outputLanguageCode = nil
+      changed = true
+    }
+    return changed
   }
 }

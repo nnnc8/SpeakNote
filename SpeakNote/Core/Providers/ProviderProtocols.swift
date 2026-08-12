@@ -14,6 +14,74 @@ enum ProviderDefaults {
   static let jsonObjectTextModelID = "llama-3.3-70b-versatile"
 }
 
+struct ProviderLanguageOption: Identifiable, Equatable, Sendable {
+  let code: String
+  let title: String
+
+  var id: String { code }
+}
+
+struct ProviderModelOption: Identifiable, Equatable, Sendable {
+  let id: String
+  let title: String
+}
+
+enum ProviderLanguageCatalog {
+  static let groqLanguageCodes: Set<String> = [
+    "en", "zh", "de", "es", "ru", "ko", "fr", "ja", "pt", "tr", "pl",
+    "ca", "nl", "ar", "sv", "it", "id", "hi", "fi", "vi", "he", "uk",
+    "el", "ms", "cs", "ro", "da", "hu", "ta", "no", "th", "ur", "hr",
+    "bg", "lt", "la", "mi", "ml", "cy", "sk", "te", "fa", "lv", "bn",
+    "sr", "az", "sl", "kn", "et", "mk", "br", "eu", "is", "hy", "ne",
+    "mn", "bs", "kk", "sq", "sw", "gl", "mr", "pa", "si", "km", "sn",
+    "yo", "so", "af", "oc", "ka", "be", "tg", "sd", "gu", "am", "yi",
+    "lo", "uz", "fo", "ht", "ps", "tk", "nn", "mt", "sa", "lb", "my",
+    "bo", "tl", "mg", "as", "tt", "haw", "ln", "ha", "ba", "jw", "su",
+    "yue",
+  ]
+
+  static let groq: [ProviderLanguageOption] = [
+    option("zh-TW"), option("zh-CN"), option("en-US"), option("en-GB"),
+    option("ja-JP"), option("ko-KR"), option("es-ES"), option("fr-FR"),
+    option("de-DE"), option("it-IT"), option("pt-BR"), option("ru-RU"),
+    option("nl-NL"), option("th-TH"), option("vi-VN"), option("id-ID"),
+    option("tr-TR"), option("pl-PL"), option("uk-UA"), option("ar-SA"),
+    option("hi-IN")
+  ] + groqLanguageCodes
+    .sorted()
+    .filter { code in
+      ![
+        "zh", "en", "ja", "ko", "es", "fr", "de", "it", "pt", "ru",
+        "nl", "th", "vi", "id", "tr", "pl", "uk", "ar", "hi",
+      ].contains(code)
+    }
+    .map(option)
+
+  static func options(for locales: [Locale]) -> [ProviderLanguageOption] {
+    locales
+      .map { locale in
+        let code = locale.identifier.replacingOccurrences(of: "_", with: "-")
+        return ProviderLanguageOption(
+          code: code,
+          title: Locale.current.localizedString(forIdentifier: locale.identifier)
+            ?? code
+        )
+      }
+      .reduce(into: [ProviderLanguageOption]()) { result, option in
+        guard !result.contains(where: { $0.code == option.code }) else { return }
+        result.append(option)
+      }
+      .sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending }
+  }
+
+  private static func option(_ code: String) -> ProviderLanguageOption {
+    ProviderLanguageOption(
+      code: code,
+      title: Locale.current.localizedString(forIdentifier: code) ?? code
+    )
+  }
+}
+
 struct TranscriptSegment: Identifiable, Codable, Equatable, Sendable {
   let id: UUID
   let startTime: TimeInterval

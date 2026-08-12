@@ -51,7 +51,10 @@ extension GroqAPIError: LocalizedError {
     case .httpStatus(let status):
       switch status {
       case 400:
-        String(localized: "Groq rejected the transcription request.")
+        String(
+          localized:
+            "Groq rejected the transcription request. Check the selected language, model, and audio format."
+        )
       case 401:
         String(localized: "The Groq API key is invalid. Update it in SpeakNote Settings.")
       case 403:
@@ -121,8 +124,14 @@ public struct GroqAPIClient: Sendable {
     guard GroqTranscriptionModel.supported.contains(model) else {
       throw GroqAPIError.unsupportedModel
     }
-    if let language, !Self.isValidLanguage(language) {
-      throw GroqAPIError.invalidLanguage
+    let normalizedLanguage: String?
+    if let language {
+      guard let value = Self.normalizedLanguageCode(language) else {
+        throw GroqAPIError.invalidLanguage
+      }
+      normalizedLanguage = value
+    } else {
+      normalizedLanguage = nil
     }
 
     let values: URLResourceValues
@@ -149,7 +158,11 @@ public struct GroqAPIClient: Sendable {
       MultipartTextField(name: "model", value: model),
       MultipartTextField(name: "response_format", value: "verbose_json"),
     ]
-    if let language { fields.append(MultipartTextField(name: "language", value: language)) }
+    if let normalizedLanguage {
+      fields.append(
+        MultipartTextField(name: "language", value: normalizedLanguage)
+      )
+    }
     if let prompt, !prompt.isEmpty {
       fields.append(MultipartTextField(name: "prompt", value: prompt))
     }
@@ -258,15 +271,21 @@ public struct GroqAPIClient: Sendable {
     return cleaned.isEmpty ? "audio" : String(cleaned)
   }
 
-  private static func isValidLanguage(_ value: String) -> Bool {
-    !value.isEmpty
-      && value.utf8.count <= 35
-      && value.unicodeScalars.allSatisfy {
-        (65...90).contains($0.value)
-          || (97...122).contains($0.value)
-          || (48...57).contains($0.value)
-          || $0.value == 45
-      }
+  private static func normalizedLanguageCode(_ value: String) -> String? {
+    let identifier = value
+      .trimmingCharacters(in: .whitespacesAndNewlines)
+      .replacingOccurrences(of: "_", with: "-")
+    guard !identifier.isEmpty, identifier.utf8.count <= 35 else { return nil }
+    let languageCode = Locale.Language(identifier: identifier)
+      .languageCode?
+      .identifier
+      .lowercased()
+    guard let languageCode,
+      ProviderLanguageCatalog.groqLanguageCodes.contains(languageCode)
+    else {
+      return nil
+    }
+    return languageCode
   }
 
   private static func contentType(for url: URL) -> String {

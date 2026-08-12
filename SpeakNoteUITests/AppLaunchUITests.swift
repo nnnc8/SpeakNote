@@ -93,6 +93,28 @@ final class AppLaunchUITests: XCTestCase {
     XCTAssertTrue(relaunched.buttons["Start Dictation"].waitForExistence(timeout: 2))
   }
 
+  func testSettingsExposeLanguagePickerInsteadOfFreeFormField() {
+    let app = makeApplication()
+    app.launch()
+
+    completeOnboarding(in: app)
+    app.buttons["Open Settings"].click()
+
+    XCTAssertTrue(app.staticTexts["Recognition language"].waitForExistence(timeout: 5))
+    XCTAssertTrue(app.popUpButtons["recognition-language-picker"].exists)
+    XCTAssertTrue(app.popUpButtons["output-language-picker"].exists)
+    XCTAssertFalse(app.textFields["Recognition language"].exists)
+  }
+
+  private func completeOnboarding(in app: XCUIApplication) {
+    XCTAssertTrue(app.staticTexts["Privacy and Storage"].waitForExistence(timeout: 5))
+    app.buttons["Continue"].click()
+    app.buttons["Continue"].click()
+    app.buttons["Continue"].click()
+    app.buttons["Finish"].click()
+    XCTAssertTrue(app.buttons["Open Settings"].waitForExistence(timeout: 2))
+  }
+
   private func makeApplication(
     storageRoot: URL? = nil,
     suiteName: String? = nil,
