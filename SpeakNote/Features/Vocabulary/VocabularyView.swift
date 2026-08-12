@@ -83,6 +83,7 @@ struct VocabularyView: View {
           Text("Use app setting").tag("")
           Text("Groq Cloud").tag(ProviderID.groq.rawValue)
           Text("Apple Speech").tag(ProviderID.appleSpeech.rawValue)
+          Text("Breeze ASR 26 · 台語").tag(ProviderID.breezeASR.rawValue)
         }
         Picker(
           "Default structured note",

@@ -129,15 +129,42 @@ validate_privacy_root_keys() {
   esac
 }
 
+is_internal_framework_symlink() {
+  local symlink=$1
+  local framework_root
+  local resolved
+
+  case "$symlink" in
+    */Contents/Frameworks/*.framework/*) ;;
+    *) return 1 ;;
+  esac
+  framework_root="${symlink%%.framework/*}.framework"
+  resolved=$(/bin/realpath "$symlink" 2>/dev/null) || return 1
+  case "$resolved" in
+    "$framework_root"/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 reject_symlinks_in_tree() {
   local path=$1
   local label=$2
   local symlink
+  local symlink_list
 
-  if ! symlink=$(/usr/bin/find -P "$path" -type l -print -quit); then
+  symlink_list=$(mktemp "$temporary_root/symlinks.XXXXXX") || {
+    die "$label symlink inventory could not be created"
+  }
+  if ! /usr/bin/find -P "$path" -type l -print >"$symlink_list"; then
     die "$label symlink inventory could not be created"
   fi
-  [[ -z "$symlink" ]] || die "$label contains a symlink"
+  while IFS= read -r symlink; do
+    [[ -z "$symlink" ]] && continue
+    if is_internal_framework_symlink "$symlink"; then
+      continue
+    fi
+    die "$label contains an external or unexpected symlink"
+  done <"$symlink_list"
 }
 
 validate_privacy_manifest() {

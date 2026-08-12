@@ -109,9 +109,9 @@ final class VocabularyCoordinator: ObservableObject {
     await perform {
       let profile = try await persistProfileDraft()
       var settings = try await settingsRepository.load()
-      if profile.providerIdentifier == ProviderID.groq.rawValue,
-        settings.localOnly
-      {
+      if let providerIdentifier = profile.providerIdentifier,
+        ProviderID(rawValue: providerIdentifier).privacyClass == .cloud,
+        settings.localOnly {
         throw VocabularyCoordinatorError.cloudProfileConflictsWithLocalOnly
       }
       settings.activeProfileID = profile.id

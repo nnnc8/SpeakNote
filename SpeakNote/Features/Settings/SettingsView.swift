@@ -108,12 +108,13 @@ struct SettingsView: View {
       ) {
         Text("Groq Cloud").tag(ProviderID.groq)
         Text("Apple Speech (On Device)").tag(ProviderID.appleSpeech)
+        Text("Breeze ASR 26 · 台語 · 離線").tag(ProviderID.breezeASR)
       }
-      .disabled(coordinator.settings.localOnly)
       .onChange(of: coordinator.settings.transcriptionProviderID) {
         _, _ in
         Task {
           _ = await coordinator.refreshProviderOptions()
+          await coordinator.refreshBreezeModelState()
           await coordinator.refreshLocalTranscriptionCapability()
         }
       }
@@ -133,17 +134,23 @@ struct SettingsView: View {
         isOn: $coordinator.settings.localOnly
       )
       .disabled(
-        !coordinator.isLocalTranscriptionAvailable
+        !coordinator.settings.transcriptionProviderID.isLocalTranscriptionProvider
+          && !coordinator.isLocalTranscriptionAvailable
           && !coordinator.settings.localOnly
       )
       .onChange(of: coordinator.settings.localOnly) { _, localOnly in
-        if localOnly {
-          coordinator.settings.transcriptionProviderID = .appleSpeech
+        coordinator.setLocalOnly(localOnly)
+        Task {
+          _ = await coordinator.refreshProviderOptions()
+          await coordinator.refreshBreezeModelState()
+          await coordinator.refreshLocalTranscriptionCapability()
         }
       }
 
       LabeledContent(
-        "Apple Speech",
+        coordinator.settings.transcriptionProviderID == .breezeASR
+          ? "Breeze ASR 26"
+          : "Apple Speech",
         value: localTranscriptionAvailabilityTitle
       )
       Text(localTranscriptionAvailabilityDetail)
@@ -151,14 +158,19 @@ struct SettingsView: View {
         .foregroundStyle(.secondary)
 
       Text(
-        coordinator.settings.transcriptionProviderID == .appleSpeech
+        coordinator.settings.transcriptionProviderID == .groq
           ? String(
             localized:
-              "Apple Speech keeps primary transcription on this Mac. A cloud fallback is offered only when your fallback policy allows asking, and runs only after you accept."
+              "Audio is sent to Groq for transcription. When cleanup, translation, or compression is selected, transcript text is also sent for processing."
+          )
+          : coordinator.settings.transcriptionProviderID == .breezeASR
+          ? String(
+            localized:
+              "Breeze ASR 26 runs locally and is optimized for Taiwanese Hokkien (台語). It primarily outputs Chinese characters rather than formal Taiwanese Hokkien orthography."
           )
           : String(
             localized:
-              "Audio is sent to Groq for transcription. When cleanup, translation, or compression is selected, transcript text is also sent for processing."
+              "Apple Speech keeps primary transcription on this Mac. A cloud fallback is offered only when your fallback policy allows asking, and runs only after you accept."
           )
       )
       .font(.caption)
@@ -174,6 +186,39 @@ struct SettingsView: View {
           }
         }
         .accessibilityIdentifier("transcription-model-picker")
+      } else if coordinator.settings.transcriptionProviderID == .breezeASR {
+        Picker(
+          "Transcription model",
+          selection: $coordinator.settings.transcriptionModelID
+        ) {
+          ForEach(coordinator.transcriptionModelOptions) { option in
+            Text(option.title).tag(option.id)
+          }
+        }
+        .accessibilityIdentifier("transcription-model-picker")
+
+        LabeledContent("Breeze model status", value: breezeModelStateTitle)
+        Text(breezeModelStateDetail)
+          .font(.caption)
+          .foregroundStyle(.secondary)
+        HStack {
+          switch coordinator.breezeModelState {
+          case .downloading:
+            Button("Cancel Download") {
+              Task { await coordinator.cancelBreezeModelDownload() }
+            }
+          case .installed, .ready:
+            Button("Delete Model", role: .destructive) {
+              Task { await coordinator.deleteBreezeModel() }
+            }
+          case .loading:
+            EmptyView()
+          default:
+            Button("Download Breeze Model") {
+              Task { await coordinator.downloadBreezeModel() }
+            }
+          }
+        }
       } else {
         LabeledContent(
           "Transcription model",
@@ -200,39 +245,41 @@ struct SettingsView: View {
       }
       .accessibilityIdentifier("structured-note-model-picker")
 
-      Toggle(
-        "I understand that audio and text may be processed by Groq Cloud",
-        isOn: $coordinator.settings.hasAcknowledgedGroqCloudProcessing
-      )
+      if coordinator.settings.transcriptionProviderID == .groq {
+        Toggle(
+          "I understand that audio and text may be processed by Groq Cloud",
+          isOn: $coordinator.settings.hasAcknowledgedGroqCloudProcessing
+        )
 
-      Text(
-        "Groq says inference inputs and outputs are not retained by default, but they may be temporarily logged for reliability or abuse review. Zero Data Retention is controlled in the Groq console."
-      )
-      .font(.caption)
-      .foregroundStyle(.secondary)
+        Text(
+          "Groq says inference inputs and outputs are not retained by default, but they may be temporarily logged for reliability or abuse review. Zero Data Retention is controlled in the Groq console."
+        )
+        .font(.caption)
+        .foregroundStyle(.secondary)
 
-      Link(
-        "Read Groq data policy",
-        destination: URL(string: "https://console.groq.com/docs/your-data")!
-      )
+        Link(
+          "Read Groq data policy",
+          destination: URL(string: "https://console.groq.com/docs/your-data")!
+        )
 
-      HStack {
-        SecureField("Groq API key", text: $coordinator.apiKeyDraft)
-        Button("Save Key") {
-          Task { await coordinator.saveAPIKey() }
+        HStack {
+          SecureField("Groq API key", text: $coordinator.apiKeyDraft)
+          Button("Save Key") {
+            Task { await coordinator.saveAPIKey() }
+          }
+          .disabled(
+            coordinator.apiKeyDraft
+              .trimmingCharacters(in: .whitespacesAndNewlines)
+              .isEmpty || coordinator.isBusy
+          )
         }
-        .disabled(
-          coordinator.apiKeyDraft
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .isEmpty || coordinator.isBusy
+
+        LabeledContent(
+          "Keychain",
+          value: coordinator.hasStoredAPIKey
+            ? String(localized: "Configured") : String(localized: "Not configured")
         )
       }
-
-      LabeledContent(
-        "Keychain",
-        value: coordinator.hasStoredAPIKey
-          ? String(localized: "Configured") : String(localized: "Not configured")
-      )
 
       HStack {
         Button("Save Settings") {
@@ -314,14 +361,55 @@ struct SettingsView: View {
   }
 
   private var localTranscriptionAvailabilityDetail: String {
+    if coordinator.settings.transcriptionProviderID == .breezeASR {
+      switch coordinator.breezeModelState {
+      case .notDownloaded:
+        return String(localized: "Download the approximately 1.1 GB Breeze model to enable offline Taiwanese Hokkien transcription.")
+      case .downloading(let progress):
+        return String(localized: "Downloading the local Breeze model (\(Int(progress * 100))%).")
+      case .verifying:
+        return String(localized: "Verifying the local Breeze model before installation.")
+      case .installed, .ready:
+        return String(localized: "Breeze ASR 26 is ready for local Taiwanese Hokkien transcription.")
+      case .loading:
+        return String(localized: "Loading Breeze ASR 26 only when transcription starts.")
+      case .failed(let error):
+        return String(localized: "Breeze ASR 26 is unavailable: \(error.localizedDescription)")
+      }
+    }
     switch coordinator.localTranscriptionCapability {
     case .available:
-      String(
-        localized:
-          "Available for the selected recognition language. On macOS 14–25, Apple Speech is limited to audio shorter than 55 seconds."
-      )
+      return String(localized: "Available for the selected recognition language. On macOS 14–25, Apple Speech is limited to audio shorter than 55 seconds.")
     case .unavailable(let reason):
-      String(localized: "Local-only transcription is unavailable: \(reason.title).")
+      return String(localized: "Local-only transcription is unavailable: \(reason.title).")
+    }
+  }
+
+  private var breezeModelStateTitle: String {
+    switch coordinator.breezeModelState {
+    case .notDownloaded: String(localized: "Not downloaded")
+    case .downloading(let progress): String(format: "Downloading %.0f%%", progress * 100)
+    case .verifying: String(localized: "Verifying")
+    case .installed, .ready: String(localized: "Installed")
+    case .loading: String(localized: "Loading")
+    case .failed: String(localized: "Failed")
+    }
+  }
+
+  private var breezeModelStateDetail: String {
+    switch coordinator.breezeModelState {
+    case .notDownloaded:
+      String(localized: "Download the pinned third-party GGML conversion (~1.1 GB) to use offline Taiwanese Hokkien transcription.")
+    case .downloading:
+      String(localized: "The model is downloaded in the background. SpeakNote never treats a partial file as installed.")
+    case .verifying:
+      String(localized: "Checking the SHA-256 before installation.")
+    case .installed, .ready:
+      String(localized: "Ready for local transcription. The model loads only when you start a transcription.")
+    case .loading:
+      String(localized: "Loading the model off the main actor.")
+    case .failed(let error):
+      error.errorDescription ?? String(localized: "The model is unavailable.")
     }
   }
 }
@@ -352,6 +440,7 @@ extension TranscriptionUnavailableReason {
   fileprivate var title: String {
     switch self {
     case .unsupportedOperatingSystem: String(localized: "unsupported macOS version")
+    case .unsupportedArchitecture: String(localized: "unsupported Mac architecture")
     case .invalidDuration: String(localized: "invalid audio duration")
     case .permissionNotDetermined:
       String(localized: "Speech Recognition permission not requested")
@@ -361,12 +450,14 @@ extension TranscriptionUnavailableReason {
     case .recognizerUnavailable: String(localized: "recognizer currently unavailable")
     case .onDeviceRecognitionUnavailable:
       String(localized: "on-device recognition not supported")
-    case .modelMissing: String(localized: "Apple Speech model is not downloaded")
-    case .modelUnavailable: String(localized: "Apple Speech model is unavailable")
+    case .modelMissing:
+      String(localized: "The selected local speech model is not downloaded")
+    case .modelUnavailable:
+      String(localized: "The selected local speech model is unavailable")
     case .legacyDurationLimitExceeded:
       String(localized: "audio must be shorter than 55 seconds")
     case .providerNotConfigured:
-      String(localized: "Apple Speech provider not configured")
+      String(localized: "transcription provider not configured")
     }
   }
 }

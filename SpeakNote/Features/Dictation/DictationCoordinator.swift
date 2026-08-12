@@ -340,7 +340,9 @@ final class DictationCoordinator {
         let settings = try await settingsRepository.load()
         let configuration = TranscriptionConfiguration(
           providerID: settings.transcriptionProviderID,
-          modelID: settings.transcriptionModelID,
+          modelID: settings.transcriptionProviderID == .breezeASR
+            ? BreezeTranscriptionModel.defaultID
+            : settings.transcriptionModelID,
           languageCode: settings.recognitionLanguageCode,
           prompt: try await vocabularyProcessor?.promptFragment(
             profileID: settings.activeProfileID
@@ -699,6 +701,8 @@ final class DictationCoordinator {
       .appleSpeech
     case .appleSpeech:
       .groq
+    case .breezeASR:
+      .appleSpeech
     default:
       nil
     }
@@ -707,9 +711,15 @@ final class DictationCoordinator {
   private static func fallbackOfferMessage(
     _ offer: TranscriptionFallbackOffer
   ) -> String {
-    let destination =
-      offer.destinationProviderID == .appleSpeech
-      ? String(localized: "Apple Speech") : String(localized: "Groq Cloud")
+    let destination: String
+    switch offer.destinationProviderID {
+    case .appleSpeech:
+      destination = String(localized: "Apple Speech")
+    case .breezeASR:
+      destination = String(localized: "Breeze ASR 26")
+    default:
+      destination = String(localized: "Groq Cloud")
+    }
     let privacy =
       offer.destinationPrivacyClass == .cloud
       ? String(localized: "Audio will leave this Mac.")

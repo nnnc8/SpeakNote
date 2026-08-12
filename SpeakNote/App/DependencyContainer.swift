@@ -26,7 +26,9 @@ final class DependencyContainer {
     voiceNoteCoordinator: VoiceNoteCoordinator,
     vocabularyCoordinator: VocabularyCoordinator,
     voiceNoteRecordingWorkflow: any VoiceNoteRecordingRunning,
-    appleSpeechCapability: any TranscriptionProviderCapabilityChecking
+    appleSpeechCapability: any TranscriptionProviderCapabilityChecking,
+    breezeCapability: any TranscriptionProviderCapabilityChecking,
+    breezeModelManager: any BreezeModelManaging
   ) {
     self.settingsRepository = settingsRepository
     self.keychainService = keychainService
@@ -41,7 +43,9 @@ final class DependencyContainer {
     settingsCoordinator = SettingsCoordinator(
       settingsRepository: settingsRepository,
       keychainService: keychainService,
-      appleSpeechCapability: appleSpeechCapability
+      appleSpeechCapability: appleSpeechCapability,
+      breezeCapability: breezeCapability,
+      breezeModelManager: breezeModelManager
     )
   }
 
@@ -113,11 +117,20 @@ final class DependencyContainer {
       keychainService: keychainService
     )
     let appleTranscriptionEngine = AppleTranscriptionEngine.live()
+    let breezeModelManager = try BreezeModelStore()
+    let breezeTranscriptionEngine = BreezeWhisperEngine(
+      modelManager: breezeModelManager
+    )
+    let breezeCapability = BreezeTranscriptionCapability(
+      modelManager: breezeModelManager
+    )
     let transcriptionRouter = TranscriptionProviderRouter(
       appleSpeechEngine: appleTranscriptionEngine,
       appleSpeechCapability: appleTranscriptionEngine,
       groqEngine: groqTranscriptionEngine,
-      groqCapability: GroqTranscriptionCapability()
+      groqCapability: GroqTranscriptionCapability(),
+      breezeEngine: breezeTranscriptionEngine,
+      breezeCapability: breezeCapability
     )
     let dictationCoordinator = DictationCoordinator(
       recorder: AVAudioEngineRecorder(),
@@ -138,7 +151,8 @@ final class DependencyContainer {
       fileStore: sessionFileStore,
       transcriptionEngine: ProviderDispatchingTranscriptionEngine(
         appleSpeech: appleTranscriptionEngine,
-        groq: groqTranscriptionEngine
+        groq: groqTranscriptionEngine,
+        breeze: breezeTranscriptionEngine
       ),
       markdownRenderer: RawTranscriptMarkdownRenderer()
     )
@@ -149,6 +163,7 @@ final class DependencyContainer {
       audioImporter: AVFoundationAudioImporter(fileStore: sessionFileStore),
       pipeline: voiceNotePipeline,
       appleSpeechCapability: appleTranscriptionEngine,
+      breezeCapability: breezeCapability,
       vocabularyProcessor: vocabularyService
     )
     let structuredRunStore = VoiceNoteStructuredRunStore(
@@ -212,7 +227,9 @@ final class DependencyContainer {
       voiceNoteCoordinator: voiceNoteCoordinator,
       vocabularyCoordinator: vocabularyCoordinator,
       voiceNoteRecordingWorkflow: voiceNoteRecordingWorkflow,
-      appleSpeechCapability: appleTranscriptionEngine
+      appleSpeechCapability: appleTranscriptionEngine,
+      breezeCapability: breezeCapability,
+      breezeModelManager: breezeModelManager
     )
   }
 
@@ -255,6 +272,7 @@ private struct GroqTranscriptionCapability:
 private struct ProviderDispatchingTranscriptionEngine: TranscriptionEngine {
   let appleSpeech: any TranscriptionEngine
   let groq: any TranscriptionEngine
+  let breeze: any TranscriptionEngine
 
   func transcribe(
     audioURL: URL,
@@ -268,6 +286,11 @@ private struct ProviderDispatchingTranscriptionEngine: TranscriptionEngine {
       )
     case .groq:
       try await groq.transcribe(
+        audioURL: audioURL,
+        configuration: configuration
+      )
+    case .breezeASR:
+      try await breeze.transcribe(
         audioURL: audioURL,
         configuration: configuration
       )

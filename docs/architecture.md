@@ -21,7 +21,7 @@ MainActor coordinators and explicit state machines
 Injected audio, transcription, text-processing, insertion, persistence,
 permission, vocabulary, recovery, and rendering boundaries
         ↓
-macOS frameworks, local app storage, Apple Speech, or Groq Cloud
+macOS frameworks, local app storage, Apple Speech, Breeze ASR 26, or Groq Cloud
 ```
 
 Views do not perform provider, storage, or audio work directly. Coordinators
@@ -36,7 +36,7 @@ or processing work.
 2. For menu-bar or global-shortcut starts, SpeakNote records bounded audio and
    retains the original target app identity for guarded cross-app insertion.
 3. The provider router checks availability, local-only mode, and fallback policy.
-4. Recognition runs through Apple Speech or Groq. Optional language conversion
+4. Recognition runs through Apple Speech, Breeze ASR 26, or Groq. Optional language conversion
    and cleanup run only after raw text is available.
 5. Profile vocabulary and explicit replacement rules are applied through their
    persisted configuration.
@@ -68,6 +68,9 @@ reprocess operation creates another run.
 - **Groq** is a cloud privacy class. Audio is uploaded for cloud transcription;
   text is uploaded for selected cloud cleanup, translation, compression, or
   structured processing.
+- **Breeze ASR 26** is a local privacy class. Its GGML model is downloaded
+  explicitly, loaded lazily, and run in-process through whisper.cpp. The model
+  is optimized for Taiwanese Hokkien and primarily emits Chinese characters.
 - The default fallback policy asks before crossing between local and cloud.
   Local-only mode rejects cloud providers.
 

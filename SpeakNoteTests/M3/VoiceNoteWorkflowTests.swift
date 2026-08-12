@@ -61,6 +61,33 @@ final class VoiceNoteWorkflowTests: XCTestCase {
     await context.workflow.cancel(sessionID: sessionID)
   }
 
+  func testBreezeImportUsesLocalProviderWithoutCloudConsent() async throws {
+    let settings = AppSettings(
+      transcriptionProviderID: .breezeASR,
+      transcriptionModelID: BreezeTranscriptionModel.defaultID,
+      localOnly: true,
+      hasAcknowledgedGroqCloudProcessing: false
+    )
+    let context = try makeContext(settings: settings)
+    defer { context.removeFiles() }
+
+    let sessionID = try await context.workflow.importAndStart(
+      url: context.sourceURL,
+      title: nil
+    )
+    let didStart = await eventually {
+      await context.pipeline.processRequests.count == 1
+    }
+    XCTAssertTrue(didStart)
+    let requests = await context.pipeline.processRequests
+    let request = try XCTUnwrap(requests.first)
+    XCTAssertEqual(request.sessionID, sessionID)
+    XCTAssertEqual(request.configuration.providerID, .breezeASR)
+    XCTAssertEqual(request.configuration.modelID, BreezeTranscriptionModel.defaultID)
+
+    await context.workflow.cancel(sessionID: sessionID)
+  }
+
   func testExplicitAlternativeRetryCreatesNewJobWithoutMixingProviders()
     async throws
   {

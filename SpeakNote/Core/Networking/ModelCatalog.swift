@@ -40,3 +40,18 @@ enum GroqTranscriptionModelCatalog {
     ),
   ]
 }
+
+enum BreezeTranscriptionModel {
+  static let q5_0 = "breeze-q5_0"
+  static let supported: Set<String> = [q5_0]
+  static let defaultID = q5_0
+}
+
+enum BreezeTranscriptionModelCatalog {
+  static let options = [
+    ProviderModelOption(
+      id: BreezeTranscriptionModel.q5_0,
+      title: "Breeze ASR 26 Q5_0（約 1.1 GB）"
+    )
+  ]
+}

@@ -5,6 +5,26 @@ struct ProviderID: RawRepresentable, Codable, Hashable, Sendable {
 
   static let groq = ProviderID(rawValue: "groq")
   static let appleSpeech = ProviderID(rawValue: "apple-speech")
+  static let breezeASR = ProviderID(rawValue: "breeze-asr")
+
+  static let transcriptionProviders: [ProviderID] = [
+    .groq, .appleSpeech, .breezeASR
+  ]
+
+  var privacyClass: TranscriptionPrivacyClass {
+    switch self {
+    case .appleSpeech, .breezeASR:
+      .local
+    case .groq:
+      .cloud
+    default:
+      .cloud
+    }
+  }
+
+  var isLocalTranscriptionProvider: Bool {
+    privacyClass == .local
+  }
 }
 
 enum ProviderDefaults {
@@ -56,6 +76,11 @@ enum ProviderLanguageCatalog {
       ].contains(code)
     }
     .map(option)
+
+  static let breeze: [ProviderLanguageOption] = [
+    ProviderLanguageOption(code: "zh-TW", title: "台語（Breeze ASR 26）"),
+    ProviderLanguageOption(code: "zh", title: "中文／台語（Breeze ASR 26）"),
+  ]
 
   static func options(for locales: [Locale]) -> [ProviderLanguageOption] {
     locales

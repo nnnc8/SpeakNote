@@ -72,7 +72,7 @@ struct GroqTranscriptionEngine: TranscriptionEngine, Sendable {
       model: configuration.modelID.isEmpty
         ? GroqTranscriptionModel.largeV3Turbo
         : configuration.modelID,
-      language: configuration.languageCode,
+      language: Self.apiLanguageCode(configuration.languageCode),
       prompt: configuration.prompt
     )
     return Transcript(
@@ -89,5 +89,20 @@ struct GroqTranscriptionEngine: TranscriptionEngine, Sendable {
       },
       detectedLanguage: response.language
     )
+  }
+
+  static func apiLanguageCode(_ languageCode: String?) -> String? {
+    guard let languageCode else { return nil }
+    let base = languageCode
+      .trimmingCharacters(in: .whitespacesAndNewlines)
+      .replacingOccurrences(of: "_", with: "-")
+      .split(separator: "-")
+      .first
+      .map(String.init)
+    guard let base, !base.isEmpty else { return nil }
+    return ProviderLanguageCatalog.groqLanguageCodes.contains(base)
+      || base == "zh" || base == "en"
+      ? base
+      : nil
   }
 }

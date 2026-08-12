@@ -8,6 +8,7 @@ final class SettingsCoordinator: ObservableObject {
   @Published private(set) var hasStoredAPIKey = false
   @Published private(set) var localTranscriptionCapability: ProviderTranscriptionCapability =
     .unavailable(.providerNotConfigured)
+  @Published private(set) var breezeModelState: BreezeModelState = .notDownloaded
   @Published private(set) var recognitionLanguageOptions = ProviderLanguageCatalog.groq
   @Published private(set) var outputLanguageOptions = ProviderLanguageCatalog.groq
   @Published private(set) var transcriptionModelOptions =
@@ -20,16 +21,23 @@ final class SettingsCoordinator: ObservableObject {
   private let settingsRepository: any SettingsStoring
   private let keychainService: any APIKeyStoring
   private let appleSpeechCapability: (any TranscriptionProviderCapabilityChecking)?
+  private let breezeCapability: (any TranscriptionProviderCapabilityChecking)?
+  private let breezeModelManager: (any BreezeModelManaging)?
+  private var breezeDownloadProgressTask: Task<Void, Never>?
 
   init(
     settingsRepository: any SettingsStoring,
     keychainService: any APIKeyStoring,
     appleSpeechCapability:
-      (any TranscriptionProviderCapabilityChecking)? = nil
+      (any TranscriptionProviderCapabilityChecking)? = nil,
+    breezeCapability: (any TranscriptionProviderCapabilityChecking)? = nil,
+    breezeModelManager: (any BreezeModelManaging)? = nil
   ) {
     self.settingsRepository = settingsRepository
     self.keychainService = keychainService
     self.appleSpeechCapability = appleSpeechCapability
+    self.breezeCapability = breezeCapability
+    self.breezeModelManager = breezeModelManager
     settings = .defaultValue
   }
 
@@ -56,6 +64,7 @@ final class SettingsCoordinator: ObservableObject {
     }
 
     await refreshLocalTranscriptionCapability()
+    await refreshBreezeModelState()
   }
 
   func saveSettings() async {
@@ -66,7 +75,7 @@ final class SettingsCoordinator: ObservableObject {
       .trimmingCharacters(in: .whitespacesAndNewlines)
     let structuredTextModelID = settings.structuredTextModelID
       .trimmingCharacters(in: .whitespacesAndNewlines)
-    guard GroqTranscriptionModel.supported.contains(transcriptionModelID) else {
+    guard isSupportedTranscriptionModel(transcriptionModelID) else {
       errorMessage = String(localized: "Choose a supported transcription model.")
       return
     }
@@ -79,11 +88,9 @@ final class SettingsCoordinator: ObservableObject {
       return
     }
     guard
-      !settings.localOnly || settings.transcriptionProviderID == .appleSpeech
+      !settings.localOnly || settings.transcriptionProviderID.isLocalTranscriptionProvider
     else {
-      errorMessage = String(
-        localized: "Choose Apple Speech before enabling local-only transcription."
-      )
+      errorMessage = String(localized: "Choose a local transcription provider before enabling local-only transcription.")
       return
     }
     let recognitionLanguageCode = normalizedLanguageCode(
@@ -123,16 +130,37 @@ final class SettingsCoordinator: ObservableObject {
   func refreshLocalTranscriptionCapability(
     duration: TimeInterval = 0
   ) async {
-    guard let appleSpeechCapability else {
+    let candidates: [(ProviderID, any TranscriptionProviderCapabilityChecking)]
+    switch settings.transcriptionProviderID {
+    case .appleSpeech:
+      candidates = appleSpeechCapability.map { [(.appleSpeech, $0)] } ?? []
+    case .breezeASR:
+      candidates = breezeCapability.map { [(.breezeASR, $0)] } ?? []
+    default:
+      candidates = [
+        appleSpeechCapability.map { (.appleSpeech, $0) },
+        breezeCapability.map { (.breezeASR, $0) },
+      ].compactMap { $0 }
+    }
+    guard !candidates.isEmpty else {
       localTranscriptionCapability = .unavailable(.providerNotConfigured)
       return
     }
-    localTranscriptionCapability = await appleSpeechCapability.providerCapability(
-      for: TranscriptionCapabilityRequest(
-        duration: duration,
-        languageCode: settings.recognitionLanguageCode
+    var firstUnavailable: ProviderTranscriptionCapability?
+    for (_, capability) in candidates {
+      let result = await capability.providerCapability(
+        for: TranscriptionCapabilityRequest(
+          duration: duration,
+          languageCode: settings.recognitionLanguageCode
+        )
       )
-    )
+      if case .available = result {
+        localTranscriptionCapability = result
+        return
+      }
+      firstUnavailable = firstUnavailable ?? result
+    }
+    localTranscriptionCapability = firstUnavailable ?? .unavailable(.providerNotConfigured)
   }
 
   @discardableResult
@@ -144,11 +172,88 @@ final class SettingsCoordinator: ObservableObject {
       recognitionLanguageOptions = options.isEmpty
         ? ProviderLanguageCatalog.groq
         : options
+    } else if settings.transcriptionProviderID == .breezeASR {
+      recognitionLanguageOptions = ProviderLanguageCatalog.breeze
     } else {
       recognitionLanguageOptions = ProviderLanguageCatalog.groq
     }
     outputLanguageOptions = ProviderLanguageCatalog.groq
+    transcriptionModelOptions = settings.transcriptionProviderID == .breezeASR
+      ? BreezeTranscriptionModelCatalog.options
+      : GroqTranscriptionModelCatalog.options
     return normalizeConfiguredValues()
+  }
+
+  func refreshBreezeModelState() async {
+    guard let breezeModelManager else {
+      breezeModelState = .notDownloaded
+      return
+    }
+    breezeModelState = await breezeModelManager.state(
+      for: BreezeTranscriptionModel.defaultID
+    )
+  }
+
+  func downloadBreezeModel() async {
+    guard let breezeModelManager else { return }
+    isBusy = true
+    breezeModelState = .downloading(progress: 0)
+    breezeDownloadProgressTask?.cancel()
+    breezeDownloadProgressTask = Task { [weak self, breezeModelManager] in
+      while !Task.isCancelled {
+        guard let self else { return }
+        self.breezeModelState = await breezeModelManager.state(
+          for: BreezeTranscriptionModel.defaultID
+        )
+        do {
+          try await Task.sleep(nanoseconds: 250_000_000)
+        } catch {
+          return
+        }
+      }
+    }
+    defer {
+      breezeDownloadProgressTask?.cancel()
+      breezeDownloadProgressTask = nil
+      isBusy = false
+    }
+    do {
+      try await breezeModelManager.download(modelID: BreezeTranscriptionModel.defaultID)
+      await refreshBreezeModelState()
+      await refreshLocalTranscriptionCapability()
+    } catch let error as LocalizedError {
+      breezeModelState = .failed(
+        error as? BreezeModelStoreError ?? .downloadFailed
+      )
+      errorMessage = error.errorDescription
+    } catch {
+      breezeModelState = .failed(.downloadFailed)
+      errorMessage = String(localized: "The Breeze model download failed.")
+    }
+  }
+
+  func cancelBreezeModelDownload() async {
+    await breezeModelManager?.cancelDownload()
+    await refreshBreezeModelState()
+  }
+
+  func deleteBreezeModel() async {
+    guard let breezeModelManager else { return }
+    do {
+      try await breezeModelManager.delete(modelID: BreezeTranscriptionModel.defaultID)
+      await refreshBreezeModelState()
+      await refreshLocalTranscriptionCapability()
+    } catch {
+      errorMessage = String(localized: "The Breeze model could not be deleted.")
+    }
+  }
+
+  func setLocalOnly(_ enabled: Bool) {
+    settings.localOnly = enabled
+    guard enabled, !settings.transcriptionProviderID.isLocalTranscriptionProvider else {
+      return
+    }
+    settings.transcriptionProviderID = .appleSpeech
   }
 
   var isLocalTranscriptionAvailable: Bool {
@@ -226,8 +331,10 @@ final class SettingsCoordinator: ObservableObject {
       settings.transcriptionModelID = transcriptionModelID
       changed = true
     }
-    if !GroqTranscriptionModel.supported.contains(transcriptionModelID) {
-      settings.transcriptionModelID = ProviderDefaults.transcriptionModelID
+    if !isSupportedTranscriptionModel(transcriptionModelID) {
+      settings.transcriptionModelID = settings.transcriptionProviderID == .breezeASR
+        ? BreezeTranscriptionModel.defaultID
+        : ProviderDefaults.transcriptionModelID
       changed = true
     }
     let textProcessingModelID = settings.textProcessingModelID
@@ -269,5 +376,16 @@ final class SettingsCoordinator: ObservableObject {
       changed = true
     }
     return changed
+  }
+
+  private func isSupportedTranscriptionModel(_ modelID: String) -> Bool {
+    switch settings.transcriptionProviderID {
+    case .breezeASR:
+      BreezeTranscriptionModel.supported.contains(modelID)
+    case .groq, .appleSpeech:
+      GroqTranscriptionModel.supported.contains(modelID)
+    default:
+      false
+    }
   }
 }

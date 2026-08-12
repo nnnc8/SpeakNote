@@ -35,6 +35,7 @@ struct TranscriptionCapabilityInput: Equatable, Sendable {
 
 enum TranscriptionUnavailableReason: Error, Equatable, Sendable {
   case unsupportedOperatingSystem
+  case unsupportedArchitecture
   case invalidDuration
   case permissionNotDetermined
   case permissionDenied

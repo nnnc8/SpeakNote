@@ -15,8 +15,9 @@
 > Releases page has no downloadable asset, build from source or check back later.
 
 SpeakNote is a native macOS app for quick dictation, long recordings, imported
-audio, and structured notes. It can use on-device Apple Speech where available
-or Groq Cloud after an explicit disclosure and user choice.
+audio, and structured notes. It can use on-device Apple Speech, the optional
+local Breeze ASR 26 Taiwanese Hokkien model, or Groq Cloud after an explicit
+disclosure and user choice.
 
 ## Features
 
@@ -32,6 +33,8 @@ or Groq Cloud after an explicit disclosure and user choice.
   Reprocessing keeps earlier versions.
 - **Language and cleanup controls:** choose recognition and output languages,
   translation, and verbatim, clean, polished, or concise output.
+- **Taiwanese Hokkien:** optionally download the separately licensed
+  Breeze-ASR-26 GGML conversion and transcribe locally on Apple Silicon.
 - **Personal vocabulary:** keep profile-specific terms and explicit replacement
   rules; suggested terms require approval before joining the active vocabulary.
 - **Local history and recovery:** keep optional quick-dictation history, resume
@@ -45,9 +48,10 @@ or Groq Cloud after an explicit disclosure and user choice.
 2. Move SpeakNote to Applications and open it.
 3. Follow onboarding. Permissions are requested separately and only when you
    choose the related feature.
-4. In **Settings → Provider**, choose Apple Speech or Groq Cloud. Groq features
-   require your own Groq credential and acknowledgement of the cloud-processing
-   disclosure.
+4. In **Settings → Provider**, choose Apple Speech, Breeze ASR 26, or Groq
+   Cloud. Breeze requires an explicit approximately 1.1 GB model download;
+   Groq features require your own Groq credential and acknowledgement of the
+   cloud-processing disclosure.
 5. Start from the menu bar or a global shortcut for guarded automatic insertion,
    or use the in-app button for a manual-copy result. Grant Input Monitoring for
    Right Option and Accessibility for automatic Command-V insertion.
@@ -74,6 +78,9 @@ Provider data flow:
 - **Groq Cloud:** audio is sent to Groq for transcription. Text is also sent
   when cloud cleanup, translation, compression, or structured-note processing
   is selected.
+- **Breeze ASR 26:** after the model is explicitly installed, audio stays on
+  this Mac and is processed in-process. Its output is primarily Chinese
+  characters rather than formal Taiwanese Hokkien orthography.
 - **Fallbacks:** SpeakNote does not silently cross the local/cloud boundary.
   The default policy asks before doing so, and local-only mode blocks cloud use.
 
@@ -95,8 +102,8 @@ Read the full [privacy notice](docs/privacy/index.md) and
 
 ### Does SpeakNote work offline?
 
-Apple Speech can work on-device when its capability check passes. Groq features
-require a network connection.
+Apple Speech and installed Breeze ASR 26 can work on-device when their
+capability checks pass. Groq features require a network connection.
 
 ### Does SpeakNote read text from other apps?
 

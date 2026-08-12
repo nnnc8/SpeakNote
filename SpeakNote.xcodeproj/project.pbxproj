@@ -27,6 +27,7 @@
 		13E54B03528A506E93671DF6 /* VoiceNoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB643111CC574E417EF85B73 /* VoiceNoteListView.swift */; };
 		146B9A4BFBC5C01BF41C5317 /* SessionManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808D4ED7DBF5E133ABD1DF0 /* SessionManifest.swift */; };
 		14EE44E0A66C9C7663A997DF /* VoiceNoteStructuredProcessingWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0DC97E0DBAC7292A56361B /* VoiceNoteStructuredProcessingWorkflow.swift */; };
+		15F3070736E16477AB02EFA7 /* WhisperRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 8F4A82F1FADAA86875BA842A /* WhisperRuntime */; };
 		1A81153CB61C5CD08E115B9C /* GroqTranscriptionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADDE1FBA5F95934838280BE /* GroqTranscriptionEngine.swift */; };
 		1B015281C0D30D50C375FB4B /* TranscriptionEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B2A6F67147A64EF0DBAFF /* TranscriptionEngineTests.swift */; };
 		1D48484D43235C61F291D4FE /* RawTranscriptMarkdownRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17D44E29E4F97FD35D4FCB7 /* RawTranscriptMarkdownRendererTests.swift */; };
@@ -99,9 +100,11 @@
 		8677A9735188E04DBE287BC8 /* URLSessionTransportContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71D68539E6C53BE0B35460 /* URLSessionTransportContractTests.swift */; };
 		8908F459744F0931B6BFC2DC /* TextInsertionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856553AF5EEB88FF76CAAC0C /* TextInsertionService.swift */; };
 		8A5EAB6D6EADD6573EBA70D1 /* M4RollingSegmentRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A3A298B6B96A15A6F22D20 /* M4RollingSegmentRecorder.swift */; };
+		8CA39D6F8BA97CF56F1103E5 /* BreezeASRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B85D8D0FCFC91A74877490 /* BreezeASRTests.swift */; };
 		8D79C28DFC54950528BADA93 /* GroqClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89E9212C113473CCB219D08 /* GroqClientTests.swift */; };
 		8D83A5A3CFAC5AFB47ED0CCF /* VoiceNoteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8231371A80B2D994C23346CD /* VoiceNoteCoordinator.swift */; };
 		8D889D7C3A2398698D1CE666 /* RetryPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392F8EA4C48279661B958A89 /* RetryPolicyTests.swift */; };
+		8DB8964A4D07B26840029928 /* BreezeWhisperEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C43159F5516EB80718C778 /* BreezeWhisperEngine.swift */; };
 		917C5AC9009EC62CC1B729DE /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171482F8D378FC22D05F90CC /* MultipartFormData.swift */; };
 		9A54D16B4EBF229EEFDAEE96 /* RollingSegmentRecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E521AAC33A0171C3D4EC08C /* RollingSegmentRecorderTests.swift */; };
 		9A6A33036C80AA51AF72C3DB /* VocabularySuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A1DF38BD90D966E4C6234D /* VocabularySuggestion.swift */; };
@@ -123,6 +126,7 @@
 		C0973E84A6422671045F8BB7 /* TextProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8861CE5C266E76F676356E56 /* TextProcessingService.swift */; };
 		C123F901C94CCED08DA0460E /* PromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C309E21FED0D8C85D5BBDF6 /* PromptBuilder.swift */; };
 		C6207DCE66F82ED9261685CA /* VoiceNoteStructuredProcessingWorkflowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82B1BDA9AAA7D9AC9AC932B /* VoiceNoteStructuredProcessingWorkflowTests.swift */; };
+		C814CA9C7AC62BA9F7CA7F4E /* BreezeModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58660F1058C66078F48C95FC /* BreezeModelStore.swift */; };
 		C98451B6B0233CF3E258A97A /* SettingsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCF87A6903E416D35693B9A /* SettingsCoordinatorTests.swift */; };
 		CD5D6150A0D937B76AECA3E1 /* ReplacementRuleEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C75FC0F83EB85033C96D2E /* ReplacementRuleEngine.swift */; };
 		D04E7D1DA970D8F7BAB4E8B7 /* RetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A08BEC1F2E1D6A3F73C3B0 /* RetryPolicy.swift */; };
@@ -219,8 +223,10 @@
 		4DD904CCD40DE865A9338638 /* ModifierTapStateMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierTapStateMachineTests.swift; sourceTree = "<group>"; };
 		502BEF5C0880F04319FB5F87 /* HardeningStressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardeningStressTests.swift; sourceTree = "<group>"; };
 		549E6E93B3BA7363EEF01BB8 /* VocabularyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyService.swift; sourceTree = "<group>"; };
+		55C43159F5516EB80718C778 /* BreezeWhisperEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreezeWhisperEngine.swift; sourceTree = "<group>"; };
 		56308B02CB9983BF8289BBC8 /* VoiceNoteTranscriptionPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteTranscriptionPipeline.swift; sourceTree = "<group>"; };
 		58140B3B95DE426B906A5A39 /* TranscriptMergerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptMergerTests.swift; sourceTree = "<group>"; };
+		58660F1058C66078F48C95FC /* BreezeModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreezeModelStore.swift; sourceTree = "<group>"; };
 		5C331B95696FADAADA6DB826 /* CustomTermSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTermSelectorTests.swift; sourceTree = "<group>"; };
 		5F395E539EF5EC746C480D6F /* SpeakNoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeakNoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61ECC41B350A927369B8D4FA /* AudioChunker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioChunker.swift; sourceTree = "<group>"; };
@@ -276,6 +282,7 @@
 		BC1430E29C56E5F1FDD6426B /* OnboardingCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinatorTests.swift; sourceTree = "<group>"; };
 		BEB703F4F4EACF2C4101A53A /* M4AudioPlayerControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M4AudioPlayerControllerTests.swift; sourceTree = "<group>"; };
 		BF5010A4B1031AA13281BA77 /* AudioPreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreprocessor.swift; sourceTree = "<group>"; };
+		BF6839FF71050C08829E87C8 /* WhisperRuntime */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WhisperRuntime; path = Vendor/WhisperRuntime; sourceTree = SOURCE_ROOT; };
 		C7B9FBEC00123E7EB3FCA567 /* StructuredNoteReducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredNoteReducerTests.swift; sourceTree = "<group>"; };
 		C82584CD5CC3904D3267C50B /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		C8DE3E010290A2F00D9D9396 /* GroqTextProcessingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroqTextProcessingClient.swift; sourceTree = "<group>"; };
@@ -302,6 +309,7 @@
 		E3092DB16468110489190082 /* SessionRecordingPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecordingPersistenceTests.swift; sourceTree = "<group>"; };
 		E672770EB6BA36528BE2FC7A /* M5GroqStructuredNoteEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M5GroqStructuredNoteEngineTests.swift; sourceTree = "<group>"; };
 		E92917F2C764AEFA674311A4 /* DictationHistoryPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationHistoryPersistenceTests.swift; sourceTree = "<group>"; };
+		E9B85D8D0FCFC91A74877490 /* BreezeASRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreezeASRTests.swift; sourceTree = "<group>"; };
 		EA1B222848DE9886EC71EDC7 /* PromptBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptBuilderTests.swift; sourceTree = "<group>"; };
 		EA64C6B8C8BD9C93B54C07B3 /* VocabularyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCoordinator.swift; sourceTree = "<group>"; };
 		EADDE1FBA5F95934838280BE /* GroqTranscriptionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroqTranscriptionEngine.swift; sourceTree = "<group>"; };
@@ -323,6 +331,17 @@
 		FF5BB76C27EFCD4EE21B9575 /* AppKitVoiceNoteFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitVoiceNoteFilePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		4A1BF21467166DEEB82C271D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15F3070736E16477AB02EFA7 /* WhisperRuntime in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		034D2CE2640902E459580060 /* Onboarding */ = {
 			isa = PBXGroup;
@@ -341,6 +360,14 @@
 				5F395E539EF5EC746C480D6F /* SpeakNoteUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		13746FAD6228A23AB91E8E32 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				BF6839FF71050C08829E87C8 /* WhisperRuntime */,
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 		2118F30145B03C50CF944453 /* M6 */ = {
@@ -379,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				4BA290C9E683395A9D2613A2 /* AudioFormatImportIntegrationTests.swift */,
+				E9B85D8D0FCFC91A74877490 /* BreezeASRTests.swift */,
 				502BEF5C0880F04319FB5F87 /* HardeningStressTests.swift */,
 				BC1430E29C56E5F1FDD6426B /* OnboardingCoordinatorTests.swift */,
 				9478E833D84A43744B33641E /* PrivacyManifestTests.swift */,
@@ -612,6 +640,8 @@
 			isa = PBXGroup;
 			children = (
 				F891C2FA9B0F2F5AF5AAABC8 /* AppleTranscriptionEngine.swift */,
+				58660F1058C66078F48C95FC /* BreezeModelStore.swift */,
+				55C43159F5516EB80718C778 /* BreezeWhisperEngine.swift */,
 				EADDE1FBA5F95934838280BE /* GroqTranscriptionEngine.swift */,
 				39834EE4F10139CA094B2540 /* LegacySpeechRecognizerAdapter.swift */,
 				B46E39FCA969A5138ACB6B17 /* SpeechAnalyzerAdapter.swift */,
@@ -784,6 +814,7 @@
 			isa = PBXGroup;
 			children = (
 				7F9C290E61A93E9CD3CFF290 /* Config */,
+				13746FAD6228A23AB91E8E32 /* Packages */,
 				A0A77B4B7EBB3BDB3399F06A /* SpeakNote */,
 				F1EDA9287622AF88A5D35F54 /* SpeakNoteTests */,
 				325B1D5EAC0E8CEFEA7526C9 /* SpeakNoteUITests */,
@@ -818,6 +849,7 @@
 			buildPhases = (
 				2A048945450B1891164AAE18 /* Sources */,
 				2C34BEEB74A3A8E8206D8900 /* Resources */,
+				4A1BF21467166DEEB82C271D /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -825,6 +857,7 @@
 			);
 			name = SpeakNote;
 			packageProductDependencies = (
+				8F4A82F1FADAA86875BA842A /* WhisperRuntime */,
 			);
 			productName = SpeakNote;
 			productReference = 63ED19EB76910500036B858E /* SpeakNote.app */;
@@ -879,6 +912,9 @@
 			);
 			mainGroup = FC6E132D7A6C7E671CCBBD64;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				83065AE9AEDADB1564926713 /* XCLocalSwiftPackageReference "Vendor/WhisperRuntime" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0C5152674532294FD42C8A32 /* Products */;
 			projectDirPath = "";
@@ -920,6 +956,8 @@
 				0B7266B11E571633DD270A78 /* AudioImporter.swift in Sources */,
 				078EA33F61253AF284287AA3 /* AudioPreprocessor.swift in Sources */,
 				2F3023A8DBF5F1C9EC904722 /* AudioRecorder.swift in Sources */,
+				C814CA9C7AC62BA9F7CA7F4E /* BreezeModelStore.swift in Sources */,
+				8DB8964A4D07B26840029928 /* BreezeWhisperEngine.swift in Sources */,
 				600CD518ADA82C31ED0119AE /* CustomTermSelector.swift in Sources */,
 				BF8AFF3276522B6FC3B9022E /* DependencyContainer.swift in Sources */,
 				003C6E1ACD6FB1E2044001C8 /* DictationCoordinator.swift in Sources */,
@@ -1003,6 +1041,7 @@
 				4124F00C94646BAB0E72A889 /* AudioFormatImportIntegrationTests.swift in Sources */,
 				2B62925994525A1238749A4C /* AudioImporterTests.swift in Sources */,
 				3CB1F29F77BB4D9E088E5BE6 /* AudioPreprocessorTests.swift in Sources */,
+				8CA39D6F8BA97CF56F1103E5 /* BreezeASRTests.swift in Sources */,
 				BDBA703B954E0AF0888E5D8A /* CustomTermSelectorTests.swift in Sources */,
 				EE2FCBE41333774993862399 /* DictationCoordinatorIntegrationTests.swift in Sources */,
 				E09DD0BFDB55B366811C7AB4 /* DictationHistoryCoordinatorTests.swift in Sources */,
@@ -1154,6 +1193,7 @@
 				MARKETING_VERSION = 0.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1222,6 +1262,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1299,13 +1340,14 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_DEBUG_DYLIB = NO;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Config/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nc8.SpeakNote;
 				PRODUCT_NAME = SpeakNote;
 				SDKROOT = macosx;
@@ -1372,6 +1414,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1501,6 +1544,20 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		83065AE9AEDADB1564926713 /* XCLocalSwiftPackageReference "Vendor/WhisperRuntime" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Vendor/WhisperRuntime;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F4A82F1FADAA86875BA842A /* WhisperRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WhisperRuntime;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5DB34319F968402A79A9647E /* Project object */;
 }

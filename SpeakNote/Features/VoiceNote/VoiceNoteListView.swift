@@ -244,6 +244,8 @@ private struct VoiceNoteDetailView: View {
               Button(
                 alternativeProviderID == .appleSpeech
                   ? String(localized: "Retry as New Job with Apple Speech")
+                  : alternativeProviderID == .breezeASR
+                  ? String(localized: "Retry as New Job with Breeze ASR 26")
                   : String(localized: "Retry as New Job with Groq Cloud")
               ) {
                 Task { await coordinator.retrySelectedWithAlternative() }

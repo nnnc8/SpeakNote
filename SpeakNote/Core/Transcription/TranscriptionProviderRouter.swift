@@ -74,6 +74,22 @@ enum TranscriptionProviderRouterError: Error, Equatable, Sendable {
   case invalidFallbackOffer
 }
 
+struct TranscriptionProviderEndpoint: Sendable {
+  let privacyClass: TranscriptionPrivacyClass
+  let engine: any TranscriptionEngine
+  let capability: any TranscriptionProviderCapabilityChecking
+
+  init(
+    privacyClass: TranscriptionPrivacyClass,
+    engine: any TranscriptionEngine,
+    capability: any TranscriptionProviderCapabilityChecking
+  ) {
+    self.privacyClass = privacyClass
+    self.engine = engine
+    self.capability = capability
+  }
+}
+
 protocol TranscriptionProviderRouting: Actor {
   func transcribe(
     _ request: TranscriptionRoutingRequest
@@ -89,11 +105,7 @@ protocol TranscriptionProviderRouting: Actor {
 }
 
 actor TranscriptionProviderRouter: TranscriptionProviderRouting {
-  private struct Endpoint: Sendable {
-    let privacyClass: TranscriptionPrivacyClass
-    let engine: any TranscriptionEngine
-    let capability: any TranscriptionProviderCapabilityChecking
-  }
+  private typealias Endpoint = TranscriptionProviderEndpoint
 
   private struct PendingFallback: Sendable {
     let offer: TranscriptionFallbackOffer
@@ -110,7 +122,7 @@ actor TranscriptionProviderRouter: TranscriptionProviderRouting {
     groqEngine: any TranscriptionEngine,
     groqCapability: any TranscriptionProviderCapabilityChecking
   ) {
-    providers = [
+    self.init(endpoints: [
       .appleSpeech: Endpoint(
         privacyClass: .local,
         engine: appleSpeechEngine,
@@ -121,7 +133,38 @@ actor TranscriptionProviderRouter: TranscriptionProviderRouting {
         engine: groqEngine,
         capability: groqCapability
       ),
-    ]
+    ])
+  }
+
+  init(
+    appleSpeechEngine: any TranscriptionEngine,
+    appleSpeechCapability: any TranscriptionProviderCapabilityChecking,
+    groqEngine: any TranscriptionEngine,
+    groqCapability: any TranscriptionProviderCapabilityChecking,
+    breezeEngine: any TranscriptionEngine,
+    breezeCapability: any TranscriptionProviderCapabilityChecking
+  ) {
+    self.init(endpoints: [
+      .appleSpeech: Endpoint(
+        privacyClass: .local,
+        engine: appleSpeechEngine,
+        capability: appleSpeechCapability
+      ),
+      .groq: Endpoint(
+        privacyClass: .cloud,
+        engine: groqEngine,
+        capability: groqCapability
+      ),
+      .breezeASR: Endpoint(
+        privacyClass: .local,
+        engine: breezeEngine,
+        capability: breezeCapability
+      ),
+    ])
+  }
+
+  init(endpoints: [ProviderID: TranscriptionProviderEndpoint]) {
+    providers = endpoints
   }
 
   func transcribe(

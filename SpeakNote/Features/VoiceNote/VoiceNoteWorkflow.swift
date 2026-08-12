@@ -33,6 +33,7 @@ actor VoiceNoteWorkflow:
   private let audioImporter: any AudioImporting
   private let pipeline: any VoiceNoteTranscriptionPipelining
   private let appleSpeechCapability: (any TranscriptionProviderCapabilityChecking)?
+  private let breezeCapability: (any TranscriptionProviderCapabilityChecking)?
   private let vocabularyProcessor: (any VocabularyProcessing)?
   private let now: @Sendable () -> Date
   private var activeTasks: [UUID: Task<Void, Never>] = [:]
@@ -45,6 +46,7 @@ actor VoiceNoteWorkflow:
     pipeline: any VoiceNoteTranscriptionPipelining,
     appleSpeechCapability:
       (any TranscriptionProviderCapabilityChecking)? = nil,
+    breezeCapability: (any TranscriptionProviderCapabilityChecking)? = nil,
     vocabularyProcessor: (any VocabularyProcessing)? = nil,
     now: @escaping @Sendable () -> Date = Date.init
   ) {
@@ -54,6 +56,7 @@ actor VoiceNoteWorkflow:
     self.audioImporter = audioImporter
     self.pipeline = pipeline
     self.appleSpeechCapability = appleSpeechCapability
+    self.breezeCapability = breezeCapability
     self.vocabularyProcessor = vocabularyProcessor
     self.now = now
   }
@@ -202,22 +205,56 @@ actor VoiceNoteWorkflow:
 
     switch currentProviderID {
     case .groq:
-      guard let appleSpeechCapability else { return nil }
-      let capability = await appleSpeechCapability.providerCapability(
-        for: TranscriptionCapabilityRequest(
-          duration: session.duration,
-          languageCode: settings.recognitionLanguageCode
+      if let appleSpeechCapability {
+        let capability = await appleSpeechCapability.providerCapability(
+          for: TranscriptionCapabilityRequest(
+            duration: session.duration,
+            languageCode: settings.recognitionLanguageCode
+          )
         )
-      )
-      guard case .available = capability else { return nil }
-      return .appleSpeech
+        if case .available = capability { return .appleSpeech }
+      }
+      if let breezeCapability {
+        let capability = await breezeCapability.providerCapability(
+          for: TranscriptionCapabilityRequest(
+            duration: session.duration,
+            languageCode: settings.recognitionLanguageCode
+          )
+        )
+        if case .available = capability { return .breezeASR }
+      }
+      return nil
     case .appleSpeech:
+      if let breezeCapability {
+        let capability = await breezeCapability.providerCapability(
+          for: TranscriptionCapabilityRequest(
+            duration: session.duration,
+            languageCode: settings.recognitionLanguageCode
+          )
+        )
+        if case .available = capability { return .breezeASR }
+      }
       guard
         !settings.localOnly,
         settings.hasAcknowledgedGroqCloudProcessing
       else {
         return nil
       }
+      return .groq
+    case .breezeASR:
+      if let appleSpeechCapability {
+        let capability = await appleSpeechCapability.providerCapability(
+          for: TranscriptionCapabilityRequest(
+            duration: session.duration,
+            languageCode: settings.recognitionLanguageCode
+          )
+        )
+        if case .available = capability { return .appleSpeech }
+      }
+      guard
+        !settings.localOnly,
+        settings.hasAcknowledgedGroqCloudProcessing
+      else { return nil }
       return .groq
     default:
       return nil
@@ -265,7 +302,9 @@ actor VoiceNoteWorkflow:
     )
     let configuration = TranscriptionConfiguration(
       providerID: providerID,
-      modelID: settings.transcriptionModelID,
+      modelID: providerID == .breezeASR
+        ? BreezeTranscriptionModel.defaultID
+        : settings.transcriptionModelID,
       languageCode: settings.recognitionLanguageCode,
       prompt: try await vocabularyProcessor?.promptFragment(
         profileID: settings.activeProfileID
@@ -321,15 +360,11 @@ actor VoiceNoteWorkflow:
     -> TranscriptionConfiguration
   {
     let settings = try await settingsRepository.load()
-    guard
-      settings.transcriptionProviderID == .groq
-        || settings.transcriptionProviderID == .appleSpeech
-    else {
+    guard ProviderID.transcriptionProviders.contains(settings.transcriptionProviderID) else {
       throw VoiceNoteWorkflowError.unsupportedProvider
     }
     guard
-      !settings.localOnly
-        || settings.transcriptionProviderID == .appleSpeech
+      !settings.localOnly || settings.transcriptionProviderID.isLocalTranscriptionProvider
     else {
       throw VoiceNoteWorkflowError.unsupportedProvider
     }
@@ -341,7 +376,9 @@ actor VoiceNoteWorkflow:
     }
     return TranscriptionConfiguration(
       providerID: settings.transcriptionProviderID,
-      modelID: settings.transcriptionModelID,
+      modelID: settings.transcriptionProviderID == .breezeASR
+        ? BreezeTranscriptionModel.defaultID
+        : settings.transcriptionModelID,
       languageCode: settings.recognitionLanguageCode,
       prompt: try await vocabularyProcessor?.promptFragment(
         profileID: settings.activeProfileID

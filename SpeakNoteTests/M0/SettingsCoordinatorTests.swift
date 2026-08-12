@@ -137,7 +137,7 @@ final class SettingsCoordinatorTests: XCTestCase {
       coordinator.errorMessage,
       String(
         localized:
-          "Choose Apple Speech before enabling local-only transcription."
+          "Choose a local transcription provider before enabling local-only transcription."
       )
     )
   }

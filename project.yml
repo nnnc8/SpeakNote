@@ -6,6 +6,10 @@ options:
     macOS: "14.0"
   createIntermediateGroups: true
 
+packages:
+  SpeakNoteWhisperRuntime:
+    path: Vendor/WhisperRuntime
+
 configs:
   Debug: debug
   Test: debug
@@ -19,6 +23,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     CLANG_ENABLE_MODULES: YES
     CODE_SIGN_STYLE: Automatic
+    OTHER_CODE_SIGN_FLAGS: "--deep"
     CURRENT_PROJECT_VERSION: 1
     MARKETING_VERSION: 0.1.0
   configs:
@@ -42,6 +47,9 @@ targets:
       Release: Config/SpeakNote.xcconfig
     sources:
       - path: SpeakNote
+    dependencies:
+      - package: SpeakNoteWhisperRuntime
+        product: WhisperRuntime
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.nc8.SpeakNote
@@ -55,7 +63,8 @@ targets:
         SWIFT_EMIT_LOC_STRINGS: YES
       configs:
         Debug:
-          ENABLE_HARDENED_RUNTIME: YES
+          ENABLE_HARDENED_RUNTIME: NO
+          OTHER_CODE_SIGN_FLAGS: "--deep"
         Test:
           ENABLE_HARDENED_RUNTIME: NO
         Release:

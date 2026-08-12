@@ -160,6 +160,23 @@ file_has_secret() {
   LC_ALL=C /usr/bin/grep -a -E -q "$environment_secret_pattern" "$file" 2>/dev/null
 }
 
+is_internal_framework_symlink() {
+  local symlink=$1
+  local framework_root
+  local resolved
+
+  case "$symlink" in
+    */Contents/Frameworks/*.framework/*) ;;
+    *) return 1 ;;
+  esac
+  framework_root="${symlink%%.framework/*}.framework"
+  resolved=$(/bin/realpath "$symlink" 2>/dev/null) || return 1
+  case "$resolved" in
+    "$framework_root"/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 scan_tree() {
   local label=$1
   local path=$2
@@ -205,6 +222,9 @@ scan_tree() {
     fi
     while IFS= read -r -d '' file; do
       if [[ -L "$file" ]]; then
+        if is_internal_framework_symlink "$file"; then
+          continue
+        fi
         symlink_found=1
         continue
       fi
