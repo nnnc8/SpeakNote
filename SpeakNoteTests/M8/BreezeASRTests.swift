@@ -348,7 +348,7 @@ final class BreezeASRTests: XCTestCase {
       data: Data("expected".utf8)
     )
     let streamer = FixtureBreezeDownloadStreaming { _ in
-      fixtureDownloadResponse(statusCode: 200, data: Data("corrupt".utf8))
+      fixtureDownloadResponse(statusCode: 200, data: Data("corrupt!".utf8))
     }
     let store = try BreezeModelStore(
       rootURL: root,
