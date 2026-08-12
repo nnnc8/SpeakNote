@@ -375,6 +375,47 @@ final class BreezeASRTests: XCTestCase {
     )
   }
 
+  func testModelDownloadCancellationDoesNotInstallModel() async throws {
+    let root = FileManager.default.temporaryDirectory
+      .appendingPathComponent("BreezeCancellation-\(UUID().uuidString)")
+    defer { try? FileManager.default.removeItem(at: root) }
+    let metadata = fixtureMetadata(
+      modelID: "fixture",
+      fileName: "fixture.bin",
+      data: Data("fixture".utf8)
+    )
+    let store = try BreezeModelStore(
+      rootURL: root,
+      diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 1_000_000_000),
+      downloadStreaming: SlowBreezeDownloadStreaming(),
+      metadata: [metadata.modelID: metadata]
+    )
+
+    let downloadTask = Task {
+      try await store.download(modelID: metadata.modelID)
+    }
+    for _ in 0..<50 {
+      if case .downloading = await store.state(for: metadata.modelID) {
+        break
+      }
+      try await Task.sleep(for: .milliseconds(10))
+    }
+    await store.cancelDownload()
+    do {
+      try await downloadTask.value
+      XCTFail("Cancellation must stop the model download")
+    } catch {
+      XCTAssertEqual(error as? BreezeModelStoreError, .cancellation)
+    }
+    XCTAssertFalse(
+      FileManager.default.fileExists(
+        atPath: root.appendingPathComponent(metadata.fileName).path
+      )
+    )
+    let state = await store.state(for: metadata.modelID)
+    XCTAssertEqual(state, .notDownloaded)
+  }
+
   func testModelDownloadRejectsInsufficientDiskBeforeNetworkRequest() async throws {
     let data = Data("fixture".utf8)
     let root = FileManager.default.temporaryDirectory
@@ -517,6 +558,13 @@ private struct FixtureBreezeDownloadStreaming: BreezeDownloadStreaming {
 
   func stream(for request: URLRequest) async throws -> BreezeDownloadResponse {
     response(request)
+  }
+}
+
+private struct SlowBreezeDownloadStreaming: BreezeDownloadStreaming {
+  func stream(for _: URLRequest) async throws -> BreezeDownloadResponse {
+    try await Task.sleep(for: .seconds(60))
+    return fixtureDownloadResponse(statusCode: 200, data: Data("unreachable".utf8))
   }
 }
 
