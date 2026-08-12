@@ -219,6 +219,29 @@ actor BreezeModelStore: BreezeModelManaging {
     guard let metadata = metadataByID[modelID] else {
       return .failed(.invalidModelIdentifier)
     }
+    if case .ready? = states[modelID] {
+      let url = rootURL.appendingPathComponent(metadata.fileName)
+      guard fileManager.fileExists(atPath: url.path) else {
+        states[modelID] = .notDownloaded
+        verifiedSignatures[modelID] = nil
+        return .notDownloaded
+      }
+      do {
+        try await verifyInstalledModel(
+          modelID: modelID,
+          metadata: metadata,
+          url: url
+        )
+        states[modelID] = .ready
+        return .ready
+      } catch let error as BreezeModelStoreError {
+        states[modelID] = .failed(error)
+        return .failed(error)
+      } catch {
+        states[modelID] = .failed(.modelCorrupted)
+        return .failed(.modelCorrupted)
+      }
+    }
     if let state = states[modelID] {
       switch state {
       case .installed, .ready:
@@ -236,7 +259,6 @@ actor BreezeModelStore: BreezeModelManaging {
       }
     }
     let url = rootURL.appendingPathComponent(metadata.fileName)
-    let shouldRemainReady = states[modelID] == .ready
     guard fileManager.fileExists(atPath: url.path) else {
       if case .installed? = states[modelID] {
         states[modelID] = .notDownloaded
@@ -252,9 +274,8 @@ actor BreezeModelStore: BreezeModelManaging {
         metadata: metadata,
         url: url
       )
-      let validatedState: BreezeModelState = shouldRemainReady ? .ready : .installed
-      states[modelID] = validatedState
-      return validatedState
+      states[modelID] = .installed
+      return .installed
     } catch let error as BreezeModelStoreError {
       states[modelID] = .failed(error)
       return .failed(error)
