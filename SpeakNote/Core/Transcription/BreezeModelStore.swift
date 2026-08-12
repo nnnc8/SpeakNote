@@ -471,19 +471,19 @@ actor BreezeModelStore: BreezeModelManaging {
     states[modelID] = .notDownloaded
   }
 
-  func markLoading(modelID: String) {
+  func markLoading(modelID: String) async {
     guard metadataByID[modelID] != nil else { return }
     states[modelID] = .loading
   }
 
-  func markReady(modelID: String) {
+  func markReady(modelID: String) async {
     guard let metadata = metadataByID[modelID] else { return }
     let url = rootURL.appendingPathComponent(metadata.fileName)
     verifiedSignatures[modelID] = fileSignature(for: url)
     states[modelID] = .ready
   }
 
-  func markFailed(modelID: String, error: BreezeModelStoreError) {
+  func markFailed(modelID: String, error: BreezeModelStoreError) async {
     guard metadataByID[modelID] != nil else { return }
     states[modelID] = .failed(error)
   }
