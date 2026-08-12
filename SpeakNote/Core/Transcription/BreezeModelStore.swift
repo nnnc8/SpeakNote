@@ -226,21 +226,10 @@ actor BreezeModelStore: BreezeModelManaging {
         verifiedSignatures[modelID] = nil
         return .notDownloaded
       }
-      do {
-        try await verifyInstalledModel(
-          modelID: modelID,
-          metadata: metadata,
-          url: url
-        )
-        states[modelID] = .ready
-        return .ready
-      } catch let error as BreezeModelStoreError {
-        states[modelID] = .failed(error)
-        return .failed(error)
-      } catch {
-        states[modelID] = .failed(.modelCorrupted)
-        return .failed(.modelCorrupted)
-      }
+      // A ready context has already passed modelURL(for:) verification. Keep
+      // this lightweight status read responsive; modelURL(for:) remains the
+      // authoritative integrity gate before every context load.
+      return .ready
     }
     if let state = states[modelID] {
       switch state {
