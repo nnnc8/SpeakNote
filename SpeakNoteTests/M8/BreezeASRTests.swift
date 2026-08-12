@@ -405,6 +405,7 @@ final class BreezeASRTests: XCTestCase {
       try await downloadTask.value
       XCTFail("Cancellation must stop the model download")
     } catch {
+      print("Breeze cancellation error: \(error)")
       XCTAssertEqual(error as? BreezeModelStoreError, .cancellation)
     }
     XCTAssertFalse(
@@ -413,6 +414,7 @@ final class BreezeASRTests: XCTestCase {
       )
     )
     let state = await store.state(for: metadata.modelID)
+    print("Breeze cancellation state: \(state)")
     XCTAssertEqual(state, .notDownloaded)
   }
 
@@ -468,9 +470,11 @@ final class BreezeASRTests: XCTestCase {
 
     await store.markLoading(modelID: metadata.modelID)
     let loadingState = await store.state(for: metadata.modelID)
+    print("Breeze lifecycle loading state: \(loadingState)")
     XCTAssertEqual(loadingState, .loading)
     await store.markReady(modelID: metadata.modelID)
     let readyState = await store.state(for: metadata.modelID)
+    print("Breeze lifecycle ready state: \(readyState)")
     XCTAssertEqual(readyState, .ready)
   }
 }

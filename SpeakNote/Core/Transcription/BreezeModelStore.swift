@@ -414,7 +414,9 @@ actor BreezeModelStore: BreezeModelManaging {
       downloadTask = nil
       activeDownloadModelID = nil
       let storeError = error as? BreezeModelStoreError ?? .downloadFailed
-      states[modelID] = .failed(storeError)
+      states[modelID] = storeError == .cancellation
+        ? .notDownloaded
+        : .failed(storeError)
       throw storeError
     }
   }
