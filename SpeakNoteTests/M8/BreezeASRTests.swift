@@ -265,7 +265,7 @@ final class BreezeASRTests: XCTestCase {
     }
     let store = try BreezeModelStore(
       rootURL: root,
-      diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 10_000_000),
+      diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 1_000_000_000),
       downloadStreaming: streamer,
       metadata: [metadata.modelID: metadata]
     )
@@ -324,7 +324,7 @@ final class BreezeASRTests: XCTestCase {
     }
     let store = try BreezeModelStore(
       rootURL: root,
-      diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 10_000_000),
+      diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 1_000_000_000),
       downloadStreaming: streamer,
       metadata: [metadata.modelID: metadata]
     )
@@ -352,7 +352,7 @@ final class BreezeASRTests: XCTestCase {
     }
     let store = try BreezeModelStore(
       rootURL: root,
-      diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 10_000_000),
+      diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 1_000_000_000),
       downloadStreaming: streamer,
       metadata: [metadata.modelID: metadata]
     )
@@ -419,7 +419,7 @@ final class BreezeASRTests: XCTestCase {
     )
     let store = try BreezeModelStore(
       rootURL: root,
-      diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 10_000_000),
+      diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 1_000_000_000),
       metadata: [metadata.modelID: metadata]
     )
     try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)

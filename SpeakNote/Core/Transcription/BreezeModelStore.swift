@@ -463,7 +463,9 @@ actor BreezeModelStore: BreezeModelManaging {
   }
 
   func markReady(modelID: String) {
-    guard metadataByID[modelID] != nil else { return }
+    guard let metadata = metadataByID[modelID] else { return }
+    let url = rootURL.appendingPathComponent(metadata.fileName)
+    verifiedSignatures[modelID] = fileSignature(for: url)
     states[modelID] = .ready
   }
 
