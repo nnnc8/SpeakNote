@@ -116,6 +116,53 @@ protocol BreezeModelManaging: Sendable {
   func markFailed(modelID: String, error: BreezeModelStoreError) async
 }
 
+/// The byte-stream boundary keeps model downloads testable without loading the
+/// entire model into memory. Production uses URLSession; tests provide a small
+/// deterministic stream.
+struct BreezeDownloadResponse: Sendable {
+  let statusCode: Int
+  let bytes: AsyncThrowingStream<UInt8, Error>
+}
+
+protocol BreezeDownloadStreaming: Sendable {
+  func stream(for request: URLRequest) async throws -> BreezeDownloadResponse
+}
+
+struct URLSessionBreezeDownloadStreaming: BreezeDownloadStreaming {
+  let session: URLSession
+
+  init(session: URLSession = .shared) {
+    self.session = session
+  }
+
+  func stream(for request: URLRequest) async throws -> BreezeDownloadResponse {
+    let (bytes, response) = try await session.bytes(for: request)
+    guard let httpResponse = response as? HTTPURLResponse else {
+      throw BreezeModelStoreError.downloadFailed
+    }
+    let stream = AsyncThrowingStream<UInt8, Error> { continuation in
+      let producer = Task {
+        do {
+          for try await byte in bytes {
+            try Task.checkCancellation()
+            continuation.yield(byte)
+          }
+          continuation.finish()
+        } catch {
+          continuation.finish(throwing: error)
+        }
+      }
+      continuation.onTermination = { _ in
+        producer.cancel()
+      }
+    }
+    return BreezeDownloadResponse(
+      statusCode: httpResponse.statusCode,
+      bytes: stream
+    )
+  }
+}
+
 extension BreezeModelManaging {
   func markLoading(modelID _: String) async {}
   func markReady(modelID _: String) async {}
@@ -126,7 +173,7 @@ actor BreezeModelStore: BreezeModelManaging {
   private let rootURL: URL
   private let fileManager: FileManager
   private let diskCapacityChecker: any DiskCapacityChecking
-  private let session: URLSession
+  private let downloadStreaming: any BreezeDownloadStreaming
   private let metadataByID: [String: BreezeModelMetadata]
   private var states: [String: BreezeModelState] = [:]
   private var verifiedSignatures: [String: BreezeModelFileSignature] = [:]
@@ -138,6 +185,7 @@ actor BreezeModelStore: BreezeModelManaging {
     fileManager: FileManager = .default,
     diskCapacityChecker: any DiskCapacityChecking = VolumeDiskCapacityChecker(),
     session: URLSession = .shared,
+    downloadStreaming: (any BreezeDownloadStreaming)? = nil,
     metadata: [String: BreezeModelMetadata] = BreezeModelMetadata.catalog
   ) throws {
     if let rootURL {
@@ -156,7 +204,7 @@ actor BreezeModelStore: BreezeModelManaging {
     }
     self.fileManager = fileManager
     self.diskCapacityChecker = diskCapacityChecker
-    self.session = session
+    self.downloadStreaming = downloadStreaming ?? URLSessionBreezeDownloadStreaming(session: session)
     self.metadataByID = metadata
   }
 
@@ -261,7 +309,7 @@ actor BreezeModelStore: BreezeModelManaging {
     let progress: @Sendable (Double) -> Void = { [weak self] value in
       Task { await self?.setProgress(value, for: modelID) }
     }
-    let task = Task.detached(priority: .utility) { [session, rootURL, progress] in
+    let task = Task.detached(priority: .utility) { [downloadStreaming, rootURL, progress] in
       let fileManager = FileManager.default
       let destination = rootURL.appendingPathComponent(metadata.fileName)
       let partialURL = rootURL.appendingPathComponent("\(metadata.fileName).partial")
@@ -281,12 +329,9 @@ actor BreezeModelStore: BreezeModelManaging {
         if existingCount > 0 {
           request.setValue("bytes=\(existingCount)-", forHTTPHeaderField: "Range")
         }
-        let (bytes, response) = try await session.bytes(for: request)
-        guard let http = response as? HTTPURLResponse else {
-          throw BreezeModelStoreError.downloadFailed
-        }
-        let append = existingCount > 0 && http.statusCode == 206
-        guard append || (200..<300).contains(http.statusCode) else {
+        let response = try await downloadStreaming.stream(for: request)
+        let append = existingCount > 0 && response.statusCode == 206
+        guard append || (200..<300).contains(response.statusCode) else {
           throw BreezeModelStoreError.downloadFailed
         }
         if !append, fileManager.fileExists(atPath: partialURL.path) {
@@ -314,7 +359,7 @@ actor BreezeModelStore: BreezeModelManaging {
         }
         var buffer = Data()
         buffer.reserveCapacity(64 * 1_024)
-        for try await byte in bytes {
+        for try await byte in response.bytes {
           try Task.checkCancellation()
           buffer.append(byte)
           if buffer.count >= 64 * 1_024 {

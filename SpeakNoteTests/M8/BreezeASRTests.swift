@@ -54,7 +54,7 @@ final class BreezeASRTests: XCTestCase {
 
   func testModelDirectoryAndStateDoNotRequireTheModelBinary() async throws {
     let root = FileManager.default.temporaryDirectory
-      .appendingPathComponent("BreezeASR-(UUID().uuidString)")
+      .appendingPathComponent("BreezeASR-\(UUID().uuidString)")
     let store = try BreezeModelStore(rootURL: root)
 
     XCTAssertEqual(
@@ -78,7 +78,7 @@ final class BreezeASRTests: XCTestCase {
 
   func testDeletingBreezeModelRemovesPartialDownload() async throws {
     let root = FileManager.default.temporaryDirectory
-      .appendingPathComponent("BreezePartial-(UUID().uuidString)")
+      .appendingPathComponent("BreezePartial-\(UUID().uuidString)")
     defer { try? FileManager.default.removeItem(at: root) }
     let partialURL = root.appendingPathComponent("breeze-q5_0.bin.partial")
     try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
@@ -92,7 +92,7 @@ final class BreezeASRTests: XCTestCase {
 
   func testStateReportsCorruptedInstalledFile() async throws {
     let root = FileManager.default.temporaryDirectory
-      .appendingPathComponent("BreezeCorrupt-(UUID().uuidString)")
+      .appendingPathComponent("BreezeCorrupt-\(UUID().uuidString)")
     defer { try? FileManager.default.removeItem(at: root) }
     try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
     let modelURL = root.appendingPathComponent("breeze-q5_0.bin")
@@ -107,7 +107,7 @@ final class BreezeASRTests: XCTestCase {
   func testIntegrityVerifierAcceptsMatchingFile() throws {
     let data = Data("breeze-fixture".utf8)
     let fileURL = FileManager.default.temporaryDirectory
-      .appendingPathComponent("breeze-fixture-(UUID().uuidString).bin")
+      .appendingPathComponent("breeze-fixture-\(UUID().uuidString).bin")
     defer { try? FileManager.default.removeItem(at: fileURL) }
     try data.write(to: fileURL, options: .atomic)
     let digest = SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
@@ -127,7 +127,7 @@ final class BreezeASRTests: XCTestCase {
   func testIntegrityVerifierRejectsPartialAndWrongDigest() throws {
     let data = Data("partial".utf8)
     let fileURL = FileManager.default.temporaryDirectory
-      .appendingPathComponent("breeze-partial-(UUID().uuidString).bin")
+      .appendingPathComponent("breeze-partial-\(UUID().uuidString).bin")
     defer { try? FileManager.default.removeItem(at: fileURL) }
     try data.write(to: fileURL, options: .atomic)
     let metadata = BreezeModelMetadata(
@@ -147,7 +147,7 @@ final class BreezeASRTests: XCTestCase {
 
   func testBreezeCapabilityReportsMissingModelWithoutCloudFallback() async throws {
     let root = FileManager.default.temporaryDirectory
-      .appendingPathComponent("BreezeCapability-(UUID().uuidString)")
+      .appendingPathComponent("BreezeCapability-\(UUID().uuidString)")
     let store = try BreezeModelStore(rootURL: root)
     let capability = BreezeTranscriptionCapability(modelManager: store)
     let capabilityState = await capability.providerCapability(
@@ -253,21 +253,20 @@ final class BreezeASRTests: XCTestCase {
   func testModelDownloadVerifiesAndAtomicallyInstallsFixture() async throws {
     let data = Data("breeze-fixture-model".utf8)
     let root = FileManager.default.temporaryDirectory
-      .appendingPathComponent("BreezeDownload-(UUID().uuidString)")
+      .appendingPathComponent("BreezeDownload-\(UUID().uuidString)")
     defer { try? FileManager.default.removeItem(at: root) }
     let metadata = fixtureMetadata(
       modelID: "fixture",
       fileName: "fixture.bin",
       data: data
     )
-    BreezeURLProtocol.install { _ in
-      BreezeURLProtocol.Response(statusCode: 200, headers: [:], data: data)
+    let streamer = FixtureBreezeDownloadStreaming { _ in
+      fixtureDownloadResponse(statusCode: 200, data: data)
     }
-    defer { BreezeURLProtocol.reset() }
     let store = try BreezeModelStore(
       rootURL: root,
       diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 10_000_000),
-      session: fixtureURLSession(),
+      downloadStreaming: streamer,
       metadata: [metadata.modelID: metadata]
     )
 
@@ -304,7 +303,7 @@ final class BreezeASRTests: XCTestCase {
     let partialData = fullData.prefix(7)
     let remainingData = fullData.dropFirst(7)
     let root = FileManager.default.temporaryDirectory
-      .appendingPathComponent("BreezeResume-(UUID().uuidString)")
+      .appendingPathComponent("BreezeResume-\(UUID().uuidString)")
     defer { try? FileManager.default.removeItem(at: root) }
     try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
     try Data(partialData).write(
@@ -316,19 +315,17 @@ final class BreezeASRTests: XCTestCase {
       data: fullData
     )
     let observedRanges = StringRecorder()
-    BreezeURLProtocol.install { request in
+    let streamer = FixtureBreezeDownloadStreaming { request in
       observedRanges.append(request.value(forHTTPHeaderField: "Range"))
-      return BreezeURLProtocol.Response(
+      return fixtureDownloadResponse(
         statusCode: 206,
-        headers: ["Content-Range": "bytes 7-\(fullData.count - 1)/\(fullData.count)"],
         data: Data(remainingData)
       )
     }
-    defer { BreezeURLProtocol.reset() }
     let store = try BreezeModelStore(
       rootURL: root,
       diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 10_000_000),
-      session: fixtureURLSession(),
+      downloadStreaming: streamer,
       metadata: [metadata.modelID: metadata]
     )
 
@@ -343,25 +340,20 @@ final class BreezeASRTests: XCTestCase {
 
   func testModelDownloadRejectsChecksumMismatchAndRemovesPartialFile() async throws {
     let root = FileManager.default.temporaryDirectory
-      .appendingPathComponent("BreezeChecksum-(UUID().uuidString)")
+      .appendingPathComponent("BreezeChecksum-\(UUID().uuidString)")
     defer { try? FileManager.default.removeItem(at: root) }
     let metadata = fixtureMetadata(
       modelID: "fixture",
       fileName: "fixture.bin",
       data: Data("expected".utf8)
     )
-    BreezeURLProtocol.install { _ in
-      BreezeURLProtocol.Response(
-        statusCode: 200,
-        headers: [:],
-        data: Data("corrupt".utf8)
-      )
+    let streamer = FixtureBreezeDownloadStreaming { _ in
+      fixtureDownloadResponse(statusCode: 200, data: Data("corrupt".utf8))
     }
-    defer { BreezeURLProtocol.reset() }
     let store = try BreezeModelStore(
       rootURL: root,
       diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 10_000_000),
-      session: fixtureURLSession(),
+      downloadStreaming: streamer,
       metadata: [metadata.modelID: metadata]
     )
 
@@ -386,7 +378,7 @@ final class BreezeASRTests: XCTestCase {
   func testModelDownloadRejectsInsufficientDiskBeforeNetworkRequest() async throws {
     let data = Data("fixture".utf8)
     let root = FileManager.default.temporaryDirectory
-      .appendingPathComponent("BreezeDisk-(UUID().uuidString)")
+      .appendingPathComponent("BreezeDisk-\(UUID().uuidString)")
     defer { try? FileManager.default.removeItem(at: root) }
     let metadata = fixtureMetadata(
       modelID: "fixture",
@@ -394,15 +386,14 @@ final class BreezeASRTests: XCTestCase {
       data: data
     )
     let requests = StringRecorder()
-    BreezeURLProtocol.install { request in
+    let streamer = FixtureBreezeDownloadStreaming { request in
       requests.append(request.url?.absoluteString)
-      return BreezeURLProtocol.Response(statusCode: 200, headers: [:], data: data)
+      return fixtureDownloadResponse(statusCode: 200, data: data)
     }
-    defer { BreezeURLProtocol.reset() }
     let store = try BreezeModelStore(
       rootURL: root,
       diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 0),
-      session: fixtureURLSession(),
+      downloadStreaming: streamer,
       metadata: [metadata.modelID: metadata]
     )
 
@@ -419,7 +410,7 @@ final class BreezeASRTests: XCTestCase {
 
   func testModelLifecycleExposesLoadingAndReadyStates() async throws {
     let root = FileManager.default.temporaryDirectory
-      .appendingPathComponent("BreezeLifecycle-(UUID().uuidString)")
+      .appendingPathComponent("BreezeLifecycle-\(UUID().uuidString)")
     defer { try? FileManager.default.removeItem(at: root) }
     let metadata = fixtureMetadata(
       modelID: "fixture",
@@ -431,6 +422,8 @@ final class BreezeASRTests: XCTestCase {
       diskCapacityChecker: ConstantDiskCapacityChecker(capacity: 10_000_000),
       metadata: [metadata.modelID: metadata]
     )
+    try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    try Data("ready".utf8).write(to: root.appendingPathComponent(metadata.fileName))
 
     await store.markLoading(modelID: metadata.modelID)
     let loadingState = await store.state(for: metadata.modelID)
@@ -519,76 +512,23 @@ private func fixtureMetadata(
   )
 }
 
-private func fixtureURLSession() -> URLSession {
-  let configuration = URLSessionConfiguration.ephemeral
-  configuration.protocolClasses = [BreezeURLProtocol.self]
-  return URLSession(configuration: configuration)
+private struct FixtureBreezeDownloadStreaming: BreezeDownloadStreaming {
+  let response: @Sendable (URLRequest) -> BreezeDownloadResponse
+
+  func stream(for request: URLRequest) async throws -> BreezeDownloadResponse {
+    response(request)
+  }
 }
 
-private final class BreezeURLProtocol: URLProtocol {
-  struct Response: Sendable {
-    let statusCode: Int
-    let headers: [String: String]
-    let data: Data
-  }
-
-  private static let lock = NSLock()
-  nonisolated(unsafe) private static var handler:
-    ((URLRequest) -> Response)?
-
-  static func install(handler: @escaping (URLRequest) -> Response) {
-    lock.lock()
-    Self.handler = handler
-    lock.unlock()
-  }
-
-  static func reset() {
-    lock.lock()
-    Self.handler = nil
-    lock.unlock()
-  }
-
-  override class func canInit(with request: URLRequest) -> Bool {
-    request.url?.host == "breeze.test"
-  }
-
-  override class func canonicalRequest(for request: URLRequest) -> URLRequest {
-    request
-  }
-
-  override func startLoading() {
-    Self.lock.lock()
-    let response = Self.handler?(request)
-    Self.lock.unlock()
-    guard let response else {
-      client?.urlProtocol(
-        self,
-        didFailWithError: URLError(.resourceUnavailable)
-      )
-      return
+private func fixtureDownloadResponse(
+  statusCode: Int,
+  data: Data
+) -> BreezeDownloadResponse {
+  let stream = AsyncThrowingStream<UInt8, Error> { continuation in
+    for byte in data {
+      continuation.yield(byte)
     }
-    guard let url = request.url,
-      let httpResponse = HTTPURLResponse(
-        url: url,
-        statusCode: response.statusCode,
-        httpVersion: "HTTP/1.1",
-        headerFields: response.headers
-      )
-    else {
-      client?.urlProtocol(
-        self,
-        didFailWithError: URLError(.badServerResponse)
-      )
-      return
-    }
-    client?.urlProtocol(
-      self,
-      didReceive: httpResponse,
-      cacheStoragePolicy: .notAllowed
-    )
-    client?.urlProtocol(self, didLoad: response.data)
-    client?.urlProtocolDidFinishLoading(self)
+    continuation.finish()
   }
-
-  override func stopLoading() {}
+  return BreezeDownloadResponse(statusCode: statusCode, bytes: stream)
 }
