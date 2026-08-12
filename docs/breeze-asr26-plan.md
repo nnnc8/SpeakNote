@@ -58,7 +58,8 @@ is a separate local provider; it does not replace Apple Speech or Groq.
   tests; route Breeze through the same capability/fallback/privacy checks.
 * `BreezeModelStore.swift` — actor for Application Support model paths,
   temporary partial files, resumable URLSession download, incremental SHA-256,
-  disk checks, cancellation, atomic install, and safe deletion.
+  disk checks, cancellation, atomic install, safe deletion, and re-validation
+  when an installed file changes.
 * `BreezeWhisperEngine.swift` — actor-backed lazy whisper.cpp context and WAV
   reader; map `TranscriptSegment` timestamps from whisper's 10 ms units, expose
   the `TranscriptionEngine` and capability checker, and return explicit
@@ -88,7 +89,9 @@ The store and inference context are actors. Settings only observes async state
 and starts model operations through its coordinator. Download, hashing, model
 loading, audio conversion, and inference never run on the MainActor. The model
 is not loaded at app launch; the explicit `unload()` hook releases the context
-when the app chooses to reclaim model memory. Fixed-event logging records only
+when the app chooses to reclaim model memory. The capability checker rejects
+non-arm64 builds, and model loading exposes loading/ready/failure state through
+the same store. Fixed-event logging records only
 provider/model/state/duration/error category; it never records API keys,
 transcripts, audio bytes, or user paths.
 

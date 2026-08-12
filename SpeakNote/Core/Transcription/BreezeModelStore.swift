@@ -18,8 +18,10 @@ enum BreezeModelStoreError: Error, Equatable, LocalizedError, Sendable {
   case checksumMismatch
   case partialModel
   case modelCorrupted
+  case modelLoadFailed
   case modelNotInstalled
   case cancellation
+  case downloadInProgress
 
   var errorDescription: String? {
     switch self {
@@ -31,10 +33,14 @@ enum BreezeModelStoreError: Error, Equatable, LocalizedError, Sendable {
       String(localized: "The Breeze model download failed.")
     case .checksumMismatch, .partialModel, .modelCorrupted:
       String(localized: "The downloaded Breeze model failed integrity verification.")
+    case .modelLoadFailed:
+      String(localized: "The Breeze model could not be loaded for inference.")
     case .modelNotInstalled:
       String(localized: "Download the Breeze model before using offline transcription.")
     case .cancellation:
       String(localized: "The Breeze model operation was cancelled.")
+    case .downloadInProgress:
+      String(localized: "The Breeze model is already downloading.")
     }
   }
 }
@@ -56,8 +62,12 @@ struct BreezeModelMetadata: Equatable, Sendable {
     expectedSHA256: "60f25e3a21feca12ec082e6d36f08f94455d9900d6343f7fcb2906f71cc7c449"
   )
 
+  static let catalog: [String: BreezeModelMetadata] = [
+    q5_0.modelID: q5_0
+  ]
+
   static func metadata(for modelID: String) -> BreezeModelMetadata? {
-    modelID == q5_0.modelID ? q5_0 : nil
+    catalog[modelID]
   }
 }
 
@@ -90,12 +100,26 @@ struct BreezeModelIntegrityVerifier: Sendable {
   }
 }
 
+private struct BreezeModelFileSignature: Equatable, Sendable {
+  let byteCount: Int64
+  let modificationDate: Date?
+}
+
 protocol BreezeModelManaging: Sendable {
   func state(for modelID: String) async -> BreezeModelState
   func modelURL(for modelID: String) async throws -> URL
   func download(modelID: String) async throws
   func cancelDownload() async
   func delete(modelID: String) async throws
+  func markLoading(modelID: String) async
+  func markReady(modelID: String) async
+  func markFailed(modelID: String, error: BreezeModelStoreError) async
+}
+
+extension BreezeModelManaging {
+  func markLoading(modelID _: String) async {}
+  func markReady(modelID _: String) async {}
+  func markFailed(modelID _: String, error _: BreezeModelStoreError) async {}
 }
 
 actor BreezeModelStore: BreezeModelManaging {
@@ -103,14 +127,18 @@ actor BreezeModelStore: BreezeModelManaging {
   private let fileManager: FileManager
   private let diskCapacityChecker: any DiskCapacityChecking
   private let session: URLSession
+  private let metadataByID: [String: BreezeModelMetadata]
   private var states: [String: BreezeModelState] = [:]
+  private var verifiedSignatures: [String: BreezeModelFileSignature] = [:]
   private var downloadTask: Task<Void, Error>?
+  private var activeDownloadModelID: String?
 
   init(
     rootURL: URL? = nil,
     fileManager: FileManager = .default,
     diskCapacityChecker: any DiskCapacityChecking = VolumeDiskCapacityChecker(),
-    session: URLSession = .shared
+    session: URLSession = .shared,
+    metadata: [String: BreezeModelMetadata] = BreezeModelMetadata.catalog
   ) throws {
     if let rootURL {
       self.rootURL = rootURL
@@ -129,6 +157,7 @@ actor BreezeModelStore: BreezeModelManaging {
     self.fileManager = fileManager
     self.diskCapacityChecker = diskCapacityChecker
     self.session = session
+    self.metadataByID = metadata
   }
 
   static func modelDirectoryURL(applicationSupportURL: URL) -> URL {
@@ -139,13 +168,19 @@ actor BreezeModelStore: BreezeModelManaging {
   }
 
   func state(for modelID: String) async -> BreezeModelState {
-    guard let metadata = BreezeModelMetadata.metadata(for: modelID) else {
+    guard let metadata = metadataByID[modelID] else {
       return .failed(.invalidModelIdentifier)
     }
     if let state = states[modelID] {
       switch state {
       case .installed, .ready:
-        return state
+        let url = rootURL.appendingPathComponent(metadata.fileName)
+        if
+          fileManager.fileExists(atPath: url.path),
+          verifiedSignatures[modelID] == fileSignature(for: url)
+        {
+          return state
+        }
       case .notDownloaded:
         break
       default:
@@ -154,15 +189,20 @@ actor BreezeModelStore: BreezeModelManaging {
     }
     let url = rootURL.appendingPathComponent(metadata.fileName)
     guard fileManager.fileExists(atPath: url.path) else {
+      if case .installed? = states[modelID] {
+        states[modelID] = .notDownloaded
+      }
+      if case .ready? = states[modelID] {
+        states[modelID] = .notDownloaded
+      }
       return states[modelID] ?? .notDownloaded
     }
     do {
-      try await Task.detached(priority: .utility) {
-        try BreezeModelIntegrityVerifier.verify(
-          fileURL: url,
-          metadata: metadata
-        )
-      }.value
+      try await verifyInstalledModel(
+        modelID: modelID,
+        metadata: metadata,
+        url: url
+      )
       states[modelID] = .installed
       return .installed
     } catch let error as BreezeModelStoreError {
@@ -174,22 +214,37 @@ actor BreezeModelStore: BreezeModelManaging {
     }
   }
 
-  func modelURL(for modelID: String) throws -> URL {
-    guard let metadata = BreezeModelMetadata.metadata(for: modelID) else {
+  func modelURL(for modelID: String) async throws -> URL {
+    guard let metadata = metadataByID[modelID] else {
       throw BreezeModelStoreError.invalidModelIdentifier
     }
     let url = rootURL.appendingPathComponent(metadata.fileName)
     guard fileManager.fileExists(atPath: url.path) else {
       throw BreezeModelStoreError.modelNotInstalled
     }
+    do {
+      try await verifyInstalledModel(
+        modelID: modelID,
+        metadata: metadata,
+        url: url
+      )
+    } catch let error as BreezeModelStoreError {
+      states[modelID] = .failed(error)
+      throw error
+    } catch {
+      states[modelID] = .failed(.modelCorrupted)
+      throw BreezeModelStoreError.modelCorrupted
+    }
     return url
   }
 
   func download(modelID: String) async throws {
-    guard let metadata = BreezeModelMetadata.metadata(for: modelID) else {
+    guard let metadata = metadataByID[modelID] else {
       throw BreezeModelStoreError.invalidModelIdentifier
     }
-    guard downloadTask == nil else { return }
+    guard downloadTask == nil else {
+      throw BreezeModelStoreError.downloadInProgress
+    }
     try fileManager.createDirectory(
       at: rootURL,
       withIntermediateDirectories: true,
@@ -202,6 +257,7 @@ actor BreezeModelStore: BreezeModelManaging {
     }
 
     states[modelID] = .downloading(progress: 0)
+    verifiedSignatures[modelID] = nil
     let progress: @Sendable (Double) -> Void = { [weak self] value in
       Task { await self?.setProgress(value, for: modelID) }
     }
@@ -298,12 +354,18 @@ actor BreezeModelStore: BreezeModelManaging {
       }
     }
     downloadTask = task
+    activeDownloadModelID = modelID
     do {
       try await task.value
       states[modelID] = .installed
+      verifiedSignatures[modelID] = fileSignature(
+        for: rootURL.appendingPathComponent(metadata.fileName)
+      )
       downloadTask = nil
+      activeDownloadModelID = nil
     } catch {
       downloadTask = nil
+      activeDownloadModelID = nil
       let storeError = error as? BreezeModelStoreError ?? .downloadFailed
       states[modelID] = .failed(storeError)
       throw storeError
@@ -319,20 +381,25 @@ actor BreezeModelStore: BreezeModelManaging {
 
   func cancelDownload() async {
     let task = downloadTask
+    let modelID = activeDownloadModelID
     task?.cancel()
     _ = try? await task?.value
     downloadTask = nil
-    states[BreezeTranscriptionModel.defaultID] = .notDownloaded
+    activeDownloadModelID = nil
+    if let modelID {
+      states[modelID] = .notDownloaded
+    }
   }
 
   func delete(modelID: String) async throws {
-    guard let metadata = BreezeModelMetadata.metadata(for: modelID) else {
+    guard let metadata = metadataByID[modelID] else {
       throw BreezeModelStoreError.invalidModelIdentifier
     }
     let task = downloadTask
     task?.cancel()
     _ = try? await task?.value
     downloadTask = nil
+    activeDownloadModelID = nil
     let url = rootURL.appendingPathComponent(metadata.fileName)
     let partialURL = rootURL.appendingPathComponent("\(metadata.fileName).partial")
     if fileManager.fileExists(atPath: url.path) {
@@ -341,6 +408,55 @@ actor BreezeModelStore: BreezeModelManaging {
     if fileManager.fileExists(atPath: partialURL.path) {
       try fileManager.removeItem(at: partialURL)
     }
+    verifiedSignatures[modelID] = nil
     states[modelID] = .notDownloaded
+  }
+
+  func markLoading(modelID: String) {
+    guard metadataByID[modelID] != nil else { return }
+    states[modelID] = .loading
+  }
+
+  func markReady(modelID: String) {
+    guard metadataByID[modelID] != nil else { return }
+    states[modelID] = .ready
+  }
+
+  func markFailed(modelID: String, error: BreezeModelStoreError) {
+    guard metadataByID[modelID] != nil else { return }
+    states[modelID] = .failed(error)
+  }
+
+  private func verifyInstalledModel(
+    modelID: String,
+    metadata: BreezeModelMetadata,
+    url: URL
+  ) async throws {
+    guard let signature = fileSignature(for: url) else {
+      throw BreezeModelStoreError.modelNotInstalled
+    }
+    if verifiedSignatures[modelID] == signature {
+      return
+    }
+    try await Task.detached(priority: .utility) {
+      try BreezeModelIntegrityVerifier.verify(
+        fileURL: url,
+        metadata: metadata
+      )
+    }.value
+    verifiedSignatures[modelID] = signature
+  }
+
+  private func fileSignature(for url: URL) -> BreezeModelFileSignature? {
+    guard
+      let attributes = try? fileManager.attributesOfItem(atPath: url.path),
+      let byteCount = attributes[.size] as? NSNumber
+    else {
+      return nil
+    }
+    return BreezeModelFileSignature(
+      byteCount: byteCount.int64Value,
+      modificationDate: attributes[.modificationDate] as? Date
+    )
   }
 }

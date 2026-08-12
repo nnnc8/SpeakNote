@@ -182,10 +182,20 @@ actor BreezeWhisperEngine: TranscriptionEngine {
       ? BreezeTranscriptionModel.defaultID
       : configuration.modelID
     let modelURL = try await modelManager.modelURL(for: modelID)
+    await modelManager.markLoading(modelID: modelID)
     if context == nil || loadedModelID != modelID {
-      context = try BreezeWhisperContext(modelURL: modelURL)
-      loadedModelID = modelID
+      do {
+        context = try BreezeWhisperContext(modelURL: modelURL)
+        loadedModelID = modelID
+      } catch {
+        await modelManager.markFailed(
+          modelID: modelID,
+          error: .modelLoadFailed
+        )
+        throw error
+      }
     }
+    await modelManager.markReady(modelID: modelID)
     let samples = try await Self.readSamples(from: audioURL)
     try Task.checkCancellation()
     guard let context else { throw BreezeWhisperError.modelLoadFailed }
@@ -253,6 +263,9 @@ struct BreezeTranscriptionCapability: TranscriptionProviderCapabilityChecking {
   func providerCapability(
     for request: TranscriptionCapabilityRequest
   ) async -> ProviderTranscriptionCapability {
+#if !arch(arm64)
+    return .unavailable(.unsupportedArchitecture)
+#else
     guard request.duration.isFinite, request.duration >= 0 else {
       return .unavailable(.invalidDuration)
     }
@@ -264,6 +277,7 @@ struct BreezeTranscriptionCapability: TranscriptionProviderCapabilityChecking {
     case .failed:
       return .unavailable(.modelUnavailable)
     }
+#endif
   }
 
   func supportedLanguageOptions() async -> [ProviderLanguageOption] {

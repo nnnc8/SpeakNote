@@ -66,7 +66,7 @@ private final class URLRequestRecorder: @unchecked Sendable {
   }
 }
 
-private final class ContractURLProtocol: URLProtocol, @unchecked Sendable {
+private final class ContractURLProtocol: URLProtocol {
   typealias Handler = @Sendable (URLRequest) -> (HTTPURLResponse, Data)
 
   private static let lock = NSLock()

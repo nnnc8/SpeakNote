@@ -213,6 +213,10 @@ struct SettingsView: View {
             }
           case .loading:
             EmptyView()
+          case .failed:
+            Button("Retry Download") {
+              Task { await coordinator.downloadBreezeModel() }
+            }
           default:
             Button("Download Breeze Model") {
               Task { await coordinator.downloadBreezeModel() }

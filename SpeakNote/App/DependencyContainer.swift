@@ -269,7 +269,7 @@ private struct GroqTranscriptionCapability:
   }
 }
 
-private struct ProviderDispatchingTranscriptionEngine: TranscriptionEngine {
+struct ProviderDispatchingTranscriptionEngine: TranscriptionEngine {
   let appleSpeech: any TranscriptionEngine
   let groq: any TranscriptionEngine
   let breeze: any TranscriptionEngine
