@@ -4,23 +4,27 @@ struct SettingsView: View {
   @ObservedObject var coordinator: SettingsCoordinator
   @ObservedObject var permissionCenter: PermissionCenter
   let appCoordinator: AppCoordinator
+  @State private var selectedTab: SettingsTab = .general
 
   var body: some View {
-    TabView {
+    TabView(selection: $selectedTab) {
       generalSettings
         .tabItem {
           Label("General", systemImage: "slider.horizontal.3")
         }
+        .tag(SettingsTab.general)
 
       providerSettings
         .tabItem {
           Label("Provider", systemImage: "network")
         }
+        .tag(SettingsTab.provider)
 
       permissionSettings
         .tabItem {
           Label("Permissions", systemImage: "hand.raised")
         }
+        .tag(SettingsTab.permissions)
     }
     .frame(width: 620, height: 500)
     .task {
@@ -42,6 +46,12 @@ struct SettingsView: View {
         Text(coordinator.errorMessage ?? "")
       }
     )
+  }
+
+  private enum SettingsTab: Hashable {
+    case general
+    case provider
+    case permissions
   }
 
   private var generalSettings: some View {

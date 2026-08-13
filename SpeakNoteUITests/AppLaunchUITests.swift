@@ -76,8 +76,15 @@ final class AppLaunchUITests: XCTestCase {
 
     XCTAssertTrue(firstLaunch.staticTexts["Privacy and Storage"].waitForExistence(timeout: 5))
     firstLaunch.buttons["Continue"].click()
+    XCTAssertTrue(firstLaunch.staticTexts["Microphone"].waitForExistence(timeout: 2))
     firstLaunch.buttons["Continue"].click()
+    XCTAssertTrue(
+      firstLaunch.staticTexts["Global Shortcut and Paste"].waitForExistence(timeout: 2)
+    )
     firstLaunch.buttons["Continue"].click()
+    XCTAssertTrue(
+      firstLaunch.staticTexts["Optional Local Transcription"].waitForExistence(timeout: 2)
+    )
     firstLaunch.buttons["Finish"].click()
     XCTAssertTrue(firstLaunch.buttons["Start Dictation"].waitForExistence(timeout: 2))
     firstLaunch.terminate()
@@ -99,18 +106,32 @@ final class AppLaunchUITests: XCTestCase {
 
     completeOnboarding(in: app)
     app.buttons["Open Settings"].click()
+    let settingsWindow = app.windows["General"]
+    XCTAssertTrue(settingsWindow.waitForExistence(timeout: 5))
 
-    XCTAssertTrue(app.staticTexts["Recognition language"].waitForExistence(timeout: 5))
-    XCTAssertTrue(app.popUpButtons["recognition-language-picker"].exists)
-    XCTAssertTrue(app.popUpButtons["output-language-picker"].exists)
-    XCTAssertFalse(app.textFields["Recognition language"].exists)
+    XCTAssertTrue(
+      settingsWindow.descendants(matching: .any)["recognition-language-picker"]
+        .waitForExistence(timeout: 5)
+    )
+    XCTAssertTrue(
+      settingsWindow.descendants(matching: .any)["output-language-picker"]
+        .waitForExistence(timeout: 5)
+    )
+    XCTAssertFalse(settingsWindow.textFields["Recognition language"].exists)
   }
 
   private func completeOnboarding(in app: XCUIApplication) {
     XCTAssertTrue(app.staticTexts["Privacy and Storage"].waitForExistence(timeout: 5))
     app.buttons["Continue"].click()
+    XCTAssertTrue(app.staticTexts["Microphone"].waitForExistence(timeout: 2))
     app.buttons["Continue"].click()
+    XCTAssertTrue(
+      app.staticTexts["Global Shortcut and Paste"].waitForExistence(timeout: 2)
+    )
     app.buttons["Continue"].click()
+    XCTAssertTrue(
+      app.staticTexts["Optional Local Transcription"].waitForExistence(timeout: 2)
+    )
     app.buttons["Finish"].click()
     XCTAssertTrue(app.buttons["Open Settings"].waitForExistence(timeout: 2))
   }

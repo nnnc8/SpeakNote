@@ -1,4 +1,5 @@
 import CryptoKit
+@preconcurrency import AVFoundation
 import Foundation
 import XCTest
 
@@ -472,6 +473,115 @@ final class BreezeASRTests: XCTestCase {
     await store.markReady(modelID: metadata.modelID)
     let readyState = await store.state(for: metadata.modelID)
     XCTAssertEqual(readyState, .ready)
+  }
+
+  /// Runs only when explicitly enabled by the developer verification command.
+  /// The test deliberately reports timing and aggregate sizes, never transcript text.
+  func testOptInRealBreezeInferenceOnAppleSilicon() async throws {
+    guard ProcessInfo.processInfo.environment["SPEAKNOTE_RUN_BREEZE_INTEGRATION"] == "1" else {
+      throw XCTSkip("Set SPEAKNOTE_RUN_BREEZE_INTEGRATION=1 for local model verification.")
+    }
+#if !arch(arm64)
+    throw XCTSkip("Breeze local inference verification requires Apple Silicon.")
+#endif
+    guard let sourcePath = ProcessInfo.processInfo.environment["SPEAKNOTE_BREEZE_AUDIO"] else {
+      throw XCTSkip("Set SPEAKNOTE_BREEZE_AUDIO to a local speech recording.")
+    }
+    let sourceURL = URL(fileURLWithPath: sourcePath)
+    guard FileManager.default.fileExists(atPath: sourceURL.path) else {
+      throw XCTSkip("The configured Breeze audio sample is unavailable.")
+    }
+
+    let workingDirectory = FileManager.default.temporaryDirectory
+      .appendingPathComponent("SpeakNote-Breeze-Integration-\(UUID().uuidString)")
+    try FileManager.default.createDirectory(
+      at: workingDirectory,
+      withIntermediateDirectories: true,
+      attributes: [.posixPermissions: 0o700]
+    )
+    defer { try? FileManager.default.removeItem(at: workingDirectory) }
+
+    let audioURL = try await PCM16WAVPreprocessor(
+      destinationDirectory: workingDirectory
+    ).preprocess(cafURL: sourceURL)
+    let audioFile = try AVAudioFile(forReading: audioURL)
+    let audioDuration = Double(audioFile.length) / audioFile.processingFormat.sampleRate
+    XCTAssertGreaterThan(audioDuration, 0)
+    let audioRMS = try rootMeanSquare(of: audioFile)
+
+    let modelRoot = ProcessInfo.processInfo.environment["SPEAKNOTE_BREEZE_MODEL_ROOT"]
+      .map { URL(fileURLWithPath: $0) }
+    let modelStore = try BreezeModelStore(rootURL: modelRoot)
+    let engine = BreezeWhisperEngine(modelManager: modelStore)
+    let configuration = TranscriptionConfiguration(
+      providerID: .breezeASR,
+      modelID: BreezeTranscriptionModel.defaultID,
+      languageCode: "zh-TW"
+    )
+
+    let firstStart = Date()
+    let firstTranscript = try await engine.transcribe(
+      audioURL: audioURL,
+      configuration: configuration
+    )
+    let firstElapsed = Date().timeIntervalSince(firstStart)
+
+    let secondStart = Date()
+    let secondTranscript = try await engine.transcribe(
+      audioURL: audioURL,
+      configuration: configuration
+    )
+    let secondElapsed = Date().timeIntervalSince(secondStart)
+
+    XCTAssertEqual(firstTranscript.detectedLanguage, "zh")
+    XCTAssertEqual(secondTranscript.detectedLanguage, "zh")
+    let metrics =
+      "BREEZE_REAL_INFERENCE " +
+      "audio_seconds=\(String(format: "%.3f", audioDuration)) " +
+      "audio_rms=\(String(format: "%.6f", audioRMS)) " +
+      "first_seconds=\(String(format: "%.3f", firstElapsed)) " +
+      "second_seconds=\(String(format: "%.3f", secondElapsed)) " +
+      "rtf=\(String(format: "%.3f", secondElapsed / audioDuration)) " +
+      "first_chars=\(firstTranscript.text.count) " +
+      "second_chars=\(secondTranscript.text.count) " +
+      "segments=\(secondTranscript.segments.count)"
+    print(metrics)
+    if let metricsPath = ProcessInfo.processInfo.environment["SPEAKNOTE_BREEZE_METRICS_PATH"] {
+      let metricsURL = URL(fileURLWithPath: metricsPath)
+      try FileManager.default.createDirectory(
+        at: metricsURL.deletingLastPathComponent(),
+        withIntermediateDirectories: true,
+        attributes: [.posixPermissions: 0o700]
+      )
+      try Data(metrics.utf8).write(to: metricsURL, options: .atomic)
+    }
+  }
+
+  private func rootMeanSquare(of file: AVAudioFile) throws -> Double {
+    guard let buffer = AVAudioPCMBuffer(
+      pcmFormat: file.processingFormat,
+      frameCapacity: AVAudioFrameCount(file.length)
+    ) else {
+      throw BreezeWhisperError.unreadableAudio
+    }
+    try file.read(into: buffer)
+    let frameCount = Int(buffer.frameLength)
+    guard frameCount > 0 else { return 0 }
+    var sum = 0.0
+    if let channel = buffer.floatChannelData?[0] {
+      for index in 0..<frameCount {
+        let sample = Double(channel[index])
+        sum += sample * sample
+      }
+    } else if let channel = buffer.int16ChannelData?[0] {
+      for index in 0..<frameCount {
+        let sample = Double(channel[index]) / Double(Int16.max)
+        sum += sample * sample
+      }
+    } else {
+      throw BreezeWhisperError.invalidAudioFormat
+    }
+    return sqrt(sum / Double(frameCount))
   }
 }
 

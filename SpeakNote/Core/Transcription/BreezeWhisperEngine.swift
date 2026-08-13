@@ -61,16 +61,17 @@ actor BreezeWhisperContext {
     parameters.no_context = true
     parameters.single_segment = false
     parameters.n_threads = Int32(max(1, min(8, ProcessInfo.processInfo.processorCount - 2)))
+    let requestedLanguage = languageCode?.isEmpty == false ? languageCode : nil
     parameters.language = nil
-    parameters.detect_language = true
+    parameters.detect_language = requestedLanguage == nil
     parameters.abort_callback = { userData in
       guard let userData else { return false }
       return Unmanaged<BreezeWhisperCancellation>.fromOpaque(userData).takeUnretainedValue().isCancelled
     }
     parameters.abort_callback_user_data = Unmanaged.passUnretained(cancellation).toOpaque()
     let result: Int32
-    if let languageCode, !languageCode.isEmpty {
-      result = languageCode.withCString { language in
+    if let requestedLanguage {
+      result = requestedLanguage.withCString { language in
         parameters.language = language
         return runWhisper(parameters: parameters, samples: samples)
       }
